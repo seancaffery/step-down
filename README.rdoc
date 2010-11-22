@@ -1,0 +1,14 @@
+= Step down
+
+A feature and step file analysis tool.
+
+== Statistics available
+* Total number of scenarios
+* Total number of steps
+* Number of steps per scenario
+* Number of unique scenario
+* Per step
+  * Total usage
+  * Number of scenarios
+  * Usage per scenario
+  * Scenario grouping (number of times used with another step)

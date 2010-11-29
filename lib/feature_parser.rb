@@ -7,7 +7,6 @@ require File.expand_path(File.dirname(__FILE__) + '/scenario')
 class FeatureParser
 
   def process_feature(file, instance)
-    @tree = Sexp.new
     @scenarios = []
 
     File.read(file).each_with_index do |line,line_no|

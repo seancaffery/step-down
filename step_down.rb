@@ -27,8 +27,8 @@ class StepDown
     end
     #pp grouping(@scenarios)
     s = grouping(@scenarios)
-    s.sort{|a,b| a[:incount] <=> b[:incount] }.each do |scenario|
-       YAML::dump(scenario) if scenario[:incount] > 100
+    s.sort{|a,b| a.incount <=> b.incount }.each do |scenario|
+       YAML::dump(scenario) if scenario.incount > 100
     end
   end
 
@@ -77,36 +77,23 @@ class StepDown
   end
 
   def grouping(scenarios)
-    steps = instance.steps.collect{|step| {:id => step.id, :regex => step.regex,  :in_steps => {}, :incount => 0 } }
+    step_groups = instance.steps.collect{|step| StepGroup.new(step.id, step.regex) }
 
-    steps.each do |step|
+    step_groups.each do |step_group|
       scenarios.each do |scenario|
-         used = scenario.steps.any?{|s| s.id == step[:id]}
+         used = scenario.steps.any?{|s| s.id == step_group.id}
 
-        if used
-          scenario.steps.each do |scen_step|
-            if step[:in_steps][scen_step.id]
-              step[:in_steps][scen_step.id][:count] += 1
-            else
-              step[:in_steps][scen_step.id] = {}
-              step[:in_steps][scen_step.id][:count] = 1
-              step[:in_steps][scen_step.id][:regex] = scen_step.regex
-            end
-          end
-          step[:incount] = begin
-            sum = 0
-            #puts step[:in_steps].inspect
-            step[:in_steps].each do |key,val|
-              sum += val[:count]
-            end
-            sum
-          end
-        end
+         if used
+           scenario.steps.each do |scen_step|
+             step_group.add_step(scen_step)
+           end
+           step_group.update_use_count
+         end
 
       end
 
     end
-    steps
+    step_groups
   end
 
   def step(id)

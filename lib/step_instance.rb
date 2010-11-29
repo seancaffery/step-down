@@ -1,23 +1,16 @@
-#!/usr/bin/ruby
-require 'rubygems'
-require 'sexp'
-require File.expand_path(File.dirname(__FILE__) + '/step')
-require File.expand_path(File.dirname(__FILE__) + '/scenario')
-
-class CukeInstance
+class StepInstance
   def initialize
     @steps = []
-  end
-  def steps
-    @steps
   end
 
   def Given(regex,&block)
     define_step(regex,&block)
   end
+
   def When(regex,&block)
     define_step(regex,&block)
   end
+
   def Then(regex,&block)
     define_step(regex,&block)
   end
@@ -60,41 +53,3 @@ class CukeInstance
   end
 
 end
-
-class Flay
-
-  def process_feature file, instance
-    @file = file
-
-    @tree = Sexp.new
-    @current_node = @tree
-    @current_node << :block
-    @scenarios = []
-
-    File.read(file).each_with_index do |line,line_no|
-      @line_no = line_no
-
-      if line =~ /Scenario|Background/
-        @current_node = @tree
-        @current_node << s(:iter,s(:call,nil,:scen_defn,s(:arglist)),nil)
-        @current_node = @current_node.last
-        @scenario = Scenario.new
-        @scenarios << @scenario
-      else
-        step_id = instance.line_matches(line,line_no,file)
-        @current_node << step_id if step_id
-        @scenario.add_step(step_id) if step_id
-      end
-    end
-
-    return @scenarios
-  end
-
-  def s(*args)
-    s_exp = Sexp.new(*args)
-    s_exp.file = @file
-    s_exp.line = @line_no
-    s_exp
-  end
-end
-

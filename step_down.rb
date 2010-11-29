@@ -1,4 +1,4 @@
-require 'lib/step_parser'
+require 'lib/feature_parser'
 require 'pp'
 class StepDown
 
@@ -8,11 +8,11 @@ class StepDown
   end
 
   def analyse
-    flay = Flay.new
+    parser = FeatureParser.new
 
     @scenarios = []
     @feature_files.each do |feature|
-      @scenarios << flay.process_feature(feature, instance)
+      @scenarios << parser.process_feature(feature, instance)
     end
     @scenarios.flatten!
 
@@ -28,7 +28,7 @@ class StepDown
     #pp grouping(@scenarios)
     s = grouping(@scenarios)
     s.sort{|a,b| a[:incount] <=> b[:incount] }.each do |scenario|
-      pp scenario if scenario[:incount] > 100
+       YAML::dump(scenario) if scenario[:incount] > 100
     end
   end
 
@@ -115,7 +115,7 @@ class StepDown
 
   def instance
     @instance ||= begin
-      new_inst = CukeInstance.new
+      new_inst = StepInstance.new
 
       Dir.glob(@step_files).each do |file_name|
         new_inst.instance_eval File.read(file_name)

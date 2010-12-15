@@ -21,9 +21,9 @@ class StepDown
     puts "Steps per scenario: #{steps_per_scenario(@scenarios)}"
     puts "Unique steps per scenario: #{uniq_steps_per_scenario(@scenarios)}"
     usage = step_usage(@scenarios)
-    usage = usage.sort{|a,b| b[:count] <=> a[:count] }
+    usage = usage.sort{|a,b| b.total_usage <=> a.total_usage }
     usage.each do |use|
-      puts "Usages: #{use[:count]} Scenarios: #{use[:scenarios]} Use/Scenario: #{use[:use_scenario]}  Step: #{use[:regex]}"
+      puts "Usages: #{use.total_usage} Scenarios: #{use.number_scenarios} Use/Scenario: #{use.use_scenario}  Step: #{use.step.regex}"
     end
     #pp grouping(@scenarios)
     s = grouping(@scenarios)
@@ -52,28 +52,28 @@ class StepDown
   end
 
   def step_usage(scenarios)
-    steps = instance.steps.collect{|step| {:id => step.id, :regex => step.regex, :count => 0, :scenarios => 0} }
+    usages = instance.steps.collect{|step| StepUsage.new(step) }
     scenarios.each do |scenario|
 
       scenario.steps.each do |step|
-        step_hash = steps.detect{|finded| finded[:id] == step.id}
-        step_hash[:count] += 1 if step_hash
+        useage = usages.detect{|use| use.step.id == step.id}
+        useage.total_usage += 1 if useage
       end
 
       scenario.uniq_steps.each do |step|
-        step_hash = steps.detect{|finded| finded[:id] == step.id}
-        step_hash[:scenarios] += 1 if step_hash
+        useage = usages.detect{|use| use.step.id == step.id}
+        useage.number_scenarios += 1 if useage
       end
 
     end
 
-    steps.each do |step|
-      if step[:scenarios] > 0
-        step[:use_scenario] = step[:count] / Float(step[:scenarios])
+    usages.each do |usage|
+      if usage.number_scenarios > 0
+        usage.use_scenario = usage.total_usage / Float(usage.number_scenarios)
       end
     end
 
-    steps
+    usages
   end
 
   def grouping(scenarios)

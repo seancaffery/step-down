@@ -77,7 +77,7 @@ class StepDown
   end
 
   def grouping(scenarios)
-    step_groups = instance.steps.collect{|step| StepGroup.new(step.id, step.regex) }
+    step_groups = instance.steps.collect{|step| StepGroup.new(step) }
 
     step_groups.each do |step_group|
       scenarios.each do |scenario|

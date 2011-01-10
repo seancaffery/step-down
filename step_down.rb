@@ -1,6 +1,7 @@
 require 'lib/feature_parser'
 require 'pp'
 require 'haml'
+require 'sass'
 
 require 'lib/step_instance'
 require 'lib/step_group'
@@ -48,6 +49,14 @@ class StepDown
 
     out = File.new('public/analysis.html','w+')
     out.puts engine.render(self, variables)
+    out.close
+
+    template = File.open('templates/style.sass').read
+    sass_engine = Sass::Engine.new(template)
+
+    out = File.new('public/style.css', 'w+')
+    out.puts sass_engine.render
+
     out.close
   end
 

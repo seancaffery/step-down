@@ -1,5 +1,9 @@
 require 'lib/feature_parser'
 require 'pp'
+
+require 'lib/step_instance'
+require 'lib/step_group'
+require 'lib/step_usage'
 class StepDown
 
   def initialize(steps_dir, feature_dir)
@@ -27,8 +31,8 @@ class StepDown
     end
     #pp grouping(@scenarios)
     s = grouping(@scenarios)
-    s.sort{|a,b| a.incount <=> b.incount }.each do |scenario|
-       YAML::dump(scenario) if scenario.incount > 100
+    s.sort{|a,b| a.use_count <=> b.use_count}.each do |scenario|
+       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
     end
   end
 
@@ -56,13 +60,13 @@ class StepDown
     scenarios.each do |scenario|
 
       scenario.steps.each do |step|
-        useage = usages.detect{|use| use.step.id == step.id}
-        useage.total_usage += 1 if useage
+        usage = usages.detect{|use| use.step.id == step.id}
+        usage.total_usage += 1 if usage
       end
 
       scenario.uniq_steps.each do |step|
-        useage = usages.detect{|use| use.step.id == step.id}
-        useage.number_scenarios += 1 if useage
+        usage = usages.detect{|use| use.step.id == step.id}
+        usage.number_scenarios += 1 if usage
       end
 
     end

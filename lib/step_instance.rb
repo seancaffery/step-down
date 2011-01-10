@@ -33,9 +33,6 @@ class StepInstance
     @steps.each_with_index do |regex,i|
       match = regex.match(stripped_line)
       if match
-        s_exp = Sexp.new(:call,nil,"method_#{i}".to_sym, Sexp.new(:arglist,*(match.captures.collect {|str| Sexp.new(:str,str)})))
-        s_exp.line = line_no
-        s_exp.file = file
         return steps[i]
       end
     end

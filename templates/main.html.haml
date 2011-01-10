@@ -3,51 +3,89 @@
 %html
   %head
     %title Step down - Cucumber analysis
-
+    %link{:type => 'text/css', :rel => 'stylesheet', :href => 'style.css'}
+    %script{:src => 'jquery-1.4.3.min.js'}
+    %script{:src => 'step_down.js'}
   %body
-    #header
-      %h1 Cucumber analysis
-    #content
-      %h2 Overview
-      %table
-        %tbody
-          %tr
-            %th Stat
-            %th Result
-          %tr
-            %td Total number of scenarios
-            %td= total_scenarios
-          %tr
-            %td Total number of steps
-            %td= total_steps
-          %tr
-            %td Steps per scenario
-            %td= steps_per_scenario
-          %tr
-            %td Unique steps per scenario
-            %td= unique_steps
+    #page_container
+      #header
+        %h1 Cucumber analysis
+      #navigation
+        %ul
+          %li
+            %a{:href => '#overview'} Overview
+          %li
+            %a{:href => '#usage'} Step usage
+          %li
+            %a{:href => '#unused'} Unused steps
+      #content
+        %h2
+          %a{:name => 'overview'} Overview
+        %table
+          %tbody
+            %tr
+              %th Stat
+              %th Result
+            %tr
+              %td Total number of scenarios
+              %td= total_scenarios
+            %tr
+              %td Total number of steps
+              %td= total_steps
+            %tr
+              %td Steps per scenario
+              %td= steps_per_scenario
+            %tr
+              %td Unique steps per scenario
+              %td= unique_steps
 
-      %h2 Step usages
-      %table
-        %tbody
-          %th Step
-          %th Total usage
-          %th Scenarios
-          %th Use per scenario
+        %h2
+          %a{:name => 'usage'} Step usages
+        %div
+          Filter
+          %br
+          Usage
+          %select#use_filter
+            %option All
+            %option{:value => "<20"} >20
+            %option{:value => "<50"}  >50
+            %option{:value => "<75"}  >75
+            %option{:value => "<100"}  >100
+            %option{:value => "<200"}  >200
+            %option{:value => "<300"}  >300
 
-        - usages.each do |use|
-          %tr
-            %td= use.step.regex.inspect
-            %td= use.total_usage
-            %td= use.number_scenarios
-            %td= use.use_scenario
+          Scenarios
+          Usage
+          %select#scenario_filter
+            %option All
+            %option{:value => "<10"} >10
+            %option{:value => "<20"} >20
+            %option{:value => "<50"}  >50
+            %option{:value => "<75"}  >75
+            %option{:value => "<100"}  >100
+            %option{:value => "<200"}  >200
+            %option{:value => "<300"}  >300
+        %table#usages
+          %tbody
+            %th Step
+            %th Total usage
+            %th Scenarios
+            %th Use per scenario
 
-      %h2 Unused steps
-      %table
-        %tbody
-          %th Step
+          - usages.each do |use|
+            %tr
+              %td= use.step.regex.inspect
+              %td= use.total_usage
+              %td= use.number_scenarios
+              %td= use.use_scenario
 
-        - unused_steps.each do |use|
-          %tr
-            %td= use.step.regex.inspect
+        %h2
+          %a{:name => 'unused'} Unused steps
+        %table
+          %tbody
+            %th Step
+
+          - unused_steps.each do |use|
+            %tr
+              %td= use.step.regex.inspect
 

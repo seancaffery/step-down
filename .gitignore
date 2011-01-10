@@ -1,1 +1,4 @@
 .idea/
+.sass-cache
+*.html
+*.css

@@ -1,5 +1,6 @@
 require 'lib/feature_parser'
 require 'pp'
+require 'haml'
 
 require 'lib/step_instance'
 require 'lib/step_group'
@@ -20,20 +21,34 @@ class StepDown
     end
     @scenarios.flatten!
 
-    puts "Total number of scenarios: #{@scenarios.length}"
-    puts "Total number of steps: #{instance.steps.length}"
-    puts "Steps per scenario: #{steps_per_scenario(@scenarios)}"
-    puts "Unique steps per scenario: #{uniq_steps_per_scenario(@scenarios)}"
-    usage = step_usage(@scenarios)
-    usage = usage.sort{|a,b| b.total_usage <=> a.total_usage }
-    usage.each do |use|
-      puts "Usages: #{use.total_usage} Scenarios: #{use.number_scenarios} Use/Scenario: #{use.use_scenario}  Step: #{use.step.regex}"
-    end
-    #pp grouping(@scenarios)
-    s = grouping(@scenarios)
-    s.sort{|a,b| a.use_count <=> b.use_count}.each do |scenario|
-       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
-    end
+    @usage = step_usage(@scenarios)
+    @usage = @usage.sort{|a,b| b.total_usage <=> a.total_usage }
+    output_overview
+#    usage.each do |use|
+#      puts "Usages: #{use.total_usage} Scenarios: #{use.number_scenarios} Use/Scenario: #{use.use_scenario}  Step: #{use.step.regex}"
+#    end
+#    #pp grouping(@scenarios)
+#    s = grouping(@scenarios)
+#    s.sort{|a,b| a.use_count <=> b.use_count}.each do |scenario|
+#       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
+#    end
+  end
+
+  def output_overview()
+    template = File.open('templates/main.html.haml').read()
+    engine = Haml::Engine.new(template)
+
+    variables = {:total_scenarios => @scenarios.length,
+                 :total_steps => instance.steps.length,
+                 :steps_per_scenario => steps_per_scenario(@scenarios),
+                 :unique_steps => uniq_steps_per_scenario(@scenarios),
+                 :usages => @usage.select{|use| use.total_usage > 0 },
+                 :unused_steps => @usage.select{|use| use.total_usage == 0}
+     }
+
+    out = File.new('public/analysis.html','w+')
+    out.puts engine.render(self, variables)
+    out.close
   end
 
   def steps_per_scenario(scenarios)

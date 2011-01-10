@@ -1,0 +1,53 @@
+!!! strict
+
+%html
+  %head
+    %title Step down - Cucumber analysis
+
+  %body
+    #header
+      %h1 Cucumber analysis
+    #content
+      %h2 Overview
+      %table
+        %tbody
+          %tr
+            %th Stat
+            %th Result
+          %tr
+            %td Total number of scenarios
+            %td= total_scenarios
+          %tr
+            %td Total number of steps
+            %td= total_steps
+          %tr
+            %td Steps per scenario
+            %td= steps_per_scenario
+          %tr
+            %td Unique steps per scenario
+            %td= unique_steps
+
+      %h2 Step usages
+      %table
+        %tbody
+          %th Step
+          %th Total usage
+          %th Scenarios
+          %th Use per scenario
+
+        - usages.each do |use|
+          %tr
+            %td= use.step.regex.inspect
+            %td= use.total_usage
+            %td= use.number_scenarios
+            %td= use.use_scenario
+
+      %h2 Unused steps
+      %table
+        %tbody
+          %th Step
+
+        - unused_steps.each do |use|
+          %tr
+            %td= use.step.regex.inspect
+

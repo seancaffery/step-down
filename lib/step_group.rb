@@ -1,5 +1,5 @@
 class StepGroup
-  attr_reader :id, :regex, :in_steps, :total_useage
+  attr_reader :id, :regex, :in_steps, :total_usage
 
   def initialize(step)
     @id = step.id
@@ -19,16 +19,16 @@ class StepGroup
   end
 
   def update_use_count
-    @total_useage = 0
+    @total_usage = 0
     #puts step[:in_steps].inspect
     @in_steps.each do |key,val|
-      @total_useage += val[:count]
+      @total_usage += val[:count]
     end
-    @total_useage
+    @total_usage
   end
 
   def use_count
-    @total_useage || 0
+    @total_usage || 0
   end
 
 end

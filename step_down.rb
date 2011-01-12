@@ -25,16 +25,12 @@ class StepDown
 
     usages = step_usage(scenarios)
     usages = usages.sort{|a,b| b.total_usage <=> a.total_usage }
+    grouping = grouping(scenarios).sort{|a,b| b.use_count <=> a.use_count}
 
-    reporter = HTMLReporter.new(scenarios, usages, instance.steps)
+    reporter = HTMLReporter.new(scenarios, usages, grouping, instance.steps)
     reporter.output_overview
 
-#    usage.each do |use|
-#      puts "Usages: #{use.total_usage} Scenarios: #{use.number_scenarios} Use/Scenario: #{use.use_scenario}  Step: #{use.step.regex}"
-#    end
 #    #pp grouping(@scenarios)
-#    s = grouping(@scenarios)
-#    s.sort{|a,b| a.use_count <=> b.use_count}.each do |scenario|
 #       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
 #    end
   end

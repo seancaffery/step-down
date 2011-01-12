@@ -1,11 +1,16 @@
 class HTMLReporter
 
-  attr_reader :scenarios, :usages, :steps
+  attr_reader :scenarios, :usages, :steps, :grouping
 
-  def initialize(scenarios, usages, steps)
+  def initialize(scenarios, usages, grouping, steps)
     @scenarios = scenarios
     @usages = usages
     @steps = steps
+    @grouping = grouping
+  end
+
+  def groupings
+    @grouping
   end
 
   def total_scenarios

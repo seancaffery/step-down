@@ -18,6 +18,8 @@
             %a{:href => '#usage'} Step usage
           %li
             %a{:href => '#unused'} Unused steps
+          %li
+            %a{:href => '#grouping'} Step grouping
       #content
         %h2
           %a{:name => 'overview'} Overview
@@ -88,4 +90,18 @@
           - unused_steps.each do |use|
             %tr
               %td= use.step.regex.inspect
+        %h2
+          %a{:name => 'grouping'} Step grouping
+        %table
+          %tbody
+            %th Step
+            %th Total step associations
+            %th
 
+          - groupings.each do |grouping|
+            %tr
+              %td= grouping.regex.inspect
+              %td= grouping.use_count
+              %td
+                - grouping.in_steps.each do |step|
+                  = step.inspect

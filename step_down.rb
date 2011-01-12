@@ -6,6 +6,7 @@ require 'sass'
 require 'lib/step_instance'
 require 'lib/step_group'
 require 'lib/step_usage'
+require 'lib/html_reporter'
 class StepDown
 
   def initialize(steps_dir, feature_dir)
@@ -16,15 +17,18 @@ class StepDown
   def analyse
     parser = FeatureParser.new
 
-    @scenarios = []
+    scenarios = []
     @feature_files.each do |feature|
-      @scenarios << parser.process_feature(feature, instance)
+      scenarios << parser.process_feature(feature, instance)
     end
-    @scenarios.flatten!
+    scenarios.flatten!
 
-    @usage = step_usage(@scenarios)
-    @usage = @usage.sort{|a,b| b.total_usage <=> a.total_usage }
-    output_overview
+    usages = step_usage(scenarios)
+    usages = usages.sort{|a,b| b.total_usage <=> a.total_usage }
+
+    reporter = HTMLReporter.new(scenarios, usages, instance.steps)
+    reporter.output_overview
+
 #    usage.each do |use|
 #      puts "Usages: #{use.total_usage} Scenarios: #{use.number_scenarios} Use/Scenario: #{use.use_scenario}  Step: #{use.step.regex}"
 #    end
@@ -33,50 +37,6 @@ class StepDown
 #    s.sort{|a,b| a.use_count <=> b.use_count}.each do |scenario|
 #       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
 #    end
-  end
-
-  def output_overview()
-    template = File.open('templates/main.html.haml').read()
-    engine = Haml::Engine.new(template)
-
-    variables = {:total_scenarios => @scenarios.length,
-                 :total_steps => instance.steps.length,
-                 :steps_per_scenario => steps_per_scenario(@scenarios),
-                 :unique_steps => uniq_steps_per_scenario(@scenarios),
-                 :usages => @usage.select{|use| use.total_usage > 0 },
-                 :unused_steps => @usage.select{|use| use.total_usage == 0}
-     }
-
-    out = File.new('public/analysis.html','w+')
-    out.puts engine.render(self, variables)
-    out.close
-
-    template = File.open('templates/style.sass').read
-    sass_engine = Sass::Engine.new(template)
-
-    out = File.new('public/style.css', 'w+')
-    out.puts sass_engine.render
-
-    out.close
-  end
-
-  def steps_per_scenario(scenarios)
-    scen_count = scenarios.length
-    step_count = 0.0
-    scenarios.each do |scenario|
-      step_count += scenario.steps.length
-    end
-    step_count / scen_count
-  end
-
-  def uniq_steps_per_scenario(scenarios)
-    total_steps = 0.0
-    uniq_steps = 0.0
-    scenarios.each do |scen|
-      total_steps += scen.steps.length
-      uniq_steps += scen.uniq_steps.length
-    end
-    total_steps / uniq_steps
   end
 
   def step_usage(scenarios)

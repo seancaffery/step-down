@@ -40,6 +40,7 @@ class HTMLReporter
 
   def output_overview()
     FileUtils.mkdir_p(OUTPUT_DIR)
+    copy_files
 
     template = File.open(File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml').read()
     engine = Haml::Engine.new(template)
@@ -58,6 +59,14 @@ class HTMLReporter
   end
 
   protected
+
+  def copy_files
+    ['step_down.js', 'jquery-1.4.3.min.js'].each do |file|
+      src = File.expand_path("#{File.dirname(__FILE__)}/../public/#{file}")
+      FileUtils.cp(src, File.join(OUTPUT_DIR, "#{file}"))
+    end
+  end
+
   def steps_scenario(scenarios)
     scen_count = scenarios.length
     step_count = 0.0

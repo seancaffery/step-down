@@ -104,4 +104,4 @@
               %td= grouping.use_count
               %td
                 - grouping.in_steps.each do |step|
-                  = step.inspect
+                  = CGI.escapeHTML step.inspect

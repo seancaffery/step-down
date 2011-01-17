@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'step_down'
+
+begin
+  StepDown.new(ARGV[0], ARGV[1]).analyse
+rescue Interrupt => e
+  puts "Quiting..."
+  exit 1
+end

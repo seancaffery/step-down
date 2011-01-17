@@ -40,7 +40,7 @@ class HTMLReporter
 
   def output_overview()
     FileUtils.mkdir_p(OUTPUT_DIR)
-    puts File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml'
+
     template = File.open(File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml').read()
     engine = Haml::Engine.new(template)
 

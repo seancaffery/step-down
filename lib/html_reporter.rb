@@ -1,5 +1,6 @@
+require 'fileutils'
 class HTMLReporter
-
+  OUTPUT_DIR = "./stepdown"
   attr_reader :scenarios, :usages, :steps, :grouping
 
   def initialize(scenarios, usages, grouping, steps)
@@ -38,17 +39,19 @@ class HTMLReporter
   end
 
   def output_overview()
-    template = File.open('templates/main.html.haml').read()
+    FileUtils.mkdir_p(OUTPUT_DIR)
+    puts File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml'
+    template = File.open(File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml').read()
     engine = Haml::Engine.new(template)
 
-    out = File.new('public/analysis.html','w+')
+    out = File.new(OUTPUT_DIR + '/analysis.html','w+')
     out.puts engine.render(self)
     out.close
 
-    template = File.open('templates/style.sass').read
+    template = File.open(File.expand_path(File.dirname(__FILE__))  + '/../templates/style.sass').read
     sass_engine = Sass::Engine.new(template)
 
-    out = File.new('public/style.css', 'w+')
+    out = File.new(OUTPUT_DIR + '/style.css', 'w+')
     out.puts sass_engine.render
 
     out.close

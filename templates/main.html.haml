@@ -102,6 +102,8 @@
             %tr
               %td= grouping.regex.inspect
               %td= grouping.use_count
-              %td
+            %tr
+              %td{:colspan => 2}
                 - grouping.in_steps.each do |step|
-                  = CGI.escapeHTML step.inspect
+                  %br
+                    = CGI.escapeHTML step.inspect

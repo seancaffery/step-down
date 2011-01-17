@@ -9,6 +9,10 @@ class StepGroup
     @in_steps = {}
   end
 
+  def in_steps
+    @in_steps.sort{|a,b| b[0] <=> a[0] }
+  end
+
   def add_step(step)
     if @in_steps[step.id]
       @in_steps[step.id][:count] += 1

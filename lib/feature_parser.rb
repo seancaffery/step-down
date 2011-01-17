@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 require 'rubygems'
-require 'sexp'
+
 require File.expand_path(File.dirname(__FILE__) + '/step')
 require File.expand_path(File.dirname(__FILE__) + '/scenario')
 
@@ -9,7 +9,7 @@ class FeatureParser
   def process_feature(file, instance)
     @scenarios = []
 
-    File.read(file).each_with_index do |line,line_no|
+    File.read(file).split("\n").each_with_index do |line,line_no|
       @line_no = line_no
 
       if line =~ /Scenario|Background/

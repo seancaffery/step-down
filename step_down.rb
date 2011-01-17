@@ -1,12 +1,12 @@
-require 'lib/feature_parser'
+require './lib/feature_parser'
 require 'pp'
 require 'haml'
 require 'sass'
 
-require 'lib/step_instance'
-require 'lib/step_group'
-require 'lib/step_usage'
-require 'lib/html_reporter'
+require './lib/step_instance'
+require './lib/step_group'
+require './lib/step_usage'
+require './lib/html_reporter'
 class StepDown
 
   def initialize(steps_dir, feature_dir)

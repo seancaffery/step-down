@@ -1,5 +1,5 @@
 
-require 'step_down'
+require './step_down'
 
 require 'rake'
 require 'rake/testtask'

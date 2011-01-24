@@ -10,7 +10,7 @@ class StepGroup
   end
 
   def in_steps
-    @in_steps.sort{|a,b| b[0] <=> a[0] }
+    @in_steps.sort{|a,b| b[1][:count] <=> a[1][:count] }
   end
 
   def add_step(step)

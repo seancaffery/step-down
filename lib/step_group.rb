@@ -1,6 +1,6 @@
 require 'cgi'
 class StepGroup
-  attr_reader :id, :regex, :in_steps, :total_usage
+  attr_reader :id, :regex, :total_usage
 
   def initialize(step)
     @id = step.id
@@ -10,16 +10,15 @@ class StepGroup
   end
 
   def in_steps
-    @in_steps.sort{|a,b| b[1][:count] <=> a[1][:count] }
+    @in_steps.sort{|a,b| b[1] <=> a[1]}
   end
 
   def add_step(step)
     if @in_steps[step.id]
-      @in_steps[step.id][:count] += 1
+      @in_steps[step.id].count += 1
     else
-      @in_steps[step.id] = {}
-      @in_steps[step.id][:count] = 1
-      @in_steps[step.id][:step] = step
+      @in_steps[step.id] = CountingStep.new(step.id, step.regex)
+      @in_steps[step.id].count = 1
     end
   end
 
@@ -27,7 +26,7 @@ class StepGroup
     @total_usage = 0
     #puts step[:in_steps].inspect
     @in_steps.each do |key,val|
-      @total_usage += val[:count]
+      @total_usage += val.count
     end
     @total_usage
   end

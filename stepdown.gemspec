@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |s|
   s.name = "stepdown"
-  s.version = "0.1"
+  s.version = "0.2"
   s.platform = Gem::Platform::RUBY
   s.authors = "Sean Caffery"
   s.email = "sean@lineonpoint.com"

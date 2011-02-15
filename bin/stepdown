@@ -4,9 +4,26 @@ $:.unshift lib unless $:.include?(lib)
 
 require 'step_down'
 
+  def show_help
+    puts "Usage: stepdown step_definition_dir feature_file_directory"
+    puts "eg. stepdown ./features/step_definitions/ ./features/"
+  end
+
 begin
-  StepDown.new(ARGV[0], ARGV[1]).analyse
+
+  if ARGV[0] =~ /(-h|--help)/ || ARGV.length != 2
+    show_help
+    exit
+  end
+
+  if ARGV.length <=> 2
+    default_path = Dir.pwd
+    StepDown.new(default_path + "/features/step_definitions", default_path + "/features").analyse
+  else
+    StepDown.new(ARGV[0], ARGV[1]).analyse
+  end
 rescue Interrupt => e
   puts "Quiting..."
   exit 1
 end
+

@@ -1,4 +1,5 @@
 require 'cgi'
+require 'counting_step'
 class StepGroup
   attr_reader :id, :regex, :total_usage
 

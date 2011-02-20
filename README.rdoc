@@ -13,6 +13,10 @@ A feature and step file analysis tool.
   * Usage per scenario
   * Scenario grouping (number of times used with another step)
 
+== Installation
+Stepdown is available as a ruby gem
+   gem install stepdown
+
 == Usage
   stepdown <step definition directory> <feature file directory>
-  e.g. stepdown ./features/step_definitions ./features
+  e.g. stepdown features/step_definitions features

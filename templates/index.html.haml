@@ -1,0 +1,52 @@
+!!!strict
+
+%html
+  %head
+    %title Stepdown - A Cucumber analysis tool
+    %link{:type => 'text/css', :rel => 'stylesheet', :href => 'styles/style.css'}
+
+  %body
+    #container
+      #header
+        %h1 Stepdown
+      #navigation
+        %ul
+          %li
+            %a{:href => 'http://github.com/seancaffery/step-down'}Source
+          %li
+            %a{:href => 'https://rubygems.org/gems/stepdown'}Ruby gem
+
+      #content
+        %h2 Overview
+        %p
+          The aim of Stepdown is to provide visability to highly used steps within you Cucumber feature files.
+        %h3 Statistics available
+        %ul
+          %li Total number of scenarios
+          %li Total number of steps
+          %li Number of steps per scenario
+          %li Number of unique steps per scenario
+          %li 
+            Per step
+            %ul
+              %li Total usage
+              %li Number of scenarios
+              %li Usage per scenario
+              %li Scenario grouping (number of times used with another step)
+
+        %h2 Installation
+        %p
+          Stepdown is available as a Ruby gem
+          .code
+            gem install stepdown
+        %h2 Usage
+        %p
+          .code
+            stepdown &lt;step definition directory&gt; &lt;feature file directory&gt;
+            %br
+            e.g. stepdown features/step_definitions features
+
+
+        %h2 Sample output
+        %p
+          Coming soon

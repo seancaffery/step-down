@@ -1,0 +1,11 @@
+body {
+  font-family: verdana, helvetica, arial; }
+
+#container {
+  width: 900px;
+  margin: auto; }
+
+#navigation ul {
+  padding: 0; }
+#navigation li {
+  display: inline; }

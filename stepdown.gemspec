@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.authors = "Sean Caffery"
   s.email = "sean@lineonpoint.com"
   s.summary = "Analysis tool for Cucumber features"
-  s.homepage = "https://github.com/seancaffery/step-down"
+  s.homepage = "http://stepdown.lineonpoint.com"
   s.description = "Step down allows you to see where your most used Cucumber steps are, and will help in refactoring"
 
   s.required_rubygems_version = ">= 1.3.6"

@@ -1,26 +1,28 @@
 require 'fileutils'
 require 'reporter'
 class HTMLReporter < Reporter
-  OUTPUT_DIR = "./stepdown"
 
   def output_overview()
-    FileUtils.mkdir_p(OUTPUT_DIR)
+    puts "Generating report..."
+    FileUtils.mkdir_p(Reporter::OUTPUT_DIR)
     copy_files
 
     template = File.open(File.expand_path(File.dirname(__FILE__)) + '/../templates/main.html.haml').read()
     engine = Haml::Engine.new(template)
 
-    out = File.new(OUTPUT_DIR + '/analysis.html','w+')
+    out = File.new(Reporter::OUTPUT_DIR + '/analysis.html','w+')
     out.puts engine.render(self)
     out.close
 
     template = File.open(File.expand_path(File.dirname(__FILE__))  + '/../templates/style.sass').read
     sass_engine = Sass::Engine.new(template)
 
-    out = File.new(OUTPUT_DIR + '/style.css', 'w+')
+    out = File.new(Reporter::OUTPUT_DIR + '/style.css', 'w+')
     out.puts sass_engine.render
 
     out.close
+
+    $stdout.puts "\nReport output to #{Reporter::OUTPUT_DIR}/analysis.html"
   end
 
   protected

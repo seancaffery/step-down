@@ -7,7 +7,6 @@ require 'step_instance'
 require 'step_group'
 require 'step_usage'
 require 'html_reporter'
-require 'yaml_reporter'
 require 'text_reporter'
 class StepDown
 

@@ -1,5 +1,7 @@
 
 class Reporter
+  OUTPUT_DIR = "./stepdown"
+
   attr_reader :scenarios, :usages, :steps, :grouping
   
   def initialize(scenarios, usages, grouping, steps)

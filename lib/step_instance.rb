@@ -22,6 +22,10 @@ class StepInstance
   def method_missing(*args)
     #nothing
   end
+  
+  def self.const_missing(*args)
+    #nothing
+  end
 
   def require(*args)
     # do nothing

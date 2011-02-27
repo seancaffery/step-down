@@ -7,14 +7,18 @@ require 'step_instance'
 require 'step_group'
 require 'step_usage'
 require 'html_reporter'
+require 'yaml_reporter'
+require 'text_reporter'
 class StepDown
 
-  def initialize(steps_dir, feature_dir)
+  def initialize(steps_dir, feature_dir, reporter)
     @feature_files = Dir.glob(feature_dir + '/**/*.feature')
     @step_files = Dir.glob(steps_dir + '/**/*.rb')
+    @reporter = reporter
   end
 
   def analyse
+    puts "Parsing feature files..."
     parser = FeatureParser.new
 
     scenarios = []
@@ -23,16 +27,27 @@ class StepDown
     end
     scenarios.flatten!
 
+    puts "Performing analysis..."
     usages = step_usage(scenarios)
     usages = usages.sort{|a,b| b.total_usage <=> a.total_usage }
     grouping = grouping(scenarios).sort{|a,b| b.use_count <=> a.use_count}
 
-    reporter = HTMLReporter.new(scenarios, usages, grouping, instance.steps)
+    reporter = reporter(@reporter, scenarios, usages, grouping, instance.steps)
     reporter.output_overview
 
 #    #pp grouping(@scenarios)
 #       puts YAML::dump(scenario) if scenario.use_count > 100  &&  scenario.use_count < 500
 #    end
+  end
+ 
+  # don't want a factory just yet 
+  def reporter(type, scenarios, usages, grouping, steps)
+    case type
+    when "html"
+      HTMLReporter.new(scenarios, usages, grouping, steps)
+    when "text"
+      TextReporter.new(scenarios, usages, grouping, steps)
+    end
   end
 
   def step_usage(scenarios)

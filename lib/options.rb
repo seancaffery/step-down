@@ -2,14 +2,22 @@ require 'optparse'
 
 class Options
 
+  OUTPUT_FORMATS = ["html", "text"]
+
   def self.parse(params)
     @@steps_dir = "features/step_definitions"
     @@features_dir = "features"
+    @@reporter = "html"
+
 
     parser = OptionParser.new do |opts|
       opts.banner = "Usage: stepdown step_definition_dir feature_file_directory"
 
       opts.separator("")
+
+      opts.on("--output TYPE", OUTPUT_FORMATS, "Select ouput format (#{OUTPUT_FORMATS.join(',')})") do |o|
+        @@reporter = o
+      end
 
       opts.on("--steps=directory", "Step definition directory") do |o|
         @@steps_dir = o
@@ -59,6 +67,10 @@ class Options
 
   def self.features_dir
     @@features_dir
+  end
+
+  def self.reporter
+    @@reporter
   end
 
 end

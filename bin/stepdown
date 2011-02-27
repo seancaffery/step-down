@@ -10,7 +10,7 @@ begin
   Options.parse(ARGV)
   Options.validate
 
-  StepDown.new(Options.steps_dir, Options.features_dir).analyse
+  StepDown.new(Options.steps_dir, Options.features_dir, Options.reporter).analyse
 
 rescue Interrupt => e
   puts "Quiting..."

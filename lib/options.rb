@@ -13,15 +13,15 @@ class Options
 
       opts.separator("")
 
-      opts.on("--output TYPE", OUTPUT_FORMATS, "Select ouput format (#{OUTPUT_FORMATS.join(',')})") do |o|
+      opts.on("--output=TYPE", OUTPUT_FORMATS, "Select ouput format (#{OUTPUT_FORMATS.join(',')}). Default: html") do |o|
         @@reporter = o
       end
 
-      opts.on("--steps=STEPS_DIR", "Step definition directory") do |o|
+      opts.on("--steps=STEPS_DIR", "Step definition directory. Default: ./features/step_definitions") do |o|
         @@steps_dir = o
       end
 
-      opts.on("--features=FEATURE_DIR", "Feature file directory") do |o|
+      opts.on("--features=FEATURE_DIR", "Feature file directory. Default: ./features") do |o|
         @@features_dir = o
       end
 

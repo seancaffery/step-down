@@ -9,14 +9,13 @@ class FeatureParser
   def process_feature(file, instance)
     @scenarios = []
 
-    File.read(file).split("\n").each_with_index do |line,line_no|
-      @line_no = line_no
+    File.read(file).split("\n").each do |line|
 
       if line =~ /Scenario|Background/
         @scenario = Scenario.new
         @scenarios << @scenario
       else
-        step_id = instance.line_matches(line,line_no,file)
+        step_id = instance.line_matches(line)
         @scenario.add_step(step_id) if step_id
       end
     end

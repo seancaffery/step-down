@@ -19,19 +19,23 @@ class StepInstance
     @steps << regex
   end
 
+  def self.method_missing(*args)
+    #nothing
+  end
+
   def method_missing(*args)
     #nothing
   end
   
   def self.const_missing(*args)
-    #nothing
+    self
   end
 
   def require(*args)
     # do nothing
   end
 
-  def line_matches(line,line_no,file)
+  def line_matches(line)
     stripped_line = line.strip.gsub(/^(And|Given|When|Then) (.*)$/,'\2')
 
     @steps.each_with_index do |regex,i|

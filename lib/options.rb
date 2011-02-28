@@ -8,8 +8,6 @@ class Options
     @@steps_dir = "features/step_definitions"
     @@features_dir = "features"
     @@reporter = "html"
-
-
     parser = OptionParser.new do |opts|
       opts.banner = "Usage: stepdown step_definition_dir feature_file_directory"
 
@@ -19,11 +17,11 @@ class Options
         @@reporter = o
       end
 
-      opts.on("--steps=directory", "Step definition directory") do |o|
+      opts.on("--steps=STEPS_DIR", "Step definition directory") do |o|
         @@steps_dir = o
       end
 
-      opts.on("--features=directory", "Feature file directory") do |o|
+      opts.on("--features=FEATURE_DIR", "Feature file directory") do |o|
         @@features_dir = o
       end
 
@@ -36,11 +34,6 @@ class Options
 
     begin
       parser.parse(params)
-
-      if parser.getopts.length == 0 && params.length == 2
-        @@steps_dir = params[0]
-        @@features_dir = params[1]
-      end
 
     rescue OptionParser::ParseError => e
       puts e

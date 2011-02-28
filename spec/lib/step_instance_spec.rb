@@ -17,6 +17,7 @@ describe StepInstance do
 
   it "should deal with missing methods" do
      lambda{ @step_instance.doesnt_exist }.should_not raise_error
+     lambda{ StepInstance.doesnt_exist }.should_not raise_error
   end
 
   describe "returning steps" do

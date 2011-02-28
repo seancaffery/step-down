@@ -1,6 +1,5 @@
 = Step down
-
-A feature and step file analysis tool.
+Stepdown allows you to see where your most used Cucumber steps are, your unused steps and how they are clustered
 
 == Statistics available
 * Total number of scenarios

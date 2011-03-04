@@ -1,66 +1,67 @@
 require 'rspec'
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/options')
 
-describe Options do
+describe @options do
 
   before :each do
+    @options = Options.new
   end
 
   describe "setting input directories" do
     it "should allow setting only steps directory" do
-      Options.parse(["--steps=step_dir"])
+      @options.parse(["--steps=step_dir"])
 
-      Options.steps_dir.should == "step_dir"
-      Options.features_dir.should == "features"
+      @options.steps_dir.should == "step_dir"
+      @options.features_dir.should == "features"
 
     end
 
     it "should allow setting only features directory" do
-      Options.parse(["--features=features_dir"])
+      @options.parse(["--features=features_dir"])
 
-      Options.steps_dir.should == "features/step_definitions"
-      Options.features_dir.should == "features_dir"
+      @options.steps_dir.should == "features/step_definitions"
+      @options.features_dir.should == "features_dir"
     end
 
     it "should allow setting features and settings directory" do
-      Options.parse(["--features=features_dir", "--steps=steps_dir"])
+      @options.parse(["--features=features_dir", "--steps=steps_dir"])
 
-      Options.steps_dir.should == "steps_dir"
-      Options.features_dir.should == "features_dir"
+      @options.steps_dir.should == "steps_dir"
+      @options.features_dir.should == "features_dir"
     end
   end
 
   describe "selecting reporter" do
     it "should select html by default" do
-      Options.parse([])
+      @options.parse([])
 
-      Options.reporter.should == "html"
+      @options.reporter.should == "html"
     end
 
     it "should allow selecting html" do
-      Options.parse(["--output=html"])
+      @options.parse(["--output=html"])
 
-      Options.reporter.should == "html"
+      @options.reporter.should == "html"
     end
 
     it "should allow selecting text" do
-      Options.parse(["--output=text"])
+      @options.parse(["--output=text"])
 
-      Options.reporter.should == "text"
+      @options.reporter.should == "text"
     end
   end
 
   describe "using default directories" do
     it "should select relative step directory" do
-      Options.parse([])
+      @options.parse([])
 
-      Options.steps_dir == "features/step_definitions"
+      @options.steps_dir == "features/step_definitions"
     end
 
     it "should select relative feature directory" do
-      Options.parse([])
+      @options.parse([])
 
-      Options.features_dir.should == "features"
+      @options.features_dir.should == "features"
     end
   end
 

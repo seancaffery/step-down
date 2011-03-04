@@ -7,10 +7,11 @@ require 'options'
 
 begin
 
-  Options.parse(ARGV)
-  Options.validate
+  options = Options.new
+  options.parse(ARGV)
+  options.validate
 
-  StepDown.new(Options.steps_dir, Options.features_dir, Options.reporter).analyse
+  StepDown.new(options.steps_dir, options.features_dir, options.reporter).analyse
 
 rescue Interrupt => e
   puts "Quiting..."

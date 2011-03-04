@@ -4,7 +4,7 @@ class Options
 
   OUTPUT_FORMATS = ["html", "text"]
 
-  def self.parse(params)
+  def parse(params)
     @@steps_dir = "features/step_definitions"
     @@features_dir = "features"
     @@reporter = "html"
@@ -41,7 +41,7 @@ class Options
     end
   end
 
-  def self.validate
+  def validate
     @@steps_dir = File.join(Dir.pwd, @@steps_dir)
     @@features_dir = File.join(Dir.pwd, @@features_dir)
 
@@ -54,15 +54,15 @@ class Options
 
   end
 
-  def self.steps_dir
+  def steps_dir
     @@steps_dir
   end
 
-  def self.features_dir
+  def features_dir
     @@features_dir
   end
 
-  def self.reporter
+  def reporter
     @@reporter
   end
 

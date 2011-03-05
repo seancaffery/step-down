@@ -67,7 +67,8 @@ class StepDown
 
     usages.each do |usage|
       if usage.number_scenarios > 0
-        usage.use_scenario = usage.total_usage / Float(usage.number_scenarios)
+        use = sprintf "%.2f", (usage.total_usage / Float(usage.number_scenarios))
+        usage.use_scenario = use
       end
     end
 

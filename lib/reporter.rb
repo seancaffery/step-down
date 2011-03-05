@@ -46,7 +46,7 @@ class Reporter
       total_steps += scen.steps.length
       uniq_steps += scen.uniq_steps.length
     end
-    total_steps / uniq_steps
+    sprintf "%.2f", (total_steps / uniq_steps)
   end
 
   def steps_scenario(scenarios)
@@ -55,7 +55,7 @@ class Reporter
     scenarios.each do |scenario|
       step_count += scenario.steps.length
     end
-    step_count / scen_count
+    sprintf "%.2f", (step_count / scen_count)
   end
 
 end

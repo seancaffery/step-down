@@ -9,6 +9,11 @@ $(document).ready(function(){
   $("#scenario_filter").change(function(){
     filter(this.options[this.selectedIndex].value, 2, $("#usages tr"));
   });
+
+  $("a[class*=g]").click(function() {
+    $('.' + this.getAttribute("class")).show();
+    return false;
+  });
 });
 
 

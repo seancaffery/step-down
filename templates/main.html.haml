@@ -96,14 +96,23 @@
           %tbody
             %th Step
             %th Total step associations
-            %th
 
-          - groupings.each do |grouping|
+          - groupings.each_with_index do |grouping, i|
+            - next if grouping.use_count == 0
             %tr
-              %td= grouping.regex.inspect
+              %td
+                = grouping.regex.inspect
+                %br
+                %a{:href => '#', :class => "g#{i}"}Show associated steps
               %td= grouping.use_count
-            %tr
+            %tr{:class => "g#{i}", :style => "display: none;"}
               %td{:colspan => 2}
-                - grouping.in_steps.each do |step|
-                  %br
-                    = CGI.escapeHTML step.inspect
+                %table
+                  %tr
+                    %th Association count
+                    %th Step
+                  %tbody
+                    - grouping.in_steps.each do |step|
+                      %tr
+                        %td= step[1].count
+                        %td= CGI.escapeHTML step[1].regex.inspect

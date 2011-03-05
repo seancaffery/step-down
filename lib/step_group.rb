@@ -25,7 +25,6 @@ class StepGroup
 
   def update_use_count
     @total_usage = 0
-    #puts step[:in_steps].inspect
     @in_steps.each do |key,val|
       @total_usage += val.count
     end

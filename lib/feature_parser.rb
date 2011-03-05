@@ -26,7 +26,7 @@ class FeatureParser
 
 protected
   def read_feature_file(file_name)
-    File.read(file).split("\n")
+    File.read(file_name).split("\n")
   end
 end
 

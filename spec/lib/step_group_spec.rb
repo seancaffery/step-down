@@ -1,4 +1,3 @@
-require 'rspec'
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_group')
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/counting_step')
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/step')

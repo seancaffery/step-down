@@ -1,4 +1,3 @@
-require 'rspec'
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_instance')
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/step')
 

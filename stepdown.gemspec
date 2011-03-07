@@ -3,6 +3,7 @@ Gem::Specification.new do |s|
   s.name = "stepdown"
   s.version = "0.3.3"
   s.platform = Gem::Platform::RUBY
+  s.required_ruby_version = '>= 1.8.7'
   s.authors = "Sean Caffery"
   s.email = "sean@lineonpoint.com"
   s.summary = "Static analysis tool for Cucumber features"
@@ -12,8 +13,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = "stepdown"
 
-  s.add_dependency('haml', '>= 2.0.0')
-  s.add_development_dependency('rspec', ">= 2.0.0")
+  s.add_dependency('haml', '> 2.0.0')
+  s.add_development_dependency('rspec', "~> 2.5.0")
   s.files = `git ls-files`.split("\n")
   s.executables = ["stepdown"]
   s.default_executable = "stepdown"

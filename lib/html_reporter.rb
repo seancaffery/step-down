@@ -1,5 +1,8 @@
 require 'fileutils'
 require 'reporter'
+require 'haml'
+require 'sass'
+
 class HTMLReporter < Reporter
 
   def output_overview()

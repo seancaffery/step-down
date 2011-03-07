@@ -17,5 +17,5 @@ Stepdown is available as a ruby gem
    gem install stepdown
 
 == Usage
-  stepdown <step definition directory> <feature file directory>
-  e.g. stepdown features/step_definitions features
+  stepdown --steps <step definition directory> --features <feature file directory>
+  e.g. stepdown --steps features/step_definitions --features features

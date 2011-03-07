@@ -42,13 +42,13 @@ class Options
     end
   end
 
-  def validate
+  def validate(io = STDOUT)
     @steps_dir = File.join(Dir.pwd, @steps_dir)
     @features_dir = File.join(Dir.pwd, @features_dir)
 
     [@steps_dir, @features_dir].each do |dir|
       unless File.exists?(dir)
-        puts "Directory #{dir} does not exist"
+        io.puts "Directory #{dir} does not exist"
         exit 1
       end
     end

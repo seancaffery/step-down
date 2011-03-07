@@ -66,9 +66,26 @@ describe @options do
   end
 
   describe "validating options" do
-    it "should report an invalid steps directory"
-    it "should report an invalid features directory"
+    before :each do
+      Dir.stub!(:pwd).and_return("")
+      @io = StringIO.new
+    end
 
+    it "should report an invalid steps directory" do
+      @options.parse(["--steps=steps_dir"])
+      lambda do
+        @options.validate(@io);
+        @io.string.should == "Directory steps_dir does not exist"
+      end.should raise_error(SystemExit)
+    end
+
+    it "should report an invalid features directory" do
+      @options.parse(["--features=features_dir"])
+      lambda do
+        @options.validate(@io);
+        @io.string.should == "Directory features_dir does not exist"
+      end.should raise_error(SystemExit)
+    end
   end
 
 end

@@ -12,6 +12,7 @@ class TextReporter < Reporter
     output.puts "Unique steps per scenario: #{unique_steps}"
 
     output.puts "Step usages"
+    output.puts "Step|Total usage|Scenarios|Use per scenario"
     usages.each{|use| output.puts used_step_line(use) }
 
     output.puts "Unused steps"

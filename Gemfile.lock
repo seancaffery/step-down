@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.1.2)
     haml (2.0.10)
+    rake (0.8.7)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -18,4 +19,5 @@ PLATFORMS
 
 DEPENDENCIES
   haml (> 2.0.0)
+  rake
   rspec (~> 2.5.0)

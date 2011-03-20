@@ -1,5 +1,6 @@
 require 'cgi'
 require 'counting_step'
+require 'step_collection'
 class StepGroup
   attr_reader :id, :regex, :total_usage
 
@@ -7,26 +8,21 @@ class StepGroup
     @id = step.id
     @regex = step.regex
     @total_usage = 0
-    @in_steps = {}
+    @step_collection = StepCollection.new
   end
 
-  def in_steps
-    @in_steps.sort{|a,b| b[1] <=> a[1]}
+  def step_collection
+    @step_collection.sort
   end
 
   def add_step(step)
-    if @in_steps[step.id]
-      @in_steps[step.id].count += 1
-    else
-      @in_steps[step.id] = CountingStep.new(step.id, step.regex)
-      @in_steps[step.id].count = 1
-    end
+    @step_collection << step
   end
 
   def update_use_count
     @total_usage = 0
-    @in_steps.each do |key,val|
-      @total_usage += val.count
+    @step_collection.each do |step|
+      @total_usage += step.count
     end
     @total_usage
   end
@@ -36,13 +32,13 @@ class StepGroup
   end
 
   def group_graph
-    base = "https://chart.googleapis.com/chart?cht=gv:circo&chl=graph{"
+    base = "https://chart.googleapis.com/chart?cht=gv:dot&chl=graph{"
     base += "a [label=\"#{CGI.escape(CGI.escapeHTML(@regex.inspect.to_s))}\"];"
 
-    @in_steps.each do |id,in_step|
+    in_steps[0..10].each do |id,in_step|
 
-      next if in_step[:step].regex.nil?
-      base += "a--\"#{CGI.escape(CGI.escapeHTML(in_step[:step].regex.inspect.to_s))}\" [weight=#{in_step[:count]}];"
+      next if in_step.regex.nil?
+      base += "a--\"#{CGI.escape(CGI.escapeHTML(in_step.regex.inspect.to_s))}\" [weight=#{in_step.count}];"
       #a [label=\"#{grouping.in_steps[0][:step].regex.inspect}\"]; a--b [penwidth=3,weight=2];b--d}"
     end
     base += "}"

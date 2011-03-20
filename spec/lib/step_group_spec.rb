@@ -10,18 +10,6 @@ describe StepGroup do
       @step_group = StepGroup.new(Step.new(0,/regex/))
     end
 
-    it "should return an empty hash when for an empty group" do
-      @step_group.in_steps.should be_empty
-    end
-
-    it "should return the current steps in the group" do
-      @step_group.add_step(Step.new(1,/regex/))
-      @step_group.add_step(Step.new(2,/regex/))
-      @step_group.add_step(Step.new(3,/regex/))
-
-      @step_group.in_steps.count.should == 3
-    end
-
     it "should return the steps ordered by use count" do
       @step_group.add_step(Step.new(1,/regex/))
       @step_group.add_step(Step.new(1,/regex/))
@@ -30,54 +18,9 @@ describe StepGroup do
       @step_group.add_step(Step.new(3,/regex/))
       @step_group.add_step(Step.new(2,/regex/))
 
-      @step_group.in_steps[0][1].count.should == 3
-      @step_group.in_steps[1][1].count.should == 2
-      @step_group.in_steps[2][1].count.should == 1
-    end
-
-  end
-
-  describe "adding a step to the step group" do
-    before :each do
-      @step_group = StepGroup.new(Step.new(0,/regex/))
-    end
-
-    it "should add new steps" do
-      step1 = Step.new(1,/regex/)
-      counting_step = mock("counting_step")
-      CountingStep.stub!(:new).and_return(counting_step)
-      counting_step.should_receive(:count=).with(1)
-      @step_group.add_step(step1)
-      @step_group.in_steps.should == [[1, counting_step]]
-
-    end
-
-    it "should update the count for an existing step" do
-
-      step1 = Step.new(1,/regex/)
-      @step_group.add_step(step1)
-      @step_group.add_step(step1)
-
-      @step_group.in_steps[0][1].count.should == 2
-    end
-
-    it "should update step counts when multiple steps present" do
-      step1 = Step.new(1,/regex/)
-      @step_group.add_step(step1)
-      @step_group.add_step(step1)
-
-      step2 = Step.new(2,/regex/)
-      @step_group.add_step(step2)
-
-      step3 = Step.new(3,/regex/)
-      @step_group.add_step(step3)
-      @step_group.add_step(step3)
-      @step_group.add_step(step3)
-
-      @step_group.in_steps[0][1].count.should == 3
-      @step_group.in_steps[1][1].count.should == 2
-      @step_group.in_steps[2][1].count.should == 1
-
+      @step_group.step_collection[0].count.should == 3
+      @step_group.step_collection[1].count.should == 2
+      @step_group.step_collection[2].count.should == 1
     end
 
   end

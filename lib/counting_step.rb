@@ -7,8 +7,8 @@ class CountingStep < Step
     super(id, regex)
   end
 
-  def <=>(step)
-    self.count <=> step.count
+  def <=>(other)
+    other.count <=> self.count
   end
 
 end

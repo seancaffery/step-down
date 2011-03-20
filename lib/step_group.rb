@@ -35,10 +35,10 @@ class StepGroup
     base = "https://chart.googleapis.com/chart?cht=gv:dot&chl=graph{"
     base += "a [label=\"#{CGI.escape(CGI.escapeHTML(@regex.inspect.to_s))}\"];"
 
-    in_steps[0..10].each do |id,in_step|
+    step_collection[0..10].each do |step|
 
-      next if in_step.regex.nil?
-      base += "a--\"#{CGI.escape(CGI.escapeHTML(in_step.regex.inspect.to_s))}\" [weight=#{in_step.count}];"
+      next if step.regex.nil?
+      base += "a--\"#{CGI.escape(CGI.escapeHTML(step.regex.inspect.to_s))}\" [weight=#{step.count}];"
       #a [label=\"#{grouping.in_steps[0][:step].regex.inspect}\"]; a--b [penwidth=3,weight=2];b--d}"
     end
     base += "}"

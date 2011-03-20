@@ -1,0 +1,24 @@
+== 0.3.3 2011-03-05
+* Better HTML output
+
+== 0.3.2 - 2011-02-27
+* Bugfix in option parsing
+* Bugfix for missing constants
+
+== 0.3.1 - 2011-02-26
+* Fix broken include [Robert Postill]
+
+== 0.3.0 - 2011-02-26
+* Added text report
+* Bug fix for missing constants
+
+== 0.2.1 - 2011-02-19
+* Proper option parsing
+
+== 0.2 - 2011-02-14
+* Added some specs
+* Improved output
+* Updated usage message
+
+== 0.1 - 2011-01-16
+* Initial release

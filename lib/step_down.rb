@@ -29,7 +29,7 @@ class StepDown
     feature_files.each do |feature_file|
       scenarios << parser.process_feature(feature_file, instance)
     end
-    scenarios.flatten!
+    scenarios.flatten
   end
  
   def reporter(type, scenarios, steps)

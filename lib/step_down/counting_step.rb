@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/step')
+require 'step'
 class CountingStep < Step
   attr_accessor :count
 

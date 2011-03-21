@@ -61,23 +61,24 @@ describe StepInstance do
   describe "parsing step definitions" do
     before :each do
       @regex = /reg/
-      @step = mock('step')
-      Step.should_receive(:new).with(0, @regex).and_return(@step)
     end
 
     it "should define given steps" do
       @step_instance.Given(@regex)
-      @step_instance.steps.should =~ [@step]
+      @step_instance.steps.should be_an_instance_of StepCollection
+      @step_instance.steps.count.should == 1
     end
 
     it "should define when steps" do
       @step_instance.When(@regex)
-      @step_instance.steps.should =~ [@step]
+      @step_instance.steps.should be_an_instance_of StepCollection
+      @step_instance.steps.count.should == 1
     end
 
     it "should define then steps" do
       @step_instance.Then(@regex)
-      @step_instance.steps.should =~ [@step]
+      @step_instance.steps.should be_an_instance_of StepCollection
+      @step_instance.steps.count.should == 1
     end
   end
 end

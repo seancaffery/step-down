@@ -1,3 +1,5 @@
+require 'step_collection'
+
 class StepInstance
   def initialize
     @steps = []
@@ -41,7 +43,7 @@ class StepInstance
     @steps.each_with_index do |regex,i|
       match = regex.match(stripped_line)
       if match
-        return steps[i]
+        return steps.detect{|step| i == step.id}
       end
     end
 
@@ -49,12 +51,12 @@ class StepInstance
   end
 
   def steps
-    return @step_definitions if @step_definitions
-    @step_definitions = []
+    return @step_collection if @step_collection
+    @step_collection = StepCollection.new
     @steps.each_with_index do |regex, i|
-      @step_definitions << Step.new(i, regex)
+      @step_collection.add_step(i, regex)
     end
-    @step_definitions
+    @step_collection
   end
 
 end

@@ -1,7 +1,7 @@
-require 'feature_parser'
-require 'step_instance'
-require 'html_reporter'
-require 'text_reporter'
+require 'step_down/feature_parser'
+require 'step_down/step_instance'
+require 'step_down/html_reporter'
+require 'step_down/text_reporter'
 
 class StepDown
 

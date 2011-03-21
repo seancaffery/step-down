@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/options')
+require 'options'
 
 describe @options do
 

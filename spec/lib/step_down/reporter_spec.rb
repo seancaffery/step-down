@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_group')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_usage')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/reporter')
+require 'step_group'
+require 'step_usage'
+require 'reporter'
 
 describe Reporter do
 

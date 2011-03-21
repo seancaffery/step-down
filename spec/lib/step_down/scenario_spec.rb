@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/scenario')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step')
+require 'scenario'
+require 'step'
 
 
 describe Scenario do

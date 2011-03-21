@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/scenario')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/feature_parser')
+require 'scenario'
+require 'feature_parser'
 
 describe FeatureParser do
   def stub_line_match_with(instance, line, value)

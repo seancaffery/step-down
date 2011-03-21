@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_collection')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/counting_step')
+require 'step_collection'
+require 'counting_step'
 
 describe StepCollection do
 

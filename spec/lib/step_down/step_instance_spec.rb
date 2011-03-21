@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step_instance')
-require File.expand_path(File.dirname(__FILE__) + '/../../lib/step')
+require 'step_instance'
+require 'step'
 
 
 describe StepInstance do

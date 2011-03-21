@@ -16,7 +16,7 @@ class StepGroup
   end
 
   def add_step(step)
-    @step_collection << step
+    @step_collection.add_step(step.id, step.regex)
   end
 
   def update_use_count

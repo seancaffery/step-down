@@ -30,7 +30,7 @@ class TextReporter < Reporter
   end
 
   def unused_step_line(use)
-    use.step.regex
+    use.step.regex.inspect
   end
 
 

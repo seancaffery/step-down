@@ -17,7 +17,7 @@ class StepDown
 
     puts "Performing analysis..."
 
-    reporter = reporter(@reporter, scenarios, instance.steps)
+    reporter = reporter(@reporter, scenarios, instance.step_collection)
     reporter.output_overview
 
   end
@@ -32,12 +32,12 @@ class StepDown
     scenarios.flatten
   end
  
-  def reporter(type, scenarios, steps)
+  def reporter(type, scenarios, step_collection)
     case type
     when "html"
-      HTMLReporter.new(scenarios, steps)
+      HTMLReporter.new(scenarios, step_collection)
     when "text"
-      TextReporter.new(scenarios, steps)
+      TextReporter.new(scenarios, step_collection)
     end
   end
 

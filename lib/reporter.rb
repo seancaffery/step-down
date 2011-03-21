@@ -4,11 +4,11 @@ require 'step_usage'
 class Reporter
   OUTPUT_DIR = "./stepdown"
 
-  attr_reader :scenarios, :usages, :steps, :grouping
+  attr_reader :scenarios, :usages, :step_collection, :grouping
   
-  def initialize(scenarios, steps)
+  def initialize(scenarios, step_collection)
     @scenarios = scenarios
-    @steps = steps
+    @step_collection = step_collection
   end
 
   def groupings
@@ -20,7 +20,7 @@ class Reporter
   end
 
   def total_steps
-    @steps.length
+    @step_collection.length
   end
 
   def steps_per_scenario
@@ -32,7 +32,7 @@ class Reporter
   end
 
   def grouping(scenarios)
-    step_groups = @steps.collect{|step| StepGroup.new(step) }
+    step_groups = @step_collection.collect{|step| StepGroup.new(step) }
 
     step_groups.each do |step_group|
       scenarios.each do |scenario|
@@ -52,7 +52,7 @@ class Reporter
   end
 
   def step_usage(scenarios)
-    usages = @steps.collect{|step| StepUsage.new(step) }
+    usages = @step_collection.collect{|step| StepUsage.new(step) }
     scenarios.each do |scenario|
 
       scenario.steps.each do |step|

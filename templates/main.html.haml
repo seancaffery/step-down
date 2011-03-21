@@ -112,7 +112,7 @@
                     %th Association count
                     %th Step
                   %tbody
-                    - grouping.in_steps.each do |step|
+                    - grouping.step_collection.each do |step|
                       %tr
-                        %td= step[1].count
-                        %td= CGI.escapeHTML step[1].regex.inspect
+                        %td= step.count
+                        %td= CGI.escapeHTML step.regex.inspect

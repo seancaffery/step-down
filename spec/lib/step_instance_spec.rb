@@ -25,7 +25,7 @@ describe StepInstance do
       @step_instance.When(/when/)
       @step_instance.Then(/then/)
 
-      @step_instance.steps.length.should == 3
+      @step_instance.step_collection.length.should == 3
     end
 
   end
@@ -65,20 +65,20 @@ describe StepInstance do
 
     it "should define given steps" do
       @step_instance.Given(@regex)
-      @step_instance.steps.should be_an_instance_of StepCollection
-      @step_instance.steps.count.should == 1
+      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.count.should == 1
     end
 
     it "should define when steps" do
       @step_instance.When(@regex)
-      @step_instance.steps.should be_an_instance_of StepCollection
-      @step_instance.steps.count.should == 1
+      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.count.should == 1
     end
 
     it "should define then steps" do
       @step_instance.Then(@regex)
-      @step_instance.steps.should be_an_instance_of StepCollection
-      @step_instance.steps.count.should == 1
+      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.count.should == 1
     end
   end
 end

@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'step_group'
-require 'counting_step'
 require 'step'
 
 describe Stepdown::StepGroup do

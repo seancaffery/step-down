@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'step_collection'
-require 'counting_step'
+require 'step'
 
 describe Stepdown::StepCollection do
 
@@ -28,11 +28,11 @@ describe Stepdown::StepCollection do
     end
 
     it "should add new steps" do
-      counting_step = mock("counting_step")
-      Stepdown::CountingStep.stub!(:new).and_return(counting_step)
-      counting_step.should_receive(:count=).with(1)
+      step = mock("step")
+      Stepdown::Step.stub!(:new).and_return(step)
+      step.should_receive(:count=).with(1)
       @collection.add_step(1, /regex/)
-      @collection.steps.should ==  {1 => counting_step}
+      @collection.steps.should ==  {1 => step}
 
     end
 

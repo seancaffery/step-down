@@ -1,4 +1,4 @@
-require 'counting_step'
+require 'step'
 
 module Stepdown
   class StepCollection
@@ -13,7 +13,7 @@ module Stepdown
       if @steps[id]
         @steps[id].count += 1
       else
-        @steps[id] = CountingStep.new(id, regex)
+        @steps[id] = Stepdown::Step.new(id, regex)
         @steps[id].count = 1
       end
     end

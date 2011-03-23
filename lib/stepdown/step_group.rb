@@ -1,5 +1,4 @@
 require 'cgi'
-require 'counting_step'
 require 'step_collection'
 
 module Stepdown
@@ -10,7 +9,7 @@ module Stepdown
       @id = step.id
       @regex = step.regex
       @total_usage = 0
-      @step_collection = StepCollection.new
+      @step_collection = Stepdown::StepCollection.new
     end
 
     def step_collection

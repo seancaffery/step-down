@@ -2,12 +2,12 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'step_down'
-require 'step_down/options'
+require 'stepdown'
+require 'stepdown/options'
 
 begin
 
-  options = Options.new
+  options = Stepdown::Options.new
   options.parse(ARGV)
   options.validate
 

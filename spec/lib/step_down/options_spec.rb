@@ -1,9 +1,10 @@
+require 'spec_helper'
 require 'options'
 
-describe @options do
+describe Stepdown::Options do
 
   before :each do
-    @options = Options.new
+    @options = Stepdown::Options.new
   end
 
   describe "setting input directories" do

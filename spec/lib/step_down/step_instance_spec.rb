@@ -1,11 +1,12 @@
+require 'spec_helper'
 require 'step_instance'
 require 'step'
 
 
-describe StepInstance do
+describe Stepdown::StepInstance do
 
   before :each do 
-    @step_instance = StepInstance.new
+    @step_instance = Stepdown::StepInstance.new
   end
 
   it "should deal with missing constants" do
@@ -16,7 +17,7 @@ describe StepInstance do
 
   it "should deal with missing methods" do
      lambda{ @step_instance.doesnt_exist }.should_not raise_error
-     lambda{ StepInstance.doesnt_exist }.should_not raise_error
+     lambda{ Stepdown::StepInstance.doesnt_exist }.should_not raise_error
   end
 
   describe "returning steps" do
@@ -65,19 +66,19 @@ describe StepInstance do
 
     it "should define given steps" do
       @step_instance.Given(@regex)
-      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
       @step_instance.step_collection.count.should == 1
     end
 
     it "should define when steps" do
       @step_instance.When(@regex)
-      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
       @step_instance.step_collection.count.should == 1
     end
 
     it "should define then steps" do
       @step_instance.Then(@regex)
-      @step_instance.step_collection.should be_an_instance_of StepCollection
+      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
       @step_instance.step_collection.count.should == 1
     end
   end

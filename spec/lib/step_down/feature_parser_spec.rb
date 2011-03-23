@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'scenario'
 require 'feature_parser'
 
-describe FeatureParser do
+describe Stepdown::FeatureParser do
   def stub_line_match_with(instance, line, value)
     instance.stub!(:line_matches).with(line).and_return(value)
   end
@@ -16,10 +16,10 @@ describe FeatureParser do
       instance = mock("instance")
       file_lines = ["Scenario: My testing scenario"]
 
-      @parser = FeatureParser.new
+      @parser = Stepdown::FeatureParser.new
       @parser.should_receive(:read_feature_file).with(file).and_return(file_lines)
       scenario = mock("scenario")
-      Scenario.should_receive(:new).and_return(scenario)
+      Stepdown::Scenario.should_receive(:new).and_return(scenario)
       
       @parser.process_feature(file, instance).should =~ [scenario]
     end
@@ -29,10 +29,10 @@ describe FeatureParser do
       instance = mock("instance")
       file_lines = ["Background: My testing scenario"]
 
-      @parser = FeatureParser.new
+      @parser = Stepdown::FeatureParser.new
       @parser.should_receive(:read_feature_file).with(file).and_return(file_lines)
       scenario = mock("scenario")
-      Scenario.should_receive(:new).and_return(scenario)
+      Stepdown::Scenario.should_receive(:new).and_return(scenario)
       
       @parser.process_feature(file, instance).should =~ [scenario]
     end
@@ -41,7 +41,7 @@ describe FeatureParser do
 
   describe "parsing step lines" do
     before :each do 
-      @parser = FeatureParser.new
+      @parser = Stepdown::FeatureParser.new
       @step_instance = mock("step_instance")
 
     end
@@ -51,7 +51,7 @@ describe FeatureParser do
       unmatched_lines = ["not matched", "not matched 2"]
       steps = []
       lines.each_with_index do |line, i|
-        step = Step.new(i, line)
+        step = Stepdown::Step.new(i, line)
         stub_line_match_with(@step_instance, line, step)
         steps << step
       end
@@ -71,7 +71,7 @@ describe FeatureParser do
       lines = ["Scenario", "matched", "match 2"]
       steps = []
       lines.each_with_index do |line, i|
-        step = Step.new(i, line)
+        step = Stepdown::Step.new(i, line)
         stub_line_match_with(@step_instance, line, step)
         steps << step
       end

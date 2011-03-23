@@ -1,14 +1,15 @@
+require 'spec_helper'
 require 'scenario'
 require 'step'
 
 
-describe Scenario do
+describe Stepdown::Scenario do
   before :each do
-    @scenario = Scenario.new
-    @s1 = Step.new(1, /step 1/)
-    @s2 = Step.new(2, /Step 2/)
-    @s2_dup = Step.new(2, /Step 2/)
-    @s3 = Step.new(3, /Step 3/)
+    @scenario = Stepdown::Scenario.new
+    @s1 = Stepdown::Step.new(1, /step 1/)
+    @s2 = Stepdown::Step.new(2, /Step 2/)
+    @s2_dup = Stepdown::Step.new(2, /Step 2/)
+    @s3 = Stepdown::Step.new(3, /Step 3/)
 
   end
 

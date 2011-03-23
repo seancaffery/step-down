@@ -17,9 +17,7 @@ describe Stepdown::StepCollection do
     @collection.add_step(2,/regex 2/)
     @collection.add_step(3,/regex 3/)
 
-    @collection.steps[1].regex.should == /regex 1/
-    @collection.steps[2].regex.should == /regex 2/
-    @collection.steps[3].regex.should == /regex 3/
+    @collection.steps.collect{|s| s.regex }.should =~ [/regex 1/,/regex 2/,/regex 3/]
   end
 
   describe "adding a step to the step group" do
@@ -32,7 +30,7 @@ describe Stepdown::StepCollection do
       Stepdown::Step.stub!(:new).and_return(step)
       step.should_receive(:count=).with(1)
       @collection.add_step(1, /regex/)
-      @collection.steps.should ==  {1 => step}
+      @collection.steps.should ==  [step]
 
     end
 
@@ -41,7 +39,7 @@ describe Stepdown::StepCollection do
       @collection.add_step(1,/regex/)
       @collection.add_step(1,/regex/)
 
-      @collection.steps[1].count.should == 2
+      @collection.steps[0].count.should == 2
     end
 
     it "should update step counts when multiple steps present" do
@@ -54,9 +52,9 @@ describe Stepdown::StepCollection do
       @collection.add_step(3,/regex/)
       @collection.add_step(3,/regex/)
 
-      @collection.steps[1].count.should == 2
-      @collection.steps[2].count.should == 1
-      @collection.steps[3].count.should == 3
+      @collection.steps.detect{|s| s.id == 1}.count.should == 2
+      @collection.steps.detect{|s| s.id == 2}.count.should == 1
+      @collection.steps.detect{|s| s.id == 3}.count.should == 3
 
     end
 

@@ -64,7 +64,7 @@ describe Stepdown::FeatureParser do
       @parser.should_receive(:read_feature_file).and_return(all_lines)
 
       scenarios = @parser.process_feature(mock('file'), @step_instance)
-      scenarios.first.steps.should =~ steps[1..2]
+      scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
     end
 
     it "should add matched steps" do
@@ -78,7 +78,7 @@ describe Stepdown::FeatureParser do
       @parser.should_receive(:read_feature_file).and_return(lines)
 
       scenarios = @parser.process_feature(mock('file'), @step_instance)
-      scenarios.first.steps.should =~ steps[1..2]
+      scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
 
     end
 

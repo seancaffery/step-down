@@ -20,7 +20,7 @@ describe Stepdown::Scenario do
       @scenario.add_step(@s2_dup)
       @scenario.add_step(@s3)
 
-      steps = [@s1, @s2, @s2_dup, @s3]
+      steps = [@s1, @s2, @s3]
       @scenario.steps.should =~ steps
     end
 

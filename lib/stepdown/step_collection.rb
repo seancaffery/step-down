@@ -3,7 +3,6 @@ require 'step'
 module Stepdown
   class StepCollection
     include Enumerable
-    attr_reader :steps
 
     def initialize
       @steps = {}
@@ -16,6 +15,10 @@ module Stepdown
         @steps[id] = Stepdown::Step.new(id, regex)
         @steps[id].count = 1
       end
+    end
+
+    def steps
+      @steps.collect{|id,step| step }
     end
 
     def each

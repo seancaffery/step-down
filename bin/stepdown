@@ -11,7 +11,7 @@ begin
   options.parse(ARGV)
   options.validate
 
-  StepDown.new(options.steps_dir, options.features_dir, options.reporter).analyse
+  Stepdown::Analyzer.new(options.steps_dir, options.features_dir, options.reporter).analyse
 
 rescue Interrupt => e
   puts "Quiting..."

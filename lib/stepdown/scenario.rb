@@ -2,12 +2,14 @@ require 'step_collection'
 
 module Stepdown
   class Scenario
-
+    attr_reader :step_count
     def initialize
       @step_collection = Stepdown::StepCollection.new
+      @step_count = 0
     end
 
     def add_step(step)
+      @step_count += 1
       @step_collection.add_step(step.id, step.regex)
     end
 
@@ -15,12 +17,8 @@ module Stepdown
       @step_collection.steps
     end
 
-    def uniq_steps
-      uniq_collection = Stepdown::StepCollection.new
-      steps.each do |step|
-        uniq_collection.add_step(step.id, step.regex) unless uniq_collection.any?{|uniq| uniq.id == step.id}
-      end
-      uniq_collection.steps
+    def unique_step_count
+      @step_collection.length
     end
 
   end

@@ -14,27 +14,24 @@ describe Stepdown::Scenario do
   end
 
   describe "adding steps" do
-    it "should add steps to cache" do
+    before :each do
       @scenario.add_step(@s1)
       @scenario.add_step(@s2)
       @scenario.add_step(@s2_dup)
       @scenario.add_step(@s3)
+    end
 
+    it "should add steps to cache" do
       steps = [@s1, @s2, @s3]
       @scenario.steps.should =~ steps
     end
 
-  end
+    it "should return the total number of steps" do
+      @scenario.step_count.should == 4
+    end
 
-  describe "returning unique steps" do 
-    it "should only return one instance of each step" do
-      @scenario.add_step(@s1)
-      @scenario.add_step(@s2)
-      @scenario.add_step(@s2_dup)
-      @scenario.add_step(@s3)
-
-      steps = [@s1, @s2, @s3]
-      @scenario.uniq_steps.should =~ steps
+    it "should return the number of unique steps" do
+      @scenario.unique_step_count.should == 3
     end
 
   end

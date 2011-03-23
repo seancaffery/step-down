@@ -94,8 +94,8 @@ module Stepdown
       total_steps = 0.0
       uniq_steps = 0.0
       scenarios.each do |scen|
-        total_steps += scen.steps.length
-        uniq_steps += scen.uniq_steps.length
+        total_steps += scen.step_count
+        uniq_steps += scen.unique_step_count
       end
       sprintf "%.2f", (total_steps / uniq_steps)
     end
@@ -104,7 +104,7 @@ module Stepdown
       scen_count = scenarios.length
       step_count = 0.0
       scenarios.each do |scenario|
-        step_count += scenario.steps.length
+        step_count += scenario.step_count
       end
       sprintf "%.2f", (step_count / scen_count)
     end

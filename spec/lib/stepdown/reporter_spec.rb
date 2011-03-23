@@ -19,8 +19,8 @@ describe Stepdown::Reporter do
 
     it "should return the number of steps per scenario" do
       steps = [mock('step_1'), mock('step_2'), mock('step_3')]
-      scenario1 = mock("scenario1", :steps => steps)
-      scenario2 = mock("scenario2", :steps => [])
+      scenario1 = mock("scenario1", :steps => steps, :step_count => steps.length)
+      scenario2 = mock("scenario2", :steps => [], :step_count => 0)
 
       reporter = Stepdown::Reporter.new([scenario1, scenario2], [])
       reporter.steps_per_scenario.should == "1.50"
@@ -28,8 +28,8 @@ describe Stepdown::Reporter do
 
     it "should return the number of unique steps per scenario" do
       steps = [mock('step_1'), mock('step_2'), mock('step_3')]
-      scenario1 = mock("scenario1", :steps => steps, :uniq_steps => steps[0..1])
-      scenario2 = mock("scenario2", :steps => steps[0...1], :uniq_steps => steps[0...1])
+      scenario1 = mock("scenario1", :steps => steps, :unique_step_count => 2, :step_count => 3)
+      scenario2 = mock("scenario2", :steps => steps[0...1], :unique_step_count => 1, :step_count => 1)
 
       reporter = Stepdown::Reporter.new([scenario1, scenario2], [])
       reporter.unique_steps.should == "1.33"

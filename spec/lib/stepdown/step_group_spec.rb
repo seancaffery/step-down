@@ -56,6 +56,13 @@ describe Stepdown::StepGroup do
       @step_group.update_use_count.should == 5
     end
 
+    it "should return the total use count" do
+      @step_group.add_step(Stepdown::Step.new(3,/regex/))
+      @step_group.update_use_count
+
+      @step_group.use_count.should == 1
+    end
+
   end
 
 end

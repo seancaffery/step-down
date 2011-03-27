@@ -25,6 +25,10 @@ module Stepdown
       @steps.each{|id, step| yield step }
     end
 
+    def [](id)
+      @steps[id]
+    end
+
     def length
       @steps.length
     end

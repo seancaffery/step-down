@@ -60,4 +60,19 @@ describe Stepdown::StepCollection do
 
   end
 
+  describe "acting as an array" do
+    before :each do
+      @collection  = Stepdown::StepCollection.new
+    end
+
+    it "should return a step for an existing id" do
+      @collection.add_step(0, /regex/)
+      @collection[0].should be_instance_of(Stepdown::Step)
+    end
+
+    it "should return nil for a step that doesn't exist" do
+      @collection[1].should be_nil
+    end
+  end
+
 end

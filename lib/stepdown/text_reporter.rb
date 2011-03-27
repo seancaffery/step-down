@@ -1,4 +1,4 @@
-require 'reporter'
+require 'stepdown/reporter'
 
 module Stepdown
   class TextReporter < Reporter

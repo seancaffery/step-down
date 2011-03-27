@@ -1,5 +1,5 @@
-require 'step_group'
-require 'step_usage'
+require 'stepdown/step_group'
+require 'stepdown/step_usage'
 
 module Stepdown
   class Reporter

@@ -1,5 +1,5 @@
 require 'cgi'
-require 'step_collection'
+require 'stepdown/step_collection'
 
 module Stepdown
   class StepGroup

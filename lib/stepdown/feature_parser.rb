@@ -1,5 +1,5 @@
-require 'step'
-require 'scenario'
+require 'stepdown/step'
+require 'stepdown/scenario'
 module Stepdown
   class FeatureParser
 

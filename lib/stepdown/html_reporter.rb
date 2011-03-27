@@ -1,5 +1,5 @@
 require 'fileutils'
-require 'reporter'
+require 'stepdown/reporter'
 require 'haml'
 require 'sass'
 

@@ -1,4 +1,4 @@
-require 'step'
+require 'stepdown/step'
 
 module Stepdown
   class StepCollection

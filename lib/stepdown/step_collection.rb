@@ -22,7 +22,7 @@ module Stepdown
     end
 
     def each
-      @steps.each{|s| yield s[1] }
+      @steps.each{|id, step| yield step }
     end
 
     def length

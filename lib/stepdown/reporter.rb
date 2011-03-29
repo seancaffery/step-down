@@ -33,7 +33,7 @@ module Stepdown
     end
 
     def grouping(scenarios)
-      step_groups = @step_collection.collect{|step| StepGroup.new(step) }
+      step_groups = @step_collection.collect{|step| Stepdown::StepGroup.new(step) }
 
       step_groups.each do |step_group|
         scenarios.each do |scenario|
@@ -49,19 +49,16 @@ module Stepdown
     end
 
     def step_usage(scenarios)
-      usages = @step_collection.collect{|step| StepUsage.new(step) }
+      usages = @step_collection.collect{|step| Stepdown::StepUsage.new(step) }
       scenarios.each do |scenario|
 
         scenario.steps.each do |step|
           usage = usages.detect{|use| use.step.id == step.id}
-          usage.total_usage += 1 if usage
+          if usage
+            usage.total_usage += step.count
+            usage.number_scenarios += 1
+          end
         end
-
-        scenario.uniq_steps.each do |step|
-          usage = usages.detect{|use| use.step.id == step.id}
-          usage.number_scenarios += 1 if usage
-        end
-
       end
 
       usages.each do |usage|

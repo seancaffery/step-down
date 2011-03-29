@@ -97,9 +97,64 @@ describe Stepdown::Reporter do
 
   end
 
+  #this usage thing needs to be refactored as well
   describe "creating step usages" do
+    before :each do
+      @scen_1 = Stepdown::Scenario.new
+      @scen_2 = Stepdown::Scenario.new
+      @scenarios = [@scen_1, @scen_2]
 
-    it "should return the usage of each step"
+      @collection = Stepdown::StepCollection.new
+      @s1 = Stepdown::Step.new(1, /step 1/)
+      @s2 = Stepdown::Step.new(2, /step 2/)
+      @s3 = Stepdown::Step.new(3, /step 3/)
+      @s4 = Stepdown::Step.new(4, /step 4/)
+      @s5 = Stepdown::Step.new(5, /step 5/)
+
+      @collection.add_step(@s1.id, @s1.regex)
+      @collection.add_step(@s2.id, @s2.regex)
+      @collection.add_step(@s3.id, @s3.regex)
+      @collection.add_step(@s4.id, @s4.regex)
+      @collection.add_step(@s5.id, @s5.regex)
+
+      @scen_1.add_step(@s1)
+      @scen_1.add_step(@s2)
+      @scen_1.add_step(@s3)
+      @scen_1.add_step(@s4)
+
+      @scen_2.add_step(@s1)
+      @scen_2.add_step(@s2)
+      @scen_2.add_step(@s1)
+      @scen_2.add_step(@s5)
+      @scen_2.add_step(@s5)
+    end
+
+    it "should return the usage of across scenarios" do
+      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+
+      usage = reporter.usages.detect{|use| use.step.id == 1}
+      usage.total_usage.should == 3
+      usage.number_scenarios.should == 2
+      usage.use_scenario.should == "1.50"
+      end
+
+    it "should return duplicate usage of a step in a scenario" do
+      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+
+      usage = reporter.usages.detect{|use| use.step.id == 5}
+      usage.total_usage.should == 2
+      usage.number_scenarios.should == 1
+      usage.use_scenario.should == "2.00"
+    end
+
+    it "should return usage of a step in a scenario" do
+      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+
+      usage = reporter.usages.detect{|use| use.step.id == 3}
+      usage.total_usage.should == 1
+      usage.number_scenarios.should == 1
+      usage.use_scenario.should == "1.00"
+    end
 
   end
 

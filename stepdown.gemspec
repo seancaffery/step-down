@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |s|
   s.name = "stepdown"
-  s.version = "0.3.3"
+  s.version = "0.4.0"
   s.platform = Gem::Platform::RUBY
   s.required_ruby_version = '>= 1.8.7'
   s.authors = "Sean Caffery"

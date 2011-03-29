@@ -37,15 +37,11 @@ module Stepdown
 
       step_groups.each do |step_group|
         scenarios.each do |scenario|
-          used = scenario.steps.any?{|s| s.id == step_group.id}
 
-          if used
-            scenario.steps.each do |scen_step|
-              step_group.add_step(scen_step)
-            end
-            step_group.update_use_count
+          if scenario.steps.any?{|step| step.id == step_group.id}
+            step_group.add_steps(scenario.steps)
+            step_group.update_use_count(scenario.step_count)
           end
-
         end
 
       end

@@ -30,37 +30,12 @@ describe Stepdown::StepGroup do
     end
 
     it "should return 0 for an empty group" do
-      @step_group.update_use_count.should be_zero
+      @step_group.use_count.should be_zero
     end
 
-    it "should return the total use" do
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-      @step_group.add_step(Stepdown::Step.new(3,/regex/))
-      @step_group.add_step(Stepdown::Step.new(4,/regex/))
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-
-      @step_group.update_use_count.should == 5
-    end
-
-    it "should update the use when new steps are added" do
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-
-      @step_group.update_use_count.should == 2
-
-      @step_group.add_step(Stepdown::Step.new(3,/regex/))
-      @step_group.add_step(Stepdown::Step.new(4,/regex/))
-      @step_group.add_step(Stepdown::Step.new(1,/regex/))
-
-      @step_group.update_use_count.should == 5
-    end
-
-    it "should return the total use count" do
-      @step_group.add_step(Stepdown::Step.new(3,/regex/))
-      @step_group.update_use_count
-
-      @step_group.use_count.should == 1
+    it "should return 0 for an empty group" do
+      @step_group.update_use_count(10)
+      @step_group.use_count.should == 10
     end
 
   end

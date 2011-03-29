@@ -3,12 +3,12 @@ require 'stepdown/step_collection'
 
 module Stepdown
   class StepGroup
-    attr_reader :id, :regex, :total_usage
+    attr_reader :id, :regex, :use_count
 
     def initialize(step)
       @id = step.id
       @regex = step.regex
-      @total_usage = 0
+      @use_count = 0
       @step_collection = Stepdown::StepCollection.new
     end
 
@@ -20,16 +20,12 @@ module Stepdown
       @step_collection.add_step(step.id, step.regex)
     end
 
-    def update_use_count
-      @total_usage = 0
-      @step_collection.each do |step|
-        @total_usage += step.count
-      end
-      @total_usage
+    def add_steps(step_set)
+      step_set.each{|step| add_step(step)}
     end
 
-    def use_count
-      @total_usage || 0
+    def update_use_count(num_steps)
+      @use_count += num_steps
     end
 
     def group_graph

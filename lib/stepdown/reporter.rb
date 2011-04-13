@@ -101,6 +101,13 @@ module Stepdown
       end
       sprintf "%.2f", (step_count / scen_count)
     end
+
+    def empty_scenarios
+      @scenarios.select do |scen|
+        scen.steps.empty?
+      end
+    end
+
   end
 end
 

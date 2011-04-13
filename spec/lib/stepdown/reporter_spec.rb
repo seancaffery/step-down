@@ -181,4 +181,28 @@ describe Stepdown::Reporter do
     end
   end
 
+  describe "returning empty scenarios" do
+
+    it "should return scenarios with no steps" do
+      scen_1 = Stepdown::Scenario.new
+      scen_2 = Stepdown::Scenario.new
+
+      @reporter = Stepdown::Reporter.new([scen_1, scen_2], Stepdown::StepCollection.new)
+
+      @reporter.empty_scenarios().should == [scen_1,scen_2]
+    end
+
+    it "should not return scenarios with steps" do
+      scen_1 = Stepdown::Scenario.new
+      scen_2 = Stepdown::Scenario.new
+
+      scen_1.add_step(Stepdown::Step.new(1,/regex/))
+
+      @reporter = Stepdown::Reporter.new([scen_1, scen_2], Stepdown::StepCollection.new)
+
+      @reporter.empty_scenarios().should == [scen_2]
+    end
+
+  end
+
 end

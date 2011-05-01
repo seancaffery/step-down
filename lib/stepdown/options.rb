@@ -2,14 +2,15 @@ require 'optparse'
 
 module Stepdown
   class Options
-    attr_reader :steps_dir, :features_dir, :reporter
+    attr_reader :steps_dir, :features_dir, :reporter, :quiet
 
-    OUTPUT_FORMATS = ["html", "text"]
+    OUTPUT_FORMATS = ["html", "text", "quiet"]
 
     def parse(params)
       @steps_dir = "features/step_definitions"
       @features_dir = "features"
       @reporter = "html"
+      @quiet = false
       parser = OptionParser.new do |opts|
         opts.banner = "Usage: stepdown step_definition_dir feature_file_directory"
 
@@ -25,6 +26,10 @@ module Stepdown
 
         opts.on("--features=FEATURE_DIR", "Feature file directory. Default: ./features") do |o|
           @features_dir = o
+        end
+
+        opts.on("--quiet", "-q", "Supress output") do |o|
+          @quiet = true
         end
 
         opts.on_tail("-h", "--help", "You're looking at it") do |o|

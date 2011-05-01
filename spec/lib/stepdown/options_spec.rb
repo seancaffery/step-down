@@ -87,6 +87,11 @@ describe Stepdown::Options do
         @io.string.should == "Directory features_dir does not exist"
       end.should raise_error(SystemExit)
     end
+
+    it "should allow output to be supressed" do
+      @options.parse(["-q"])
+      @options.quiet.should == true
+    end
   end
 
 end

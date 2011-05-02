@@ -7,7 +7,7 @@ module Stepdown
   class HTMLReporter < Reporter
 
     def output_overview()
-      puts "Generating report..."
+      puts "Generating report..." unless Stepdown.quiet
       FileUtils.mkdir_p(Reporter::OUTPUT_DIR)
       copy_files
 
@@ -26,7 +26,7 @@ module Stepdown
 
       out.close
 
-      $stdout.puts "\nReport output to #{Reporter::OUTPUT_DIR}/analysis.html"
+      puts "\nReport output to #{Reporter::OUTPUT_DIR}/analysis.html" unless Stepdown.quiet
     end
 
     protected

@@ -4,7 +4,7 @@ module Stepdown
   class TextReporter < Reporter
 
     def output_overview
-      puts "Generating report..."
+      puts "Generating report..." unless Stepdown.quiet
       output = File.new(Reporter::OUTPUT_DIR + '/analysis.txt', "w+")
 
       output.puts "Total number of scenarios: #{total_scenarios}"
@@ -21,7 +21,7 @@ module Stepdown
 
       output.close
 
-      puts "Report output to #{Reporter::OUTPUT_DIR}/analysis.txt"
+      puts "Report output to #{Reporter::OUTPUT_DIR}/analysis.txt" unless Stepdown.quiet
 
     end
 

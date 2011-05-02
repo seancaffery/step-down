@@ -9,10 +9,10 @@ module Stepdown
     end
 
     def analyse
-      puts "Parsing feature files..."
+      puts "Parsing feature files..." unless Stepdown.quiet
       scenarios = process_feature_files(feature_files)
 
-      puts "Performing analysis..."
+      puts "Performing analysis..." unless Stepdown.quiet
 
       reporter = reporter(@reporter, scenarios, instance.step_collection)
       reporter.output_overview
@@ -35,6 +35,8 @@ module Stepdown
           Stepdown::HTMLReporter.new(scenarios, step_collection)
         when "text"
           Stepdown::TextReporter.new(scenarios, step_collection)
+        when "quiet"
+          Stepdown::Repoerter.new(scenarios, step_collection)
       end
     end
 

@@ -36,7 +36,7 @@ module Stepdown
         when "text"
           Stepdown::TextReporter.new(scenarios, step_collection)
         when "quiet"
-          Stepdown::Repoerter.new(scenarios, step_collection)
+          Stepdown::Reporter.new(scenarios, step_collection)
       end
     end
 

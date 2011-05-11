@@ -39,10 +39,10 @@ module Stepdown
     end
 
     def line_matches(line)
-      stripped_line = line.strip.gsub(/^(And|Given|When|Then) (.*)$/,'\2')
+      #stripped_line = line.strip.gsub(/^(And|Given|When|Then) (.*)$/,'\2')
 
       @steps.each_with_index do |regex,i|
-        match = regex.match(stripped_line)
+        match = regex.match(line)
         if match
           return step_collection.detect{|step| i == step.id}
         end

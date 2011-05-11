@@ -9,45 +9,49 @@ describe Stepdown::FeatureParser do
 
   describe "creating scenarios" do
     before :each do
+      instance = mock("instance")
+      @parser = Stepdown::FeatureParser.new(instance)
     end
+
     it "should create a scenario for a scenario line" do
 
-      file = mock("file")
-      instance = mock("instance")
-      file_lines = ["Scenario: My testing scenario"]
-
-      @parser = Stepdown::FeatureParser.new
-      @parser.should_receive(:read_feature_file).with(file).and_return(file_lines)
       scenario = mock("scenario")
       Stepdown::Scenario.should_receive(:new).and_return(scenario)
-      
-      @parser.process_feature(file, instance).should =~ [scenario]
+      @parser.scenario(scenario)
+
+      @parser.scenarios.should =~ [scenario]
     end
  
     it "should create a scenario for a background line" do
-      file = mock("file")
-      instance = mock("instance")
-      file_lines = ["Background: My testing scenario"]
 
-      @parser = Stepdown::FeatureParser.new
-      @parser.should_receive(:read_feature_file).with(file).and_return(file_lines)
-      scenario = mock("scenario")
-      Stepdown::Scenario.should_receive(:new).and_return(scenario)
-      
-      @parser.process_feature(file, instance).should =~ [scenario]
+      background = mock("background")
+      Stepdown::Scenario.should_receive(:new).and_return(background)
+      @parser.background(background)
+
+      @parser.scenarios.should =~ [background]
+    end
+
+    it "should create a scenario for a scenario outline" do
+
+      outline = mock("outline")
+      Stepdown::Scenario.should_receive(:new).and_return(outline)
+      @parser.scenario_outline(outline)
+
+      @parser.scenarios.should =~ [outline]
     end
   end
 
 
   describe "parsing step lines" do
     before :each do 
-      @parser = Stepdown::FeatureParser.new
       @step_instance = mock("step_instance")
+      @parser = Stepdown::FeatureParser.new(@step_instance)
+      @parser.scenario(mock('scenario'))
 
     end
 
     it "should not add unmatched steps" do
-      lines = ["Scenario", "matched", "match 2"]
+      lines = ["matched", "match 2"]
       unmatched_lines = ["not matched", "not matched 2"]
       steps = []
       lines.each_with_index do |line, i|
@@ -61,23 +65,26 @@ describe Stepdown::FeatureParser do
       end
 
       all_lines = [lines, unmatched_lines].flatten
-      @parser.should_receive(:read_feature_file).and_return(all_lines)
 
-      scenarios = @parser.process_feature(mock('file'), @step_instance)
+      all_lines.each do |line|
+        @parser.step(mock('step', :name => line))
+      end
+
+      scenarios = @parser.scenarios
       scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
     end
 
     it "should add matched steps" do
-      lines = ["Scenario", "matched", "match 2"]
+      lines = ["matched", "match 2"]
       steps = []
       lines.each_with_index do |line, i|
         step = Stepdown::Step.new(i, line)
         stub_line_match_with(@step_instance, line, step)
+        @parser.step(mock('step', :name => line))
         steps << step
       end
-      @parser.should_receive(:read_feature_file).and_return(lines)
 
-      scenarios = @parser.process_feature(mock('file'), @step_instance)
+      scenarios = @parser.scenarios
       scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
 
     end

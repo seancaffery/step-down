@@ -3,28 +3,58 @@ require 'stepdown/scenario'
 module Stepdown
   class FeatureParser
 
-    def process_feature(file, instance)
-      scenarios = []
-      file_lines = read_feature_file(file)
+    def initialize(instance)
+      @instance = instance
+      @scenarios = []
+    end
 
-      file_lines.each do |line|
-
-        if line =~ /Scenario|Background/
-          @scenario = Scenario.new
-          scenarios << @scenario
-        else
-          step = instance.line_matches(line)
-          @scenario.add_step(step) if step
-        end
+    def scenarios
+      unless @scenarios.last == @current_scenario
+        @scenarios << @current_scenario
       end
-
-      scenarios
+      @scenarios.compact
     end
 
-    protected
-    def read_feature_file(file_name)
-      File.read(file_name).split("\n")
+    def background(background)
+      @scenarios << @current_scenario
+      @current_scenario = Scenario.new
     end
+
+    def scenario(scenario)
+      @scenarios << @current_scenario
+      @current_scenario = Scenario.new
+    end
+
+    def scenario_outline(scenario_outline)
+      @scenarios << @current_scenario      
+      @current_scenario = Scenario.new
+    end
+
+    def step(step)
+      matched_step = @instance.line_matches(step.name)
+      @current_scenario.add_step(matched_step) if matched_step
+    end
+
+    def uri(*args) end
+
+    def feature(*args) end
+
+    def examples(*args) end
+
+    def comment(*args) end
+
+    def tag(*args) end
+
+    def table(*args) end
+
+    def py_string(*args) end
+
+    def eof(*args) end
+
+    def syntax_error(*args)
+      # raise "SYNTAX ERROR"
+    end
+
   end
 end
 

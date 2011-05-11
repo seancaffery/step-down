@@ -1,4 +1,4 @@
-
+require 'gherkin/parser/parser'
 
 module Stepdown
   class Analyzer
@@ -20,13 +20,14 @@ module Stepdown
     end
 
     def process_feature_files(feature_files)
-      parser = Stepdown::FeatureParser.new
+      listener = Stepdown::FeatureParser.new(instance)
 
-      scenarios = []
+      parser = Gherkin::Parser::Parser.new(listener, true, 'root')
+
       feature_files.each do |feature_file|
-        scenarios << parser.process_feature(feature_file, instance)
+        parser.parse(File.read(feature_file), feature_file, 0)
       end
-      scenarios.flatten
+      listener.scenarios
     end
 
     def reporter(type, scenarios, step_collection)

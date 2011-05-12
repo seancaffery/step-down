@@ -83,6 +83,10 @@ module Stepdown
       step_usages.select{|use| use.total_usage == 0}
     end
 
+    def unused_step_count
+      unused_steps.length
+    end
+
     def uniq_steps_per_scenario(scenarios)
       total_steps = 0.0
       uniq_steps = 0.0

@@ -172,12 +172,16 @@ describe Stepdown::Reporter do
       @reporter.stub!(:step_usages).and_return([@use_1, @use_2, @use_3])
     end
 
-    it "should return unused steps" do
+    it "should return used steps" do
       @reporter.usages.should =~ [@use_1, @use_2]
     end
 
-    it "should return used steps" do
+    it "should return unused steps" do
       @reporter.unused_steps.should =~ [@use_3]
+    end
+
+    it "should return the number of unused steps" do
+      @reporter.unused_step_count.should == 1
     end
   end
 

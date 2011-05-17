@@ -13,8 +13,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project = "stepdown"
 
-  s.add_dependency('haml', '> 2.0.0')
-  s.add_development_dependency('rspec', "~> 2.5.0")
+  s.add_dependency('haml', '> 2.0')
+  s.add_dependency('gherkin', '~> 2.3')
+  s.add_development_dependency('rspec', "~> 2.5")
   s.add_development_dependency('rake')
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files spec/*`.split("\n")

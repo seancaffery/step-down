@@ -15,7 +15,7 @@ describe Stepdown::FeatureParser do
 
     it "should create a scenario for a scenario line" do
 
-      scenario = mock("scenario")
+      scenario = mock("scenario", :name => 'scenario')
       Stepdown::Scenario.should_receive(:new).and_return(scenario)
       @parser.scenario(scenario)
 
@@ -24,7 +24,7 @@ describe Stepdown::FeatureParser do
  
     it "should create a scenario for a background line" do
 
-      background = mock("background")
+      background = mock("background", :name => '')
       Stepdown::Scenario.should_receive(:new).and_return(background)
       @parser.background(background)
 
@@ -33,7 +33,7 @@ describe Stepdown::FeatureParser do
 
     it "should create a scenario for a scenario outline" do
 
-      outline = mock("outline")
+      outline = mock("outline", :name => 'outline')
       Stepdown::Scenario.should_receive(:new).and_return(outline)
       @parser.scenario_outline(outline)
 
@@ -46,7 +46,7 @@ describe Stepdown::FeatureParser do
     before :each do 
       @step_instance = mock("step_instance")
       @parser = Stepdown::FeatureParser.new(@step_instance)
-      @parser.scenario(mock('scenario'))
+      @parser.scenario(mock('scenario', :name => 'scenario'))
 
     end
 

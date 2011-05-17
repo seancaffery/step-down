@@ -41,8 +41,8 @@ describe Stepdown::Reporter do
   #this whole grouping thing needs to be refactored. Nasty.
   describe "creating step groupings" do
     before :each do
-      @scen_1 = Stepdown::Scenario.new
-      @scen_2 = Stepdown::Scenario.new
+      @scen_1 = Stepdown::Scenario.new('scenario')
+      @scen_2 = Stepdown::Scenario.new('scenario')
       @scenarios = [@scen_1, @scen_2]
 
       @collection = Stepdown::StepCollection.new
@@ -100,8 +100,8 @@ describe Stepdown::Reporter do
   #this usage thing needs to be refactored as well
   describe "creating step usages" do
     before :each do
-      @scen_1 = Stepdown::Scenario.new
-      @scen_2 = Stepdown::Scenario.new
+      @scen_1 = Stepdown::Scenario.new('scenario')
+      @scen_2 = Stepdown::Scenario.new('scenario')
       @scenarios = [@scen_1, @scen_2]
 
       @collection = Stepdown::StepCollection.new
@@ -188,8 +188,8 @@ describe Stepdown::Reporter do
   describe "returning empty scenarios" do
 
     it "should return scenarios with no steps" do
-      scen_1 = Stepdown::Scenario.new
-      scen_2 = Stepdown::Scenario.new
+      scen_1 = Stepdown::Scenario.new('scenario')
+      scen_2 = Stepdown::Scenario.new('scenario')
 
       @reporter = Stepdown::Reporter.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
@@ -197,8 +197,8 @@ describe Stepdown::Reporter do
     end
 
     it "should not return scenarios with steps" do
-      scen_1 = Stepdown::Scenario.new
-      scen_2 = Stepdown::Scenario.new
+      scen_1 = Stepdown::Scenario.new('scenario')
+      scen_2 = Stepdown::Scenario.new('scenario')
 
       scen_1.add_step(Stepdown::Step.new(1,/regex/))
 

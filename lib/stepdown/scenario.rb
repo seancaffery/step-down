@@ -2,10 +2,11 @@ require 'stepdown/step_collection'
 
 module Stepdown
   class Scenario
-    attr_reader :step_count
-    def initialize
+    attr_reader :step_count, :name
+    def initialize(name)
       @step_collection = Stepdown::StepCollection.new
       @step_count = 0
+      @name = name
     end
 
     def add_step(step)

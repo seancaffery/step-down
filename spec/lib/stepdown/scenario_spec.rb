@@ -5,7 +5,7 @@ require 'step'
 
 describe Stepdown::Scenario do
   before :each do
-    @scenario = Stepdown::Scenario.new
+    @scenario = Stepdown::Scenario.new('scenario')
     @s1 = Stepdown::Step.new(1, /step 1/)
     @s2 = Stepdown::Step.new(2, /Step 2/)
     @s2_dup = Stepdown::Step.new(2, /Step 2/)

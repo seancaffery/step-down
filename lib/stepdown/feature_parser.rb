@@ -17,17 +17,17 @@ module Stepdown
 
     def background(background)
       @scenarios << @current_scenario
-      @current_scenario = Scenario.new
+      @current_scenario = Scenario.new(background.name)
     end
 
     def scenario(scenario)
       @scenarios << @current_scenario
-      @current_scenario = Scenario.new
+      @current_scenario = Scenario.new(scenario.name)
     end
 
     def scenario_outline(scenario_outline)
       @scenarios << @current_scenario      
-      @current_scenario = Scenario.new
+      @current_scenario = Scenario.new(scenario_outline.name)
     end
 
     def step(step)

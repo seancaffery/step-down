@@ -19,6 +19,8 @@
           %li
             %a{:href => '#unused'} Unused steps
           %li
+            %a{:href => '#empty'} Empty scenarios
+          %li
             %a{:href => '#grouping'} Step grouping
       #content
         %h2
@@ -93,6 +95,15 @@
           - unused_steps.each do |use|
             %tr
               %td= use.step.regex.inspect
+        %h2
+          %a{:name => 'empty'} Empty scenarios
+        %table
+          %tbody
+            %th Scenarios
+
+          - empty_scenarios.each do |scen|
+            %tr
+              %td= scen.name  
         %h2
           %a{:name => 'grouping'} Step grouping
         %table

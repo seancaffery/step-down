@@ -79,12 +79,12 @@
             %th Scenarios
             %th Use per scenario
 
-          - usages.each do |use|
-            %tr
-              %td= use.step.regex.inspect
-              %td= use.total_usage
-              %td= use.number_scenarios
-              %td= use.use_scenario
+            - usages.each do |use|
+              %tr
+                %td= use.step.regex.inspect
+                %td= use.total_usage
+                %td= use.number_scenarios
+                %td= use.use_scenario
 
         %h2
           %a{:name => 'unused'} Unused steps
@@ -92,18 +92,18 @@
           %tbody
             %th Step
 
-          - unused_steps.each do |use|
-            %tr
-              %td= use.step.regex.inspect
+            - unused_steps.each do |use|
+              %tr
+                %td= use.step.regex.inspect
         %h2
           %a{:name => 'empty'} Empty scenarios
         %table
           %tbody
             %th Scenarios
 
-          - empty_scenarios.each do |scen|
-            %tr
-              %td= scen.name  
+            - empty_scenarios.each do |scen|
+              %tr
+                %td= scen.name  
         %h2
           %a{:name => 'grouping'} Step grouping
         %table
@@ -111,22 +111,22 @@
             %th Step
             %th Total step associations
 
-          - groupings.each_with_index do |grouping, i|
-            - next if grouping.use_count == 0
-            %tr
-              %td
-                = grouping.regex.inspect
-                %br
-                %a{:href => '#', :class => "g#{i}"}Show associated steps
-              %td= grouping.use_count
-            %tr{:class => "g#{i}", :style => "display: none;"}
-              %td{:colspan => 2}
-                %table
-                  %tr
-                    %th Association count
-                    %th Step
-                  %tbody
-                    - grouping.step_collection.each do |step|
-                      %tr
-                        %td= step.count
-                        %td= CGI.escapeHTML step.regex.inspect
+            - groupings.each_with_index do |grouping, i|
+              - next if grouping.use_count == 0
+              %tr
+                %td
+                  = grouping.regex.inspect
+                  %br
+                  %a{:href => '#', :class => "g#{i}"}Show associated steps
+                %td= grouping.use_count
+              %tr{:class => "g#{i}", :style => "display: none;"}
+                %td{:colspan => 2}
+                  %table
+                    %tr
+                      %th Association count
+                      %th Step
+                    %tbody
+                      - grouping.step_collection.each do |step|
+                        %tr
+                          %td= step.count
+                          %td= CGI.escapeHTML step.regex.inspect

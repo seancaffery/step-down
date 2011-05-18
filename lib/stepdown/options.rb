@@ -12,7 +12,10 @@ module Stepdown
       @reporter = "html"
       @quiet = false
       parser = OptionParser.new do |opts|
-        opts.banner = "Usage: stepdown step_definition_dir feature_file_directory"
+        opts.banner = <<-USE 
+        Usage: stepdown
+               stepdown --steps <STEP_DEFINITION_DIRECTORY> --features <FEATURE_FILE_DIRECTORY>
+        USE
 
         opts.separator("")
 

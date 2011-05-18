@@ -1,11 +1,12 @@
-= Step down
+= Stepdown
 Stepdown allows you to see where your most used Cucumber steps are, your unused steps and how they are clustered
 
 == Statistics available
 * Total number of scenarios
 * Total number of steps
+* Number of empty scenarios (scenarios without any steps)
 * Number of steps per scenario
-* Number of unique scenario
+* Number of unique steps per scenario
 * Per step
   * Total usage
   * Number of scenarios
@@ -13,9 +14,15 @@ Stepdown allows you to see where your most used Cucumber steps are, your unused 
   * Scenario grouping (number of times used with another step)
 
 == Installation
-Stepdown is available as a ruby gem
+Stepdown is available as a Ruby gem
    gem install stepdown
 
+Or, add the following to your Gemfile
+   gem 'stepdown'
+
 == Usage
+From the root folder of your project. This assumes step definitions are in PROJECT_ROOT/features/step_definitions and feature files are in PROJECT_ROOT/features
+  stepdown
+Or, set the the directory parameters manually
   stepdown --steps <step definition directory> --features <feature file directory>
   e.g. stepdown --steps features/step_definitions --features features

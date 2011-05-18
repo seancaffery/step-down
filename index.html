@@ -28,6 +28,7 @@
         <ul>
           <li>Total number of scenarios</li>
           <li>Total number of steps</li>
+          <li>Number of empty scenarios (scenarios without any steps)</li>
           <li>Number of steps per scenario</li>
           <li>Number of unique steps per scenario</li>
           <li>
@@ -47,8 +48,21 @@
             gem install stepdown
           </div>
         </p>
+        <p>
+          Or, add the following to your Gemfile
+          <div class='code'>
+            gem 'stepdown'
+          </div>
+        </p>
         <h2>Usage</h2>
         <p>
+          From the root folder of your project. This assumes step definitions are in PROJECT_ROOT/features/step_definitions and feature files are in PROJECT_ROOT/features
+          <div class='code'>
+            stepdown
+          </div>
+        </p>
+        <p>
+          Or, set the the directory parameters manually
           <div class='code'>
             stepdown --steps &lt;step definition directory&gt; --features &lt;feature file directory&gt;
             <br />
@@ -57,7 +71,16 @@
         </p>
         <h2>Sample output</h2>
         <p>
-          Coming soon
+          Overview
+        </p>
+        <p>
+          <img src='images/overview.png' />
+        </p>
+        <p>
+          Step usages
+        </p>
+        <p>
+          <img src='images/usages.png' />
         </p>
       </div>
     </div>

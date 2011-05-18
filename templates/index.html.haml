@@ -24,6 +24,7 @@
         %ul
           %li Total number of scenarios
           %li Total number of steps
+          %li Number of empty scenarios (scenarios without any steps) 
           %li Number of steps per scenario
           %li Number of unique steps per scenario
           %li 
@@ -39,8 +40,17 @@
           Stepdown is available as a Ruby gem
           .code
             gem install stepdown
+        %p
+          Or, add the following to your Gemfile
+          .code
+            gem 'stepdown'
         %h2 Usage
         %p
+          From the root folder of your project. This assumes step definitions are in PROJECT_ROOT/features/step_definitions and feature files are in PROJECT_ROOT/features
+          .code
+            stepdown
+        %p
+          Or, set the the directory parameters manually 
           .code
             stepdown --steps &lt;step definition directory&gt; --features &lt;feature file directory&gt;
             %br
@@ -49,4 +59,10 @@
 
         %h2 Sample output
         %p
-          Coming soon
+          Overview
+        %p
+          %img{:src => 'images/overview.png'}
+        %p
+          Step usages
+        %p
+          %img{:src => 'images/usages.png'}

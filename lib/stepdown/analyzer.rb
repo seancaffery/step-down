@@ -14,7 +14,9 @@ module Stepdown
 
       puts "Performing analysis..." unless Stepdown.quiet
 
-      reporter = reporter(@reporter, scenarios, instance.step_collection)
+      stats = Statistics.new(scenarios, instance.step_collection)
+
+      reporter = reporter(@reporter, stats)
       reporter.output_overview
 
     end
@@ -30,14 +32,14 @@ module Stepdown
       listener.scenarios
     end
 
-    def reporter(type, scenarios, step_collection)
+    def reporter(type, stats)
       case type
         when "html"
-          Stepdown::HTMLReporter.new(scenarios, step_collection)
+          Stepdown::HTMLReporter.new(stats)
         when "text"
-          Stepdown::TextReporter.new(scenarios, step_collection)
+          Stepdown::TextReporter.new(stats)
         when "quiet"
-          Stepdown::Reporter.new(scenarios, step_collection)
+          Stepdown::Reporter.new(stats)
       end
     end
 

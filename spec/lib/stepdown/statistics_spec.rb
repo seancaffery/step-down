@@ -2,19 +2,20 @@ require 'stepdown/step_group'
 require 'stepdown/step_usage'
 require 'stepdown/reporter'
 require 'stepdown/scenario'
+require 'stepdown/statistics'
 
-describe Stepdown::Reporter do
+describe Stepdown::Statistics do
 
   describe "returning overall statistics" do
     it "should return the total number of steps" do
       steps = [mock('step_1'), mock('step_2')]
-      reporter = Stepdown::Reporter.new([], steps)
+      reporter = Stepdown::Statistics.new([], steps)
       reporter.total_steps.should == 2
     end
 
     it "should return the total number of scenarios" do
       scenarios = [mock('scenario_1'), mock('scenario_2')]
-      reporter = Stepdown::Reporter.new(scenarios, [])
+      reporter = Stepdown::Statistics.new(scenarios, [])
       reporter.total_scenarios.should == 2
     end
 
@@ -23,7 +24,7 @@ describe Stepdown::Reporter do
       scenario1 = mock("scenario1", :steps => steps, :step_count => steps.length)
       scenario2 = mock("scenario2", :steps => [], :step_count => 0)
 
-      reporter = Stepdown::Reporter.new([scenario1, scenario2], [])
+      reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
       reporter.steps_per_scenario.should == "1.50"
     end
 
@@ -32,7 +33,7 @@ describe Stepdown::Reporter do
       scenario1 = mock("scenario1", :steps => steps, :unique_step_count => 2, :step_count => 3)
       scenario2 = mock("scenario2", :steps => steps[0...1], :unique_step_count => 1, :step_count => 1)
 
-      reporter = Stepdown::Reporter.new([scenario1, scenario2], [])
+      reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
       reporter.unique_steps.should == "1.33"
     end
 
@@ -71,7 +72,7 @@ describe Stepdown::Reporter do
     end
 
     it "should return the correct step grouping" do
-      reporter = Stepdown::Reporter.new([@scen_1, @scen_2], @collection)
+      reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
       reporter.groupings[0].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
       reporter.groupings[1].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
@@ -82,14 +83,14 @@ describe Stepdown::Reporter do
     end
 
     it "should return usage for steps across scenarios" do
-      reporter = Stepdown::Reporter.new([@scen_1, @scen_2], @collection)
+      reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
       group_1 = reporter.groupings.detect{|g| g.id == 1}
       group_1.use_count.should == 8
     end
 
     it "should return usage for steps in scenarios with duplicated steps" do
-      reporter = Stepdown::Reporter.new([@scen_1, @scen_2], @collection)
+      reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
       group_5 = reporter.groupings.detect{|g| g.id == 5}
       group_5.use_count.should == 4
@@ -130,7 +131,7 @@ describe Stepdown::Reporter do
     end
 
     it "should return the usage of across scenarios" do
-      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+      reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 1}
       usage.total_usage.should == 3
@@ -139,7 +140,7 @@ describe Stepdown::Reporter do
       end
 
     it "should return duplicate usage of a step in a scenario" do
-      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+      reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 5}
       usage.total_usage.should == 2
@@ -148,7 +149,7 @@ describe Stepdown::Reporter do
     end
 
     it "should return usage of a step in a scenario" do
-      reporter = Stepdown::Reporter.new([@scen_2, @scen_1], @collection)
+      reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 3}
       usage.total_usage.should == 1
@@ -160,7 +161,7 @@ describe Stepdown::Reporter do
 
   describe "returing step usage" do
     before :each do
-      @reporter = Stepdown::Reporter.new([], mock('step_colllection'))
+      @reporter = Stepdown::Statistics.new([], mock('step_colllection'))
 
       @use_1 = Stepdown::StepUsage.new(Stepdown::Step.new(1,/regex/))
       @use_2 = Stepdown::StepUsage.new(Stepdown::Step.new(2,/regex/))
@@ -191,7 +192,7 @@ describe Stepdown::Reporter do
       scen_1 = Stepdown::Scenario.new('scenario')
       scen_2 = Stepdown::Scenario.new('scenario')
 
-      @reporter = Stepdown::Reporter.new([scen_1, scen_2], Stepdown::StepCollection.new)
+      @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
       @reporter.empty_scenarios().should == [scen_1,scen_2]
     end
@@ -202,7 +203,7 @@ describe Stepdown::Reporter do
 
       scen_1.add_step(Stepdown::Step.new(1,/regex/))
 
-      @reporter = Stepdown::Reporter.new([scen_1, scen_2], Stepdown::StepCollection.new)
+      @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
       @reporter.empty_scenarios().should == [scen_2]
     end

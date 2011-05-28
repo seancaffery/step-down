@@ -10,19 +10,19 @@ describe Stepdown::Analyzer do
 
     it "should return an HTML reporter" do
       analyzer = Stepdown::Analyzer.new('', '', 'html')
-      reporter = analyzer.reporter('html',[],mock('step_collection'))
+      reporter = analyzer.reporter('html', mock('stats'))
       reporter.should be_instance_of(Stepdown::HTMLReporter)
     end
 
     it "should return a text reporter" do
       analyzer = Stepdown::Analyzer.new('', '', 'text')
-      reporter = analyzer.reporter('text',[],mock('step_collection'))
+      reporter = analyzer.reporter('text', mock('stats'))
       reporter.should be_instance_of(Stepdown::TextReporter)
     end
 
     it "should return a quiet reporter" do
       analyzer = Stepdown::Analyzer.new('', '', 'quiet')
-      reporter = analyzer.reporter('quiet',[],mock('step_collection'))
+      reporter = analyzer.reporter('quiet', mock('stats'))
       reporter.should be_instance_of(Stepdown::Reporter)
     end
 

@@ -2,7 +2,7 @@ require 'optparse'
 
 module Stepdown
   class Options
-    attr_reader :steps_dir, :features_dir, :reporter, :quiet
+    attr_reader :steps_dir, :features_dir, :reporter, :quiet, :output_directory
 
     OUTPUT_FORMATS = ["html", "text", "quiet"]
 
@@ -11,6 +11,7 @@ module Stepdown
       @features_dir = "features"
       @reporter = "html"
       @quiet = false
+      @output_directory = "./stepdown"
       parser = OptionParser.new do |opts|
         opts.banner = <<-USE 
         Usage: stepdown

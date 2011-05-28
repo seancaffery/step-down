@@ -12,6 +12,7 @@ begin
   options.validate
 
   Stepdown.quiet = options.quiet
+  Stepdown.output_directory = options.output_directory
 
   Stepdown::Analyzer.new(options.steps_dir, options.features_dir, options.reporter).analyse
 

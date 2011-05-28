@@ -11,6 +11,6 @@ require 'bundler/setup'
 
 module Stepdown
   class << self
-    attr_accessor :quiet
+    attr_accessor :quiet, :output_directory
   end
 end

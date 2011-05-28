@@ -19,6 +19,8 @@ module Stepdown
       reporter = reporter(@reporter, stats)
       reporter.output_overview
 
+      Stepdown::YamlWriter.write(stats)
+
     end
 
     def process_feature_files(feature_files)

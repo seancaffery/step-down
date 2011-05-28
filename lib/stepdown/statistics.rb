@@ -8,6 +8,15 @@ module Stepdown
       @step_collection = step_collection
     end
 
+    def to_h
+      stats = {}
+      stats[:number_scenarios] = total_scenarios
+      stats[:total_steps] = total_steps
+      stats[:steps_per_scenario] = steps_per_scenario
+      stats[:unused_steps] = unused_step_count
+      stats
+    end
+
     def groupings
       @groupings ||= grouping(@scenarios)
     end

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'stepdown/graph'
 
 describe Stepdown::Graph do
 

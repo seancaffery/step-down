@@ -20,6 +20,7 @@ module Stepdown
       reporter.output_overview
 
       Stepdown::YamlWriter.write(stats)
+      Stepdown::Graph.create_graph
 
     end
 

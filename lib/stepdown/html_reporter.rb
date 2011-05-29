@@ -32,7 +32,7 @@ module Stepdown
     protected
 
     def copy_files
-      ['step_down.js', 'jquery-1.4.3.min.js'].each do |file|
+      ['step_down.js', 'jquery-1.4.3.min.js', 'bluff-min.js', 'excanvas.js', 'js-class.js'].each do |file|
         src = File.expand_path("#{File.dirname(__FILE__)}/../../public/#{file}")
         FileUtils.cp(src, File.join(Stepdown.output_directory, "#{file}"))
       end

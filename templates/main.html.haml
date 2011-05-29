@@ -5,6 +5,9 @@
     %title Step down - Cucumber analysis
     %link{:type => 'text/css', :rel => 'stylesheet', :href => 'style.css'}
     %script{:src => 'jquery-1.4.3.min.js'}
+    %script{:src => 'js-class.js'}
+    %script{:src => 'bluff-min.js'}
+    %script{:src => 'excanvas.js'}
     %script{:src => 'step_down.js'}
   %body
     #page_container
@@ -14,6 +17,8 @@
         %ul
           %li
             %a{:href => '#overview'} Overview
+          %li
+            %a{:href => '#trend'} Trend
           %li
             %a{:href => '#usage'} Step usage
           %li
@@ -37,7 +42,7 @@
               %td Total number of steps
               %td= total_steps
             %tr
-              %td Unused stepss
+              %td Unused steps
               %td= unused_step_count
             %tr
               %td Steps per scenario
@@ -45,6 +50,11 @@
             %tr
               %td Unique steps per scenario
               %td= unique_steps
+
+        %h2
+          %a{:name => 'trend'} Trend
+        %div
+          %canvas#graph
 
         %h2
           %a{:name => 'usage'} Step usages
@@ -130,3 +140,4 @@
                         %tr
                           %td= step.count
                           %td= CGI.escapeHTML step.regex.inspect
+  %script{:src => 'stepdown.js'}

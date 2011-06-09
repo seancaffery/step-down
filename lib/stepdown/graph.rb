@@ -1,4 +1,5 @@
 require 'json'
+require 'date'
 module Stepdown
   class Graph
     BLUFF_GRAPH_SIZE = "890x400"
@@ -54,14 +55,18 @@ module Stepdown
         stat_set.each do |key, val|
           stats[key].push(val)
         end
-        label_date = Date.strptime(file_name.match(/(\d+)/)[1], "%Y%m%d")
-        stats[:label] = "#{label_date.day} / #{label_date.month}"
+        stats[:label] = date_from_filename(file_name)
         stat_collection << stats
 
         file.close
       end
 
       stat_collection
+    end
+
+    def self.date_from_file_name(file_name)
+      label_date = Date.strptime(file_name.match(/(\d+)/)[1], "%Y%m%d")
+      "#{label_date.day} / #{label_date.month}"
     end
 
   end

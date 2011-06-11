@@ -46,9 +46,6 @@ module Stepdown
       end
     end
 
-    def step(id)
-      instance.steps.detect{|step| step.id == id}
-    end
 
     def instance
       @instance ||= begin

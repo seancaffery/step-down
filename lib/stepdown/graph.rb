@@ -55,7 +55,7 @@ module Stepdown
         stat_set.each do |key, val|
           stats[key].push(val)
         end
-        stats[:label] = date_from_filename(file_name)
+        stats[:label] = date_from_file_name(file_name)
         stat_collection << stats
 
         file.close

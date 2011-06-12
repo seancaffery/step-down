@@ -30,7 +30,9 @@ module Stepdown
         g.draw();
       EOS
 
-      File.open(File.join(Stepdown.output_directory, 'stepdown.js'), 'w') {|f| f << content }
+      File.open(File.join(Stepdown.output_directory, 'stepdown.js'), 'w') do 
+        |f| f << content 
+      end
     end
 
     def self.collect_stats

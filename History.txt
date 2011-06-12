@@ -1,4 +1,7 @@
-== 0.50 2011-5-17
+== 0.6.0 2011-6
+* Graph for overall statistics
+
+== 0.5.0 2011-5-17
 * Use gherkin gem to parse features
 * Added empty step detection
 * Added unused step count to summary

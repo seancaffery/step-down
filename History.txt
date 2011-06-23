@@ -1,4 +1,8 @@
-== 0.6.0 2011-6
+== 0.6.1 2011-06-23
+* fix issue with Ruby 1.9.2
+* update jQuery
+
+== 0.6.0 2011-6-6
 * Graph for overall statistics
 
 == 0.5.0 2011-5-17

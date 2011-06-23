@@ -1,5 +1,6 @@
 require 'stepdown/step_group'
 require 'stepdown/step_usage'
+require 'delegate'
 
 module Stepdown
   class Reporter < Delegator
@@ -11,6 +12,10 @@ module Stepdown
 
     def __getobj__
       @statistics  
+    end
+
+    def __setobj__(statistics)
+      @statistics = statistics
     end
 
   end

@@ -11,7 +11,7 @@ module Stepdown
       FileUtils.mkdir_p(Stepdown.output_directory)
       copy_files
 
-      ["main", "_unused", "_grouping", "_empty", "_usages"].each{ |template| write_html(template) }
+      ["index", "_unused", "_grouping", "_empty", "_usages"].each{ |template| write_html(template) }
 
       template = File.open(File.expand_path(File.dirname(__FILE__))  + '/../../templates/style.sass').read
       sass_engine = Sass::Engine.new(template)
@@ -21,7 +21,7 @@ module Stepdown
 
       out.close
 
-      puts "\nReport output to #{Stepdown.output_directory}/analysis.html" unless Stepdown.quiet
+      puts "\nReport output to #{Stepdown.output_directory}/index.html" unless Stepdown.quiet
     end
 
     protected

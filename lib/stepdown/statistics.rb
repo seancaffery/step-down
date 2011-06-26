@@ -85,11 +85,11 @@ module Stepdown
     end
 
     def usages_top_10
-      step_usages[0..10]
+      usages[0..10]
     end
 
     def usages_rest
-      step_usages[10..step_usages.length]
+      usages[10..step_usages.length]
     end
 
     def step_usages

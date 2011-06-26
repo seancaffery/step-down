@@ -21,6 +21,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.0)
   gherkin (~> 2.3)
   haml (> 2.0.0)
   rake

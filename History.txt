@@ -1,3 +1,6 @@
+== 0.6.2 2011-06-26
+* Only show top 10 items on page load
+
 == 0.6.1 2011-06-23
 * fix issue with Ruby 1.9.2
 * update jQuery

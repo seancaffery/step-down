@@ -11,12 +11,7 @@ module Stepdown
       FileUtils.mkdir_p(Stepdown.output_directory)
       copy_files
 
-      template = File.open(File.expand_path(File.dirname(__FILE__)) + '/../../templates/main.html.haml').read()
-      engine = Haml::Engine.new(template)
-
-      out = File.new(Stepdown.output_directory + '/analysis.html','w+')
-      out.puts engine.render(self)
-      out.close
+      ["main", "_unused", "_grouping", "_empty", "_usages"].each{ |template| write_html(template) }
 
       template = File.open(File.expand_path(File.dirname(__FILE__))  + '/../../templates/style.sass').read
       sass_engine = Sass::Engine.new(template)
@@ -30,6 +25,15 @@ module Stepdown
     end
 
     protected
+
+    def write_html(template)
+      file = File.open(File.expand_path(File.dirname(__FILE__)) + "/../../templates/#{template}.html.haml").read()
+      engine = Haml::Engine.new(file)
+
+      out = File.new(Stepdown.output_directory + "/#{template}.html",'w+')
+      out.puts engine.render(self)
+      out.close
+    end
 
     def copy_files
       ['step_down.js', 'jquery-1.6.1.min.js', 'bluff-min.js', 'excanvas.js', 'js-class.js'].each do |file|

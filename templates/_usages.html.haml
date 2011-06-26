@@ -1,0 +1,6 @@
+- usages_rest.each do |use|
+  %tr
+    %td= use.step.regex.inspect
+    %td= use.total_usage
+    %td= use.number_scenarios
+    %td= use.use_scenario

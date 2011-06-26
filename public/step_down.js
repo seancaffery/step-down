@@ -1,6 +1,5 @@
 
 $(document).ready(function(){
-  //filter("<100",$("#usages tr"));
 
   $("#use_filter").change(function(){
     filter(this.options[this.selectedIndex].value, 1, $("#usages tr"));
@@ -14,6 +13,17 @@ $(document).ready(function(){
     $('.' + this.getAttribute("class")).show();
     return false;
   });
+
+  $(".more").click(function(e){
+    link = $(this);
+    partial = link.attr("partial");
+    $.get('_' + partial + '.html',function(data){
+      link.parents("tr").before(data);
+      link.parents("tr").remove();
+    }, 'html');
+    return false;
+  });
+
 });
 
 

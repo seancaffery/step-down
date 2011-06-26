@@ -17,6 +17,14 @@ module Stepdown
       stats
     end
 
+    def groupings_rest
+      groupings[10..groupings.length]
+    end
+
+    def groupings_top_10
+      groupings[0..10]
+    end
+
     def groupings
       @groupings ||= grouping(@scenarios)
     end
@@ -76,12 +84,28 @@ module Stepdown
       usages.sort{|a,b| b.total_usage <=> a.total_usage}
     end
 
+    def usages_top_10
+      step_usages[0..10]
+    end
+
+    def usages_rest
+      step_usages[10..step_usages.length]
+    end
+
     def step_usages
       @step_usages ||= step_usage(@scenarios)
     end
 
     def usages
       step_usages.select{|use| use.total_usage > 0 }
+    end
+
+    def unused_rest
+      unused_steps[10..unused_steps.length]
+    end
+
+    def unused_top_10
+      unused_steps[0..10]
     end
 
     def unused_steps
@@ -111,10 +135,19 @@ module Stepdown
       sprintf "%.2f", (step_count / scen_count)
     end
 
+    def empty_rest
+      empty_scenarios[10..empty_scenarios.length]
+    end
+
+    def empty_top_10
+      empty_scenarios[0..10]
+    end
+
     def empty_scenarios
-      @scenarios.select do |scen|
+      @empty_scenarios ||= @scenarios.select do |scen|
         scen.steps.empty?
       end
+      @empty_scenarios
     end
   end
 end

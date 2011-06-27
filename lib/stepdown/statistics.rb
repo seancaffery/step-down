@@ -8,6 +8,15 @@ module Stepdown
       @step_collection = step_collection
     end
 
+    def generate
+      puts "Performing analysis..." unless Stepdown.quiet
+      groupings
+      step_usages
+      empty_scenarios
+      steps_per_scenario
+      unique_steps
+    end
+
     def to_h
       stats = {}
       stats[:number_scenarios] = total_scenarios
@@ -38,11 +47,11 @@ module Stepdown
     end
 
     def steps_per_scenario
-      steps_scenario(@scenarios)
+      @steps_per_scenario ||= steps_scenario(@scenarios)
     end
 
     def unique_steps
-      uniq_steps_per_scenario(@scenarios)
+      @uniq_steps_per_scenario ||= uniq_steps_per_scenario(@scenarios)
     end
 
     def grouping(scenarios)

@@ -36,14 +36,16 @@ describe Stepdown::Analyzer do
       features = ["awesome.txt."]
       instance = mock('instance', :step_collection => [])
       reporter = mock('reporter')
+      stats = mock('stats')
       reporter.should_receive(:output_overview)
 
       @analyzer.should_receive(:instance).and_return(instance)
       @analyzer.should_receive(:feature_files).and_return(features)
       @analyzer.should_receive(:process_feature_files).with(features).and_return([])
       @analyzer.should_receive(:reporter).and_return(reporter)
+      stats.should_receive(:generate)
       
-      Stepdown::Statistics.stub!(:new).with([], instance.step_collection)
+      Stepdown::Statistics.stub!(:new).with([], instance.step_collection).and_return(stats)
       Stepdown::YamlWriter.should_receive(:write).with(anything)
       Stepdown::Graph.should_receive(:create_graph)
 

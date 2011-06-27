@@ -9,19 +9,21 @@ module Stepdown
     end
 
     def analyse
-      puts "Parsing feature files..." unless Stepdown.quiet
-      scenarios = process_feature_files(feature_files)
-
-      puts "Performing analysis..." unless Stepdown.quiet
+      scenarios = collect_scenarios
 
       stats = Statistics.new(scenarios, instance.step_collection)
+      stats.generate
 
       reporter = reporter(@reporter, stats)
       reporter.output_overview
 
       Stepdown::YamlWriter.write(stats)
       Stepdown::Graph.create_graph
+    end
 
+    def collect_scenarios
+      puts "Parsing feature files..." unless Stepdown.quiet
+      process_feature_files(feature_files)
     end
 
     def process_feature_files(feature_files)

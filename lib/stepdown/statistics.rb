@@ -12,7 +12,7 @@ module Stepdown
       puts "Performing analysis..." unless Stepdown.quiet
       groupings
       step_usages
-      empty_scenarios
+      empty
       steps_per_scenario
       unique_steps
     end
@@ -31,7 +31,7 @@ module Stepdown
     end
 
     def groupings_top_10
-      groupings[0..10]
+      groupings[0...10]
     end
 
     def groupings
@@ -94,11 +94,11 @@ module Stepdown
     end
 
     def usages_top_10
-      usages[0..10]
+      usages[0...10]
     end
 
     def usages_rest
-      usages[10..step_usages.length]
+      usages[10..usages.length]
     end
 
     def step_usages
@@ -110,19 +110,19 @@ module Stepdown
     end
 
     def unused_rest
-      unused_steps[10..unused_steps.length]
+      unused[10..unused.length]
     end
 
     def unused_top_10
-      unused_steps[0..10]
+      unused[0...10]
     end
 
-    def unused_steps
+    def unused
       step_usages.select{|use| use.total_usage == 0}
     end
 
     def unused_step_count
-      unused_steps.length
+      unused.length
     end
 
     def uniq_steps_per_scenario(scenarios)
@@ -145,14 +145,14 @@ module Stepdown
     end
 
     def empty_rest
-      empty_scenarios[10..empty_scenarios.length]
+      empty[10..empty.length]
     end
 
     def empty_top_10
-      empty_scenarios[0..10]
+      empty[0...10]
     end
 
-    def empty_scenarios
+    def empty
       @empty_scenarios ||= @scenarios.select do |scen|
         scen.steps.empty?
       end

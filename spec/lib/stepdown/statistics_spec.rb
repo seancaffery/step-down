@@ -178,7 +178,7 @@ describe Stepdown::Statistics do
     end
 
     it "should return unused steps" do
-      @reporter.unused_steps.should =~ [@use_3]
+      @reporter.unused.should =~ [@use_3]
     end
 
     it "should return the number of unused steps" do
@@ -194,7 +194,7 @@ describe Stepdown::Statistics do
 
       @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
-      @reporter.empty_scenarios().should == [scen_1,scen_2]
+      @reporter.empty().should == [scen_1,scen_2]
     end
 
     it "should not return scenarios with steps" do
@@ -205,7 +205,33 @@ describe Stepdown::Statistics do
 
       @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
-      @reporter.empty_scenarios().should == [scen_2]
+      @reporter.empty().should == [scen_2]
+    end
+
+  end
+
+  describe "report helpers" do
+    before :each do
+      @top_10 = [1,2,3,4,5,6,7,8,9,10]
+      @rest = [11,12]
+      @all = @top_10 + @rest
+      @stats = Stepdown::Statistics.new([], mock('step_collection'))
+    end
+
+    methods = ["groupings", "usages", "empty", "unused"] 
+
+    methods.each do |method|
+      it "should return the top 10 #{method}" do 
+        @stats.should_receive(method.to_sym).and_return(@all)
+        @stats.send("#{method}_top_10".to_sym).should eql @top_10
+      end
+    end
+    
+    methods.each do |method|
+      it "should return the rest of #{method}" do 
+        @stats.stub!(method.to_sym).and_return(@all)
+        @stats.send("#{method}_rest".to_sym).should eql @rest
+      end
     end
 
   end

@@ -223,7 +223,7 @@ describe Stepdown::Statistics do
     methods.each do |method|
       it "should return the top 10 #{method}" do 
         @stats.should_receive(method.to_sym).and_return(@all)
-        @stats.send("#{method}_top_10".to_sym).should eql @top_10
+        @stats.send("#{method}_top".to_sym).should eql @top_10
       end
     end
     

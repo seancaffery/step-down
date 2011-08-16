@@ -89,7 +89,7 @@
             %th Scenarios
             %th Use per scenario
 
-            - usages_top_10.each do |use|
+            - usages_top(10).each do |use|
               %tr
                 %td= use.step.regex.inspect
                 %td= use.total_usage
@@ -105,7 +105,7 @@
           %tbody
             %th Step
 
-            - unused_top_10.each do |use|
+            - unused_top(10).each do |use|
               %tr
                 %td= use.step.regex.inspect
             %tr
@@ -117,7 +117,7 @@
           %tbody
             %th Scenarios
 
-            - empty_top_10.each do |scen|
+            - empty_top(10).each do |scen|
               %tr
                 %td= scen.name  
             %tr
@@ -130,7 +130,7 @@
             %th Step
             %th Total step associations
 
-            - groupings_top_10.each_with_index do |grouping, i|
+            - groupings_top(10).each_with_index do |grouping, i|
               - next if grouping.use_count == 0
               %tr
                 %td

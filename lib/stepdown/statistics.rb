@@ -30,8 +30,8 @@ module Stepdown
       groupings[10..groupings.length]
     end
 
-    def groupings_top_10
-      groupings[0...10]
+    def groupings_top(limit = 10)
+      groupings[0...limit]
     end
 
     def groupings
@@ -93,8 +93,8 @@ module Stepdown
       usages.sort{|a,b| b.total_usage <=> a.total_usage}
     end
 
-    def usages_top_10
-      usages[0...10]
+    def usages_top(limit = 10)
+      usages[0...limit]
     end
 
     def usages_rest
@@ -113,8 +113,8 @@ module Stepdown
       unused[10..unused.length]
     end
 
-    def unused_top_10
-      unused[0...10]
+    def unused_top(limit = 10)
+      unused[0...limit]
     end
 
     def unused
@@ -148,8 +148,8 @@ module Stepdown
       empty[10..empty.length]
     end
 
-    def empty_top_10
-      empty[0...10]
+    def empty_top(limit = 10)
+      empty[0...limit]
     end
 
     def empty

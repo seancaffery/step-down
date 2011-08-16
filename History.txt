@@ -1,3 +1,7 @@
+== 0.6.3 2011-08-16
+* update dependant gems, be less restrictive on versions
+* adjust statistics interface to improve metric_fu integration
+
 == 0.6.2 2011-06-26
 * Only show top 10 items on page load
 

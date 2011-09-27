@@ -1,7 +1,6 @@
 .idea/
 .sass-cache
 *.html
-*.css
 *.rbc
 *.gem
 .rvmrc

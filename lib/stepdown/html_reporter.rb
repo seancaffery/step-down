@@ -1,7 +1,6 @@
 require 'fileutils'
 require 'stepdown/reporter'
 require 'haml'
-require 'sass'
 
 module Stepdown
   class HTMLReporter < Reporter
@@ -12,14 +11,6 @@ module Stepdown
       copy_files
 
       ["index", "_unused", "_grouping", "_empty", "_usages"].each{ |template| write_html(template) }
-
-      template = File.open(File.expand_path(File.dirname(__FILE__))  + '/../../templates/style.sass').read
-      sass_engine = Sass::Engine.new(template)
-
-      out = File.new(Stepdown.output_directory + '/style.css', 'w+')
-      out.puts sass_engine.render
-
-      out.close
 
       puts "\nReport output to #{Stepdown.output_directory}/index.html" unless Stepdown.quiet
     end
@@ -36,7 +27,7 @@ module Stepdown
     end
 
     def copy_files
-      ['step_down.js', 'jquery-1.6.1.min.js', 'bluff-min.js', 'excanvas.js', 'js-class.js'].each do |file|
+      ['step_down.js', 'jquery-1.6.1.min.js', 'bluff-min.js', 'excanvas.js', 'js-class.js', 'stepdown.css'].each do |file|
         src = File.expand_path("#{File.dirname(__FILE__)}/../../public/#{file}")
         FileUtils.cp(src, File.join(Stepdown.output_directory, "#{file}"))
       end

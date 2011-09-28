@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+  <head>
+    <title> Stepdown - Cucumber feature analysis</title>
+    <link type='text/css' rel='stylesheet' href='stepdown.css'></link>
+    <script src='jquery-1.6.1.min.js'></script>
+    <script src='js-class.js'></script>
+    <script src='bluff-min.js'></script>
+    <script src='excanvas.js'></script>
+    <script src='step_down.js'></script>
+  </head>
+  <body>
+    <div id='page_container'>
+      <div id='header'>
+        <h1> Cucumber analysis</h1>
+      </div>
+      <div id='navigation'>
+        <ul>
+          <li>
+          <a href='#overview'> Overview</a>
+          </li>
+          <li>
+            <a href='#trend'> Trend</a>
+          </li>
+          <li>
+            <a href='#usage'> Step usage</a>
+          </li>
+          <li>
+            <a href='#unused'> Unused steps</a>
+          </li>
+          <li>
+            <a href='#empty'> Empty scenarios</a>
+          </li>
+          <li>
+            <a href='#grouping'> Step grouping</a>
+          </li>
+        </ul>
+      </div>
+      <div id='content'>
+        <h2>
+          <a name='overview'> Overview</a>
+        </h2>
+        <table>
+          <tbody>
+            <tr>
+              <th> Stat</th>
+              <th> Result</th>
+            </tr>
+            <tr>
+              <td> Total number of scenarios</td>
+              <td><%= total_scenarios %></td>
+            </tr>
+            <tr>
+              <td> Total number of steps</td>
+              <td><%= total_steps %></td>
+            </tr>
+            <tr>
+              <td> Unused steps</td>
+              <td><%= unused_step_count %></td>
+            </tr>
+            <tr>
+              <td> Steps per scenario</td>
+              <td><%= steps_per_scenario %></td>
+            </tr>
+            <tr>
+              <td> Unique steps per scenario</td>
+              <td><%= unique_steps %></td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>
+          <a name='trend'> Trend</a>
+        </h2>
+        <div>
+          <canvas id='graph'></canvas>
+        </div>
+
+        <h2>
+          <a name='usage'> Step usages</a>
+        </h2>
+        <div>
+          Filter
+          <br />
+          Usage
+          <select id='use_filter'>
+            <option> All
+            <option value='20'> >20</option>
+            <option value='<50'> >50</option>
+            <option value='<75'> >75</option>
+            <option value='<100'> >100</option>
+            <option value='<200'> >200</option>
+            <option value='<300'> >300</option>
+          </select>
+          Scenarios
+          Usage
+          <select id='scenario_filter'>
+            <option> All
+            <option value='<10'> >10</option>
+            <option value='<20'> >20</option>
+            <option value='<50'> >50</option>
+            <option value='<75'> >75</option>
+            <option value='<100'> >100</option>
+            <option value='<200'> >200</option>
+            <option value='<300'> >300</option>
+          </select>
+        </div>
+        <table id='usages'>
+          <tbody>
+            <tr>
+              <th> Step</th>
+              <th> Total usage</th>
+              <th> Scenarios</th>
+              <th> Use per scenario</th>
+            </tr>
+
+            <% usages_top(10).each do |use| %>
+              <tr>
+                <td><%= use.step.regex.inspect %></td>
+                <td><%= use.total_usage %></td>
+                <td><%= use.number_scenarios %></td>
+                <td><%= use.use_scenario %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan='4'>
+                <a href="#" class="more" partial='usages'>See all</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>
+          <a name='unused'> Unused steps</a>
+        </h2>
+        <table id='unused'>
+          <tbody>
+            <th> Step</th>
+
+              <% unused_top(10).each do |use| %>
+                <tr>
+                  <td><%= use.step.regex.inspect %></td>
+                </tr>
+              <% end %>
+            <tr>
+              <td colspan='4'>
+                <a href="#" class="more" partial='unused'>See all</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>
+          <a name='empty'> Empty scenarios</a>
+        </h2>
+        <table id='empty'>
+          <tbody>
+            <th> Scenarios</th>
+
+            <% empty_top(10).each do |scen| %>
+              <tr>
+                <td><%= scen.name %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan='4'>
+                <a href="#" class="more" partial='empty'>See all</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>
+          <a name='grouping'> Step grouping</a>
+        </h2>
+        <table id='grouping'>
+          <tbody>
+            <th> Step</th>
+            <th> Total step associations</th>
+
+            <% groupings_top(10).each_with_index do |grouping, i| 
+               next if grouping.use_count == 0 %>
+              <tr>
+                <td>
+                  <%= grouping.regex.inspect %>
+                  <br />
+                  <a href='#' class="g<%=i %>">Show associated steps</a>
+                </td>
+                <td><%= grouping.use_count %></td>
+              </tr>
+              <tr class="g<%= i %>" style="display: none;">
+                <td colspan='2'>
+                  <table>
+                    <tr>
+                      <th> Association count</th>
+                      <th> Step</th>
+                    </tr>
+                    <tbody>
+                      <% grouping.step_collection.each do |step| %>
+                        <tr>
+                          <td><%= step.count %></td>
+                          <td><%= CGI.escapeHTML(step.regex.inspect) %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <td colspan="4">
+                <a href="#" class="more" partial='grouping'>See all</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    <script src='stepdown.js'></script>
+  </body>
+</html>
+

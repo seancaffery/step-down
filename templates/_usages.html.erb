@@ -1,0 +1,8 @@
+<% usages_rest.each do |use| %>
+  <tr>
+    <td><%= use.step.regex.inspect %></td>
+    <td><%= use.total_usage %></td>
+    <td><%= use.number_scenarios %></td>
+    <td><%= use.use_scenario %></td>
+  </tr>
+<% end %>

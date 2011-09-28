@@ -8,21 +8,22 @@ module Stepdown
     def output_overview()
       puts "Generating report..." unless Stepdown.quiet
       FileUtils.mkdir_p(Stepdown.output_directory)
-      copy_files
+      copy_files()
 
-      ["index", "_unused", "_grouping", "_empty", "_usages"].each{ |template| write_html(template) }
+      ["index", "_empty", "_unused", "_grouping", "_usages"].each { |template| write_html_from_erb(template) }
 
       puts "\nReport output to #{Stepdown.output_directory}/index.html" unless Stepdown.quiet
     end
 
     protected
 
-    def write_html(template)
-      file = File.open(File.expand_path(File.dirname(__FILE__)) + "/../../templates/#{template}.html.haml").read()
-      engine = Haml::Engine.new(file)
+    def write_html_from_erb(template)
+      file = File.open(File.expand_path(File.dirname(__FILE__)) + "/../../templates/#{template}.html.erb")
+      erb = ERB.new(file.read())
 
+      file.close
       out = File.new(Stepdown.output_directory + "/#{template}.html",'w+')
-      out.puts engine.render(self)
+      out.puts erb.result(binding())
       out.close
     end
 

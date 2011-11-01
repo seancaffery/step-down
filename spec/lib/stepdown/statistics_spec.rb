@@ -234,6 +234,13 @@ describe Stepdown::Statistics do
       end
     end
 
+    methods.each do |method|
+      it "should not break if there are not enough elements for a requested collection" do
+        @stats.stub!(method.to_sym).and_return([])
+        @stats.send("#{method}_rest".to_sym).should be_empty
+      end
+    end
+
   end
 
 end

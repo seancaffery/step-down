@@ -27,7 +27,7 @@ module Stepdown
     end
 
     def groupings_rest
-      groupings[10..groupings.length]
+      groupings[10..groupings.length] || []
     end
 
     def groupings_top(limit = 10)
@@ -98,7 +98,7 @@ module Stepdown
     end
 
     def usages_rest
-      usages[10..usages.length]
+      usages[10..usages.length] || []
     end
 
     def step_usages
@@ -110,7 +110,7 @@ module Stepdown
     end
 
     def unused_rest
-      unused[10..unused.length]
+      unused[10..unused.length] || []
     end
 
     def unused_top(limit = 10)
@@ -145,7 +145,7 @@ module Stepdown
     end
 
     def empty_rest
-      empty[10..empty.length]
+      empty[10..empty.length] || []
     end
 
     def empty_top(limit = 10)

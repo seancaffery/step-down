@@ -1,6 +1,5 @@
 require 'fileutils'
 require 'stepdown/reporter'
-require 'haml'
 
 module Stepdown
   class HTMLReporter < Reporter

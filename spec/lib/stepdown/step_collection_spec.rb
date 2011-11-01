@@ -75,4 +75,19 @@ describe Stepdown::StepCollection do
     end
   end
 
+  describe "returning steps" do
+    it "should return elements in the order that they are added" do
+
+      @collection = Stepdown::StepCollection.new
+
+      ids = [100, 42, 60]
+      @collection.add_step(100, /step 1/)
+      @collection.add_step(42, /step 2/)
+      @collection.add_step(60, /step 3/)
+
+      @collection.each_with_index{|step, i| step.id.should == ids[i] }
+    end
+  end
+
+
 end

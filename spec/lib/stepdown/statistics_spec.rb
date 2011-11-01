@@ -76,9 +76,9 @@ describe Stepdown::Statistics do
 
       reporter.groupings[0].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
       reporter.groupings[1].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
-      reporter.groupings[2].step_collection.should =~ [@s1,@s2,@s5]
+      reporter.groupings[2].step_collection.should =~ [@s1,@s2,@s3,@s4]
       reporter.groupings[3].step_collection.should =~ [@s1,@s2,@s3,@s4]
-      reporter.groupings[4].step_collection.should =~ [@s1,@s2,@s3,@s4]
+      reporter.groupings[4].step_collection.should =~ [@s1,@s2,@s5]
 
     end
 

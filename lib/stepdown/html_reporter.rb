@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'stepdown/reporter'
+require 'erb'
 
 module Stepdown
   class HTMLReporter < Reporter

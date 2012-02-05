@@ -49,7 +49,7 @@ describe Stepdown::Analyzer do
       Stepdown::YamlWriter.should_receive(:write).with(anything)
       Stepdown::Graph.should_receive(:create_graph)
 
-      @analyzer.analyse
+      @analyzer.analyze
     end
   end
   

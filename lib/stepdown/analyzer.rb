@@ -8,7 +8,7 @@ module Stepdown
       @reporter = reporter
     end
 
-    def analyse
+    def analyze
       scenarios = collect_scenarios
 
       stats = Statistics.new(scenarios, instance.step_collection)

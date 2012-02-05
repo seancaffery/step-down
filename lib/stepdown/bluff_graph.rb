@@ -1,7 +1,7 @@
 require 'json'
 require 'date'
 module Stepdown
-  class Graph
+  class BluffGraph
     BLUFF_GRAPH_SIZE = "890x400"
     BLUFF_DEFAULT_OPTIONS = <<-EOS
       var g = new Bluff.Line('graph', "#{BLUFF_GRAPH_SIZE}");

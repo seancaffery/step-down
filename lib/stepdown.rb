@@ -4,7 +4,7 @@ require 'stepdown/html_reporter'
 require 'stepdown/text_reporter'
 require 'stepdown/statistics'
 require 'stepdown/yaml_writer'
-require 'stepdown/graph'
+require 'stepdown/bluff_graph'
 require 'stepdown/analyzer'
 
 require 'rubygems'

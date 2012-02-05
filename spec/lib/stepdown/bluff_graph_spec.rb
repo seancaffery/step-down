@@ -1,23 +1,23 @@
 require 'spec_helper'
-require 'stepdown/graph'
+require 'stepdown/bluff_graph'
 require 'stepdown'
 
-describe Stepdown::Graph do
+describe Stepdown::BluffGraph do
 
   describe "collecting stats" do
 
     before :each do
       stats = [{:no_scen => 10, :unused => 2, :label => "label 1"}, 
                {:no_scen => 20, :unused => 3, :label => "label 2"}]
-      Stepdown::Graph.stub!(:load_stats).and_return(stats)
+      Stepdown::BluffGraph.stub!(:load_stats).and_return(stats)
     end
 
     it "should return the labels associated with a stat set" do
-      Stepdown::Graph.collect_stats[1].should == ["label 1", "label 2"]
+      Stepdown::BluffGraph.collect_stats[1].should == ["label 1", "label 2"]
     end
 
     it "should break collect group stats based on given keys" do
-      Stepdown::Graph.collect_stats[0].should == {:no_scen=>[10, 20], 
+      Stepdown::BluffGraph.collect_stats[0].should == {:no_scen=>[10, 20],
                                                   :unused=>[2, 3], 
                                                   :label=>["label 1", "label 2"]}
     end
@@ -26,13 +26,13 @@ describe Stepdown::Graph do
 
   describe "creating a label from a file name" do
     it "should return day/month" do
-      Stepdown::Graph.date_from_file_name("20110512.yml").should == "12 / 5"
+      Stepdown::BluffGraph.date_from_file_name("20110512.yml").should == "12 / 5"
     end
   end
 
   describe "loading stat files" do
     Stepdown.output_directory = File.dirname(__FILE__) + '/../../fixtures'
-    stats = Stepdown::Graph.load_stats
+    stats = Stepdown::BluffGraph.load_stats
     stats.should == [{:number_scenarios=>[685],
                       :total_steps=>[531],
                       :steps_per_scenario=>["12.91"],
@@ -62,8 +62,8 @@ describe Stepdown::Graph do
       io = StringIO.new
       File.stub!(:open).with(anything, anything).and_yield(io)
 
-      Stepdown::Graph.should_receive(:collect_stats).and_return([stats, labels])
-      Stepdown::Graph.const_set(:BLUFF_DEFAULT_OPTIONS, "DEFAULT")
+      Stepdown::BluffGraph.should_receive(:collect_stats).and_return([stats, labels])
+      Stepdown::BluffGraph.const_set(:BLUFF_DEFAULT_OPTIONS, "DEFAULT")
       expected_graph =  <<-GRAPH
         DEFAULT
         g.title = 'Stepdown';
@@ -74,7 +74,7 @@ describe Stepdown::Graph do
         g.labels = {"0":"12 / 6"};
         g.draw();
       GRAPH
-      Stepdown::Graph.create_graph.string.should == expected_graph
+      Stepdown::BluffGraph.create_graph.string.should == expected_graph
 
     end
   end

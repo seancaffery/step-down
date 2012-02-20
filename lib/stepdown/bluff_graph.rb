@@ -4,7 +4,7 @@ require 'stepdown/graph'
 
 module Stepdown
   class BluffGraph
-    include Stepdown::Graph
+    extend Stepdown::Graph
 
     BLUFF_GRAPH_SIZE = "890x400"
     BLUFF_DEFAULT_OPTIONS = <<-EOS
@@ -17,7 +17,7 @@ module Stepdown
     EOS
 
     def self.create_graph
-      stats, labels = collect_stats
+      stats, labels = self.collect_stats
       label_set = {}
       labels.each_with_index do |label, i|
         label_set.update({i => label})

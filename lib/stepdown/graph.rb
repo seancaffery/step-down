@@ -2,7 +2,7 @@
 module Stepdown
   module Graph
 
-    def self.collect_stats
+    def collect_stats
       stats = Hash.new {|hsh, key| hsh[key] = [] }
       labels = []
 
@@ -14,7 +14,7 @@ module Stepdown
       [stats, labels]
     end
 
-    def self.load_stats
+    def load_stats
       stat_collection = []
       Dir.glob("#{Stepdown.output_directory}/*.yml").sort.each do |file_name|
         stats = Hash.new {|hsh, key| hsh[key] = [] }
@@ -33,7 +33,7 @@ module Stepdown
       stat_collection
     end
 
-    def self.date_from_file_name(file_name)
+    def date_from_file_name(file_name)
       label_date = Date.strptime(file_name.match(/(\d+)/)[1], "%Y%m%d")
       "#{label_date.day} / #{label_date.month}"
     end

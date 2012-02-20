@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('gherkin', '> 2.3')
   s.add_dependency('bundler', '> 1.0')
+  s.add_dependency('googlecharts', '~> 1.6.0')
   s.add_development_dependency('rspec', "> 2.5")
   s.add_development_dependency('sass', "> 3.1")
   s.add_development_dependency('rake')

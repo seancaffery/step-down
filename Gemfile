@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'gherkin', '> 2.3'
 gem 'bundler', '> 1.0'
+gem 'googlecharts', '~> 1.6.0'
 
 group :development,:test do
   gem 'rake'

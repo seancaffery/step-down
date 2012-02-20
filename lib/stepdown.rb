@@ -5,6 +5,7 @@ require 'stepdown/text_reporter'
 require 'stepdown/statistics'
 require 'stepdown/yaml_writer'
 require 'stepdown/bluff_graph'
+require 'stepdown/google_chart'
 require 'stepdown/analyzer'
 
 require 'rubygems'

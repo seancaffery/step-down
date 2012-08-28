@@ -6,6 +6,7 @@ describe Stepdown::BluffGraph do
 
   describe "creating a bluff graph" do
     it "should turn given stats into bluff json" do
+      Stepdown.output_directory = File.dirname(__FILE__) + '/../../fixtures'
 
       labels = ['12 / 6']
       stats = {:number_scenarios=>[690],

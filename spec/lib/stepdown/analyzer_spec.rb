@@ -47,7 +47,7 @@ describe Stepdown::Analyzer do
       
       Stepdown::Statistics.stub!(:new).with([], instance.step_collection).and_return(stats)
       Stepdown::YamlWriter.should_receive(:write).with(anything)
-      Stepdown::BluffGraph.should_receive(:create_graph)
+      Stepdown::FlotGraph.should_receive(:create_graph)
 
       @analyzer.analyze
     end

@@ -33,7 +33,7 @@ describe Stepdown::Graph do
 
   describe "creating a label from a file name" do
     it "should return day/month" do
-      @fixture.date_from_file_name("20110512.yml").should == "12 / 5"
+      @fixture.date_from_file_name("20110512.yml").should == "12/5"
     end
   end
 
@@ -44,12 +44,12 @@ describe Stepdown::Graph do
       stats.should == [{:number_scenarios=>[685],
                         :total_steps=>[531],
                         :steps_per_scenario=>["12.91"],
-                        :label=>"11 / 6",
+                        :label=>"11/6",
                         :unused_steps=>[123]},
                        {:number_scenarios=>[690],
                         :total_steps=>[533],
                         :steps_per_scenario=>["12.50"],
-                        :label=>"12 / 6",
+                        :label=>"12/6",
                         :unused_steps=>[123]}]
 
       stats.length.should == 2

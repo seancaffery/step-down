@@ -4,6 +4,7 @@
   <head>
     <title> Stepdown - Cucumber feature analysis</title>
     <link type='text/css' rel='stylesheet' href='stepdown.css'></link>
+    <link type='text/css' rel='stylesheet' href='bootstrap.min.css'></link>
     <script src='jquery-1.6.1.min.js'></script>
     <script src='js-class.js'></script>
     <script src='bluff-min.js'></script>
@@ -11,37 +12,46 @@
     <script src='step_down.js'></script>
   </head>
   <body>
-    <div id='page_container'>
+    <div class='container'>
       <div id='header'>
         <h1> Cucumber analysis</h1>
       </div>
-      <div id='navigation'>
-        <ul>
+      <div class='navbar'>
+        <div class='navbar-inner'>
+        <ul class='nav'>
+          <li class="divider-vertical"></li>
           <li>
           <a href='#overview'> Overview</a>
           </li>
+          <li class="divider-vertical"></li>
           <li>
             <a href='#trend'> Trend</a>
           </li>
+          <li class="divider-vertical"></li>
           <li>
             <a href='#usage'> Step usage</a>
           </li>
+          <li class="divider-vertical"></li>
           <li>
             <a href='#unused'> Unused steps</a>
           </li>
+          <li class="divider-vertical"></li>
           <li>
             <a href='#empty'> Empty scenarios</a>
           </li>
+          <li class="divider-vertical"></li>
           <li>
             <a href='#grouping'> Step grouping</a>
           </li>
+          <li class="divider-vertical"></li>
         </ul>
+      </div>
       </div>
       <div id='content'>
         <h2>
           <a name='overview'> Overview</a>
         </h2>
-        <table>
+        <table class='table table-condensed table-bordered' style='width: 400px'>
           <tbody>
             <tr>
               <th> Stat</th>
@@ -68,14 +78,12 @@
               <td><%= unique_steps %></td>
             </tr>
           </tbody>
-        </table>
-        <h2>
+          </table>
+          <h2>
           <a name='trend'> Trend</a>
         </h2>
-        <div>
-          <canvas id='graph'></canvas>
+        <div id='blah' style="width:890px;height:400px">
         </div>
-
         <h2>
           <a name='usage'> Step usages</a>
         </h2>
@@ -105,7 +113,7 @@
             <option value='<300'> >300</option>
           </select>
         </div>
-        <table id='usages'>
+        <table id='usages' class='table table-condensed table-bordered'>
           <tbody>
             <tr>
               <th> Step</th>
@@ -133,7 +141,7 @@
         <h2>
           <a name='unused'> Unused steps</a>
         </h2>
-        <table id='unused'>
+        <table id='unused' class='table table-condensed table-bordered'>
           <tbody>
             <th> Step</th>
 
@@ -152,7 +160,7 @@
         <h2>
           <a name='empty'> Empty scenarios</a>
         </h2>
-        <table id='empty'>
+        <table id='empty' class='table table-condensed table-bordered'>
           <tbody>
             <th> Scenarios</th>
 
@@ -171,7 +179,7 @@
         <h2>
           <a name='grouping'> Step grouping</a>
         </h2>
-        <table id='grouping'>
+        <table id='grouping' class='table table-condensed table-bordered'>
           <tbody>
             <th> Step</th>
             <th> Total step associations</th>
@@ -188,7 +196,7 @@
               </tr>
               <tr class="g<%= i %>" style="display: none;">
                 <td colspan='2'>
-                  <table>
+                  <table class='table table-condensed table-bordered'>
                     <tr>
                       <th> Association count</th>
                       <th> Step</th>

@@ -35,7 +35,7 @@ module Stepdown
 
     def date_from_file_name(file_name)
       label_date = Date.strptime(file_name.match(/(\d+)/)[1], "%Y%m%d")
-      "#{label_date.day} / #{label_date.month}"
+      "#{label_date.day}/#{label_date.month}"
     end
 
   end

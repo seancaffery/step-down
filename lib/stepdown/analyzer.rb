@@ -18,7 +18,7 @@ module Stepdown
       reporter.output_overview
 
       Stepdown::YamlWriter.write(stats)
-      Stepdown::BluffGraph.create_graph
+      Stepdown::FlotGraph.create_graph
     end
 
     def collect_scenarios

@@ -28,7 +28,8 @@ module Stepdown
     end
 
     def copy_files
-      ['step_down.js', 'jquery-1.6.1.min.js', 'bluff-min.js', 'excanvas.js', 'js-class.js', 'stepdown.css', 'bootstrap.min.css'].each do |file|
+      ['step_down.js', 'jquery-1.6.1.min.js', 'bluff-min.js', 'excanvas.js',
+       'js-class.js', 'stepdown.css', 'bootstrap.min.css', 'jquery.flot.min.js'].each do |file|
         src = File.expand_path("#{File.dirname(__FILE__)}/../../public/#{file}")
         FileUtils.cp(src, File.join(Stepdown.output_directory, "#{file}"))
       end

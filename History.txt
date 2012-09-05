@@ -1,3 +1,11 @@
+== 0.7.0 2012-09-05
+* Improve look with Twitter bootstrap
+* Move graph to flot
+* Fix additional row loading in Chrome
+
+== 0.6.5 2012-02-20
+* Interal restructure, code clean up
+
 == 0.6.4 2011-10-06
 * remove HAML, SASS requirement
 * fix broken steps on 1.9.2

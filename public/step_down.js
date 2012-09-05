@@ -1,4 +1,7 @@
-
+var usages = 11;
+var unused = 11;
+var empty = 11;
+var grouping = 11;
 $(document).ready(function(){
 
   $("#use_filter").change(function(){
@@ -10,19 +13,41 @@ $(document).ready(function(){
   });
 
   $("a[class*=g]").click(function() {
-    $('.' + this.getAttribute("class")).show();
+    $('div.' + this.getAttribute("class")).toggle();
+    $('.' + this.getAttribute("class") + ' tr').show();
     return false;
   });
 
-  $(".more").click(function(e){
-    link = $(this);
-    partial = link.attr("partial");
-    $.get('_' + partial + '.html',function(data){
-      link.parents("tr").before(data);
-      link.parents("tr").remove();
-    }, 'html');
+  $('#usages tr').hide();
+  $('#unused tr').hide();
+  $('#empty tr').hide();
+  $('#grouping tr').hide();
+
+  $("#usages").next(".more").click(function(e){
+    $('#usages tr:lt('+ usages +')').show();
+    usages += 10;
     return false;
   });
+
+  $("#unused").next(".more").click(function(e){
+    $('#unused tr:lt('+ unused +')').show();
+    unused += 10;
+    return false;
+  });
+
+  $("#empty").next(".more").click(function(e){
+    $('#empty tr:lt('+ empty +')').show();
+    empty += 10;
+    return false;
+  });
+
+  $("#grouping").next(".more").click(function(e){
+    $('#grouping tr.grouping_row:lt('+ grouping +')').show();
+    grouping += 10;
+    return false;
+  });
+
+  $(".more").click();
 
 });
 

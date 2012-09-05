@@ -123,7 +123,7 @@
               <th> Use per scenario</th>
             </tr>
 
-            <% usages_top(10).each do |use| %>
+            <% usages.each do |use| %>
               <tr>
                 <td><%= use.step.regex.inspect %></td>
                 <td><%= use.total_usage %></td>
@@ -131,13 +131,9 @@
                 <td><%= use.use_scenario %></td>
               </tr>
             <% end %>
-            <tr>
-              <td colspan='4'>
-                <a href="#" class="more" partial='usages'>See all</a>
-              </td>
-            </tr>
           </tbody>
         </table>
+        <p class="more"><a href="#">Show more</a></p>
 
         <h2>
           <a name='unused'> Unused steps</a>
@@ -146,18 +142,15 @@
           <tbody>
             <th> Step</th>
 
-              <% unused_top(10).each do |use| %>
+              <% unused.each do |use| %>
                 <tr>
                   <td><%= use.step.regex.inspect %></td>
                 </tr>
               <% end %>
-            <tr>
-              <td colspan='4'>
-                <a href="#" class="more" partial='unused'>See all</a>
-              </td>
-            </tr>
           </tbody>
         </table>
+        <p class="more"><a href="#">Show more</a></p>
+
         <h2>
           <a name='empty'> Empty scenarios</a>
         </h2>
@@ -165,18 +158,15 @@
           <tbody>
             <th> Scenarios</th>
 
-            <% empty_top(10).each do |scen| %>
+            <% empty.each do |scen| %>
               <tr>
                 <td><%= scen.name %></td>
               </tr>
             <% end %>
-            <tr>
-              <td colspan='4'>
-                <a href="#" class="more" partial='empty'>See all</a>
-              </td>
-            </tr>
           </tbody>
         </table>
+        <p class="more"><a href="#">Show more</a></p>
+
         <h2>
           <a name='grouping'> Step grouping</a>
         </h2>
@@ -185,42 +175,37 @@
             <th> Step</th>
             <th> Total step associations</th>
 
-            <% groupings_top(10).each_with_index do |grouping, i| 
+            <% groupings.each_with_index do |grouping, i|
                next if grouping.use_count == 0 %>
-              <tr>
+              <tr class='grouping_row'>
                 <td>
                   <%= grouping.regex.inspect %>
                   <br />
-                  <a href='#' class="g<%=i %>">Show associated steps</a>
+                  <a href='#' class="g<%=i %>">Associated steps</a>
+                  <br />
+                  <div class="assoc_steps g<%=i %>" style='display:none;'>
+                    <table class='table table-condensed table-bordered'>
+                      <tbody>
+                      <tr>
+                        <th> Association count</th>
+                        <th> Step</th>
+                      </tr>
+                        <% grouping.step_collection.each do |step| %>
+                          <tr>
+                            <td><%= step.count %></td>
+                            <td><%= CGI.escapeHTML(step.regex.inspect) %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
                 </td>
                 <td><%= grouping.use_count %></td>
               </tr>
-              <tr class="g<%= i %>" style="display: none;">
-                <td colspan='2'>
-                  <table class='table table-condensed table-bordered'>
-                    <tr>
-                      <th> Association count</th>
-                      <th> Step</th>
-                    </tr>
-                    <tbody>
-                      <% grouping.step_collection.each do |step| %>
-                        <tr>
-                          <td><%= step.count %></td>
-                          <td><%= CGI.escapeHTML(step.regex.inspect) %></td>
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
             <% end %>
-            <tr>
-              <td colspan="4">
-                <a href="#" class="more" partial='grouping'>See all</a>
-              </td>
-            </tr>
           </tbody>
         </table>
+        <p class="more"><a href="#">Show more</a></p>
     <script src='stepdown.js'></script>
   </body>
 </html>

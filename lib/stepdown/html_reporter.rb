@@ -10,7 +10,7 @@ module Stepdown
       FileUtils.mkdir_p(Stepdown.output_directory)
       copy_files()
 
-      ["index", "_empty", "_unused", "_grouping", "_usages"].each { |template| write_html_from_erb(template) }
+      write_html_from_erb('index')
 
       puts "\nReport output to #{Stepdown.output_directory}/index.html" unless Stepdown.quiet
     end

@@ -20,7 +20,7 @@ describe Stepdown::BluffGraph do
       File.stub!(:open).with(anything, anything).and_yield(io)
 
       Stepdown::BluffGraph.should_receive(:collect_stats).and_return([stats, labels])
-      Stepdown::BluffGraph.const_set(:BLUFF_DEFAULT_OPTIONS, "DEFAULT")
+      stub_const("Stepdown::BluffGraph::BLUFF_DEFAULT_OPTIONS", "DEFAULT")
       expected_graph =  <<-GRAPH
         DEFAULT
         g.title = 'Stepdown';

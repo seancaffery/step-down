@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>Stepdown - A Cucumber analysis tool</title>
-    <link href='styles/style.css' rel='stylesheet' type='text/css' />
+    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css' />
   </head>
   <body>
-    <div id='container'>
+    <div class='container'>
       <div id='header'>
         <h1>Stepdown</h1>
       </div>
@@ -22,7 +22,7 @@
       <div id='content'>
         <h2>Overview</h2>
         <p>
-          The aim of Stepdown is to provide visability to highly used steps within you Cucumber feature files.
+          The aim of Stepdown is to provide visibility of frequently used steps within you Cucumber feature files.
         </p>
         <h3>Statistics available</h3>
         <ul>
@@ -44,30 +44,29 @@
         <h2>Installation</h2>
         <p>
           Stepdown is available as a Ruby gem
-          <div class='code'>
-            gem install stepdown
-          </div>
+          <pre>
+gem install stepdown
+</pre>
         </p>
         <p>
           Or, add the following to your Gemfile
-          <div class='code'>
-            gem 'stepdown'
-          </div>
+          <pre>
+gem 'stepdown'
+</pre>
         </p>
         <h2>Usage</h2>
         <p>
           From the root folder of your project. This assumes step definitions are in PROJECT_ROOT/features/step_definitions and feature files are in PROJECT_ROOT/features
-          <div class='code'>
-            stepdown
-          </div>
+          <pre>
+stepdown
+</pre>
         </p>
         <p>
           Or, set the the directory parameters manually
-          <div class='code'>
-            stepdown --steps &lt;step definition directory&gt; --features &lt;feature file directory&gt;
-            <br />
-            e.g. stepdown --steps features/step_definitions --features features
-          </div>
+          <pre>
+stepdown --steps &lt;step definition directory&gt; --features &lt;feature file directory&gt;
+e.g. stepdown --steps features/step_definitions --features features
+</pre>
         </p>
         <h2>Sample output</h2>
         <p>

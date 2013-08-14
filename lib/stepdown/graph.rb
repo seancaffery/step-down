@@ -1,3 +1,4 @@
+require 'yaml'
 
 module Stepdown
   module Graph

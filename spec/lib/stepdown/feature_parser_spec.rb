@@ -4,7 +4,7 @@ require 'feature_parser'
 
 describe Stepdown::FeatureParser do
   def stub_line_match_with(instance, line, value)
-    instance.stub!(:line_matches).with(line).and_return(value)
+    instance.stub(:line_matches).with(line).and_return(value)
   end
 
   describe "creating scenarios" do

@@ -17,7 +17,7 @@ describe Stepdown::BluffGraph do
 
       require 'stringio'
       io = StringIO.new
-      File.stub!(:open).with(anything, anything).and_yield(io)
+      File.stub(:open).with(anything, anything).and_yield(io)
 
       Stepdown::BluffGraph.should_receive(:collect_stats).and_return([stats, labels])
       stub_const("Stepdown::BluffGraph::BLUFF_DEFAULT_OPTIONS", "DEFAULT")

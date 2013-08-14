@@ -68,7 +68,7 @@ describe Stepdown::Options do
   describe "validating options" do
     require 'stringio'
     before :each do
-      Dir.stub!(:pwd).and_return("")
+      Dir.stub(:pwd).and_return("")
       @io = StringIO.new
     end
 

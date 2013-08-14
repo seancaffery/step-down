@@ -170,7 +170,7 @@ describe Stepdown::Statistics do
       @use_1.total_usage += 1
       @use_2.total_usage += 1
 
-      @reporter.stub!(:step_usages).and_return([@use_1, @use_2, @use_3])
+      @reporter.stub(:step_usages).and_return([@use_1, @use_2, @use_3])
     end
 
     it "should return used steps" do
@@ -229,14 +229,14 @@ describe Stepdown::Statistics do
     
     methods.each do |method|
       it "should return the rest of #{method}" do 
-        @stats.stub!(method.to_sym).and_return(@all)
+        @stats.stub(method.to_sym).and_return(@all)
         @stats.send("#{method}_rest".to_sym).should eql @rest
       end
     end
 
     methods.each do |method|
       it "should not break if there are not enough elements for a requested collection" do
-        @stats.stub!(method.to_sym).and_return([])
+        @stats.stub(method.to_sym).and_return([])
         @stats.send("#{method}_rest".to_sym).should be_empty
       end
     end

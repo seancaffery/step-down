@@ -27,7 +27,7 @@ describe Stepdown::StepCollection do
 
     it "should add new steps" do
       step = mock("step")
-      Stepdown::Step.stub!(:new).and_return(step)
+      Stepdown::Step.stub(:new).and_return(step)
       step.should_receive(:count=).with(1)
       @collection.add_step(1, /regex/)
       @collection.steps.should ==  [step]

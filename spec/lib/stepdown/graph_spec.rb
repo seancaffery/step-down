@@ -16,7 +16,7 @@ describe Stepdown::Graph do
     before :each do
       stats = [{:no_scen => 10, :unused => 2, :label => "label 1"},
                {:no_scen => 20, :unused => 3, :label => "label 2"}]
-      @fixture.stub!(:load_stats).and_return(stats)
+      @fixture.stub(:load_stats).and_return(stats)
     end
 
     it "should return the labels associated with a stat set" do

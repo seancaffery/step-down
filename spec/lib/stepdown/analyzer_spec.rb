@@ -45,7 +45,7 @@ describe Stepdown::Analyzer do
       @analyzer.should_receive(:reporter).and_return(reporter)
       stats.should_receive(:generate)
       
-      Stepdown::Statistics.stub!(:new).with([], instance.step_collection).and_return(stats)
+      Stepdown::Statistics.stub(:new).with([], instance.step_collection).and_return(stats)
       Stepdown::YamlWriter.should_receive(:write).with(anything)
       Stepdown::FlotGraph.should_receive(:create_graph)
 
@@ -56,11 +56,11 @@ describe Stepdown::Analyzer do
   describe "#process_feature_files" do
     it "should instantiate a bunch of stuff" do
       mock_listener = mock(:listener)
-      @analyzer.stub!(:instance)
+      @analyzer.stub(:instance)
       Stepdown::FeatureParser.should_receive(:new).with(anything).and_return(mock_listener)
       mock_parser = mock(:gherkin_parser)
       Gherkin::Parser::Parser.should_receive(:new).and_return(mock_parser)
-      File.stub!(:read)
+      File.stub(:read)
       mock_parser.should_receive(:parse)
       mock_listener.should_receive(:scenarios)
       @analyzer.process_feature_files(["blah.txt"])

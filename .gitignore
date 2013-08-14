@@ -4,4 +4,5 @@
 *.rbc
 *.gem
 .rvmrc
+.ruby-*
 *.swp

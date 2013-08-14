@@ -9,13 +9,13 @@ describe Stepdown::FeatureParser do
 
   describe "creating scenarios" do
     before :each do
-      instance = mock("instance")
+      instance = double("instance")
       @parser = Stepdown::FeatureParser.new(instance)
     end
 
     it "should create a scenario for a scenario line" do
 
-      scenario = mock("scenario", :name => 'scenario')
+      scenario = double("scenario", :name => 'scenario')
       Stepdown::Scenario.should_receive(:new).and_return(scenario)
       @parser.scenario(scenario)
 
@@ -24,7 +24,7 @@ describe Stepdown::FeatureParser do
  
     it "should create a scenario for a background line" do
 
-      background = mock("background", :name => '')
+      background = double("background", :name => '')
       Stepdown::Scenario.should_receive(:new).and_return(background)
       @parser.background(background)
 
@@ -33,7 +33,7 @@ describe Stepdown::FeatureParser do
 
     it "should create a scenario for a scenario outline" do
 
-      outline = mock("outline", :name => 'outline')
+      outline = double("outline", :name => 'outline')
       Stepdown::Scenario.should_receive(:new).and_return(outline)
       @parser.scenario_outline(outline)
 
@@ -44,9 +44,9 @@ describe Stepdown::FeatureParser do
 
   describe "parsing step lines" do
     before :each do 
-      @step_instance = mock("step_instance")
+      @step_instance = double("step_instance")
       @parser = Stepdown::FeatureParser.new(@step_instance)
-      @parser.scenario(mock('scenario', :name => 'scenario'))
+      @parser.scenario(double('scenario', :name => 'scenario'))
 
     end
 
@@ -67,7 +67,7 @@ describe Stepdown::FeatureParser do
       all_lines = [lines, unmatched_lines].flatten
 
       all_lines.each do |line|
-        @parser.step(mock('step', :name => line))
+        @parser.step(double('step', :name => line))
       end
 
       scenarios = @parser.scenarios
@@ -80,7 +80,7 @@ describe Stepdown::FeatureParser do
       lines.each_with_index do |line, i|
         step = Stepdown::Step.new(i, line)
         stub_line_match_with(@step_instance, line, step)
-        @parser.step(mock('step', :name => line))
+        @parser.step(double('step', :name => line))
         steps << step
       end
 

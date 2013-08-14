@@ -8,30 +8,30 @@ describe Stepdown::Statistics do
 
   describe "returning overall statistics" do
     it "should return the total number of steps" do
-      steps = [mock('step_1'), mock('step_2')]
+      steps = [double('step_1'), double('step_2')]
       reporter = Stepdown::Statistics.new([], steps)
       reporter.total_steps.should == 2
     end
 
     it "should return the total number of scenarios" do
-      scenarios = [mock('scenario_1'), mock('scenario_2')]
+      scenarios = [double('scenario_1'), double('scenario_2')]
       reporter = Stepdown::Statistics.new(scenarios, [])
       reporter.total_scenarios.should == 2
     end
 
     it "should return the number of steps per scenario" do
-      steps = [mock('step_1'), mock('step_2'), mock('step_3')]
-      scenario1 = mock("scenario1", :steps => steps, :step_count => steps.length)
-      scenario2 = mock("scenario2", :steps => [], :step_count => 0)
+      steps = [double('step_1'), double('step_2'), double('step_3')]
+      scenario1 = double("scenario1", :steps => steps, :step_count => steps.length)
+      scenario2 = double("scenario2", :steps => [], :step_count => 0)
 
       reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
       reporter.steps_per_scenario.should == "1.50"
     end
 
     it "should return the number of unique steps per scenario" do
-      steps = [mock('step_1'), mock('step_2'), mock('step_3')]
-      scenario1 = mock("scenario1", :steps => steps, :unique_step_count => 2, :step_count => 3)
-      scenario2 = mock("scenario2", :steps => steps[0...1], :unique_step_count => 1, :step_count => 1)
+      steps = [double('step_1'), double('step_2'), double('step_3')]
+      scenario1 = double("scenario1", :steps => steps, :unique_step_count => 2, :step_count => 3)
+      scenario2 = double("scenario2", :steps => steps[0...1], :unique_step_count => 1, :step_count => 1)
 
       reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
       reporter.unique_steps.should == "1.33"
@@ -161,7 +161,7 @@ describe Stepdown::Statistics do
 
   describe "returing step usage" do
     before :each do
-      @reporter = Stepdown::Statistics.new([], mock('step_colllection'))
+      @reporter = Stepdown::Statistics.new([], double('step_colllection'))
 
       @use_1 = Stepdown::StepUsage.new(Stepdown::Step.new(1,/regex/))
       @use_2 = Stepdown::StepUsage.new(Stepdown::Step.new(2,/regex/))
@@ -215,7 +215,7 @@ describe Stepdown::Statistics do
       @top_10 = [1,2,3,4,5,6,7,8,9,10]
       @rest = [11,12]
       @all = @top_10 + @rest
-      @stats = Stepdown::Statistics.new([], mock('step_collection'))
+      @stats = Stepdown::Statistics.new([], double('step_collection'))
     end
 
     methods = ["groupings", "usages", "empty", "unused"] 

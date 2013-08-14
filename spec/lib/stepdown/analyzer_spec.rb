@@ -15,17 +15,17 @@ describe Stepdown::Analyzer do
   describe "selecting a reporter" do
 
     it "should return an HTML reporter" do
-      reporter = @analyzer.reporter('html', mock('stats'))
+      reporter = @analyzer.reporter('html', double('stats'))
       reporter.should be_instance_of(Stepdown::HTMLReporter)
     end
 
     it "should return a text reporter" do
-      reporter = @analyzer.reporter('text', mock('stats'))
+      reporter = @analyzer.reporter('text', double('stats'))
       reporter.should be_instance_of(Stepdown::TextReporter)
     end
 
     it "should return a quiet reporter" do
-      reporter = @analyzer.reporter('quiet', mock('stats'))
+      reporter = @analyzer.reporter('quiet', double('stats'))
       reporter.should be_instance_of(Stepdown::Reporter)
     end
 
@@ -34,9 +34,9 @@ describe Stepdown::Analyzer do
   describe "#analyse" do
     it "should call the YamlWriter and Graph" do
       features = ["awesome.txt."]
-      instance = mock('instance', :step_collection => [])
-      reporter = mock('reporter')
-      stats = mock('stats')
+      instance = double('instance', :step_collection => [])
+      reporter = double('reporter')
+      stats = double('stats')
       reporter.should_receive(:output_overview)
 
       @analyzer.should_receive(:instance).and_return(instance)
@@ -55,14 +55,14 @@ describe Stepdown::Analyzer do
   
   describe "#process_feature_files" do
     it "should instantiate a bunch of stuff" do
-      mock_listener = mock(:listener)
+      double_listener = double(:listener)
       @analyzer.stub(:instance)
-      Stepdown::FeatureParser.should_receive(:new).with(anything).and_return(mock_listener)
-      mock_parser = mock(:gherkin_parser)
-      Gherkin::Parser::Parser.should_receive(:new).and_return(mock_parser)
+      Stepdown::FeatureParser.should_receive(:new).with(anything).and_return(double_listener)
+      double_parser = double(:gherkin_parser)
+      Gherkin::Parser::Parser.should_receive(:new).and_return(double_parser)
       File.stub(:read)
-      mock_parser.should_receive(:parse)
-      mock_listener.should_receive(:scenarios)
+      double_parser.should_receive(:parse)
+      double_listener.should_receive(:scenarios)
       @analyzer.process_feature_files(["blah.txt"])
     end
   end

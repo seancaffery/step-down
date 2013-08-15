@@ -1,5 +1,12 @@
+PATH
+  remote: .
+  specs:
+    stepdown (0.7.0)
+      bundler (> 1.0)
+      gherkin (~> 2.3)
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     coderay (1.0.8)
     diff-lcs (1.2.4)
@@ -12,7 +19,6 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.3.1)
     rake (10.0.3)
-    rcov (0.9.11)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -28,10 +34,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (> 1.0)
-  gherkin (> 2.3)
   pry
   rake
-  rcov (~> 0.9.9)
-  rspec (> 2.5)
-  sass (> 3.1)
+  rspec (~> 2.5)
+  sass (~> 3.1)
+  stepdown!

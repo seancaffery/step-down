@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stepdown (0.7.0)
+    stepdown (1.0.0)
       bundler (> 1.0)
       gherkin (~> 2.3)
 

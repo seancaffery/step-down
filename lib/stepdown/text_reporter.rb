@@ -18,7 +18,7 @@ module Stepdown
       usages.each{|use| output.puts used_step_line(use) }
 
       output.puts "Unused steps"
-      unused_steps.each{|use| output.puts unused_step_line(use) }
+      unused.each{|use| output.puts unused_step_line(use) }
 
       output.close
 

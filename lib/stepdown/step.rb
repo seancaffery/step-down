@@ -18,5 +18,8 @@ module Stepdown
       self.id == other.id
     end
 
+    def to_s
+      regex.inspect.to_s
+    end
   end
 end

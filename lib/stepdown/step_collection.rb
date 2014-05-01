@@ -6,7 +6,6 @@ module Stepdown
 
     def initialize
       @steps = {}
-      @addition_order = []
     end
 
     def add_step(id, regex)
@@ -15,7 +14,6 @@ module Stepdown
       else
         @steps[id] = Stepdown::Step.new(id, regex)
         @steps[id].count = 1
-        @addition_order << id
       end
     end
 
@@ -24,7 +22,7 @@ module Stepdown
     end
 
     def each
-      @addition_order.each{|id| yield @steps[id] }
+      @steps.each{|id, _| yield @steps[id] }
     end
 
     def [](id)

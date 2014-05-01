@@ -35,7 +35,7 @@ module Stepdown
       step_collection[0..10].each do |step|
 
         next if step.regex.nil?
-        base += "a--\"#{CGI.escape(CGI.escapeHTML(step.regex.inspect.to_s))}\" [weight=#{step.count}];"
+        base += "a--\"#{CGI.escape(CGI.escapeHTML(step.to_s))}\" [weight=#{step.count}];"
         #a [label=\"#{grouping.in_steps[0][:step].regex.inspect}\"]; a--b [penwidth=3,weight=2];b--d}"
       end
       base += "}"

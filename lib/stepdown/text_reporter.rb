@@ -27,12 +27,12 @@ module Stepdown
     end
 
     def used_step_line(use)
-      line = [use.step.regex.inspect, use.total_usage, use.number_scenarios, use.use_scenario]
+      line = [use.step, use.total_usage, use.number_scenarios, use.use_scenario]
       line.join("|")
     end
 
     def unused_step_line(use)
-      use.step.regex.inspect
+      use.step
     end
 
   end

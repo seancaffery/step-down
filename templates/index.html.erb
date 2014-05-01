@@ -125,7 +125,7 @@
 
             <% usages.each do |use| %>
               <tr>
-                <td><%= use.step.regex.inspect %></td>
+                <td><%= use.step.to_s %></td>
                 <td><%= use.total_usage %></td>
                 <td><%= use.number_scenarios %></td>
                 <td><%= use.use_scenario %></td>
@@ -144,7 +144,7 @@
 
               <% unused.each do |use| %>
                 <tr>
-                  <td><%= use.step.regex.inspect %></td>
+                  <td><%= use.step.to_s %></td>
                 </tr>
               <% end %>
           </tbody>
@@ -193,7 +193,7 @@
                         <% grouping.step_collection.each do |step| %>
                           <tr>
                             <td><%= step.count %></td>
-                            <td><%= CGI.escapeHTML(step.regex.inspect) %></td>
+                            <td><%= CGI.escapeHTML(step.to_s) %></td>
                           </tr>
                         <% end %>
                       </tbody>

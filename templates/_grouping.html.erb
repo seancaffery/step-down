@@ -21,7 +21,7 @@
           <% grouping.step_collection.each do |step| %>
             <tr>
               <td><%= step.count %></td>
-              <td><%= CGI.escapeHTML step.regex.inspect %></td>
+              <td><%= CGI.escapeHTML step.to_s %></td>
             </tr>
           <% end %>
         </tbody>

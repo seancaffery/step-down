@@ -1,3 +1,5 @@
+require 'stepdown/step_group'
+require 'stepdown/step_usage'
 
 module Stepdown
   class Statistics

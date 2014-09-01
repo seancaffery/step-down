@@ -57,6 +57,11 @@ describe Stepdown::StepInstance do
       @step_instance.line_matches("Then matched step").regex.should == /matched step/
     end
 
+    it "should parse And steps" do
+      @step_instance.And(/matched step/)
+      @step_instance.line_matches("And matched step").regex.should == /matched step/
+    end
+
   end
   
   describe "parsing step definitions" do
@@ -78,6 +83,12 @@ describe Stepdown::StepInstance do
 
     it "should define then steps" do
       @step_instance.Then(@regex)
+      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
+      @step_instance.step_collection.count.should == 1
+    end
+
+    it "should define and steps" do
+      @step_instance.And(@regex)
       @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
       @step_instance.step_collection.count.should == 1
     end

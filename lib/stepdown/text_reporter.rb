@@ -18,22 +18,16 @@ module Stepdown
       usages.each{|use| output.puts used_step_line(use) }
 
       output.puts "Unused steps"
-      unused.each{|use| output.puts unused_step_line(use) }
+      unused.each{|use| output.puts use.step }
 
       output.close
 
       puts "Report output to #{Stepdown.output_directory}/analysis.txt" unless Stepdown.quiet
-
     end
 
     def used_step_line(use)
       line = [use.step, use.total_usage, use.number_scenarios, use.use_scenario]
       line.join("|")
     end
-
-    def unused_step_line(use)
-      use.step
-    end
-
   end
 end

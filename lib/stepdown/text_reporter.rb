@@ -8,7 +8,7 @@ module Stepdown
       output = File.new(Stepdown.output_directory + '/analysis.txt', "w+")
 
       output.puts "Total number of scenarios: #{total_scenarios}"
-      output.puts "Total numer of steps: #{total_steps}"
+      output.puts "Total number of steps: #{total_steps}"
       output.puts "Unused steps: #{unused_step_count}"
       output.puts "Steps per scenario: #{steps_per_scenario}"
       output.puts "Unique steps per scenario: #{unique_steps}"

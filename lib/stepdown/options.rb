@@ -32,7 +32,7 @@ module Stepdown
           @features_dir = o
         end
 
-        opts.on("--quiet", "-q", "Supress output") do |o|
+        opts.on("--quiet", "-q", "Suppress output") do |o|
           @quiet = true
         end
 

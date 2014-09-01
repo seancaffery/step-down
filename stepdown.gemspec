@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rspec', "~> 2.5")
   s.add_development_dependency('sass', "~> 3.1")
   s.add_development_dependency('rake', '~> 10.0')
-  s.add_development_dependency('pry', '~> 0.9')
+  s.add_development_dependency('pry', '~> 0.10')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

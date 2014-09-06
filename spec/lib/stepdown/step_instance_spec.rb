@@ -63,34 +63,20 @@ describe Stepdown::StepInstance do
     end
 
   end
-  
+
   describe "parsing step definitions" do
     before :each do
       @regex = /reg/
     end
 
-    it "should define given steps" do
-      @step_instance.Given(@regex)
-      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
-      @step_instance.step_collection.count.should == 1
-    end
+    it 'defines methods for all valid code words' do
+      Gherkin::I18n.code_keywords.each do |code|
+        expect do
+          @step_instance.send(code, @regex)
+        end.to_not raise_error
+      end
 
-    it "should define when steps" do
-      @step_instance.When(@regex)
-      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
-      @step_instance.step_collection.count.should == 1
-    end
-
-    it "should define then steps" do
-      @step_instance.Then(@regex)
-      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
-      @step_instance.step_collection.count.should == 1
-    end
-
-    it "should define and steps" do
-      @step_instance.And(@regex)
-      @step_instance.step_collection.should be_an_instance_of Stepdown::StepCollection
-      @step_instance.step_collection.count.should == 1
+      expect(Gherkin::I18n.code_keywords.count).to eq(@step_instance.step_collection.count)
     end
   end
 end

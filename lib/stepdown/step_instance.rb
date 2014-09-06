@@ -1,25 +1,13 @@
 require 'stepdown/step_collection'
+require 'gherkin/i18n'
 
 module Stepdown
   class StepInstance
     def initialize
       @steps = []
-    end
-
-    def Given(regex,&block)
-      define_step(regex,&block)
-    end
-
-    def When(regex,&block)
-      define_step(regex,&block)
-    end
-
-    def Then(regex,&block)
-      define_step(regex,&block)
-    end
-
-    def And(regex,&block)
-      define_step(regex,&block)
+      Gherkin::I18n.code_keywords.each do |code|
+        self.class.send(:alias_method, code, :define_step)
+      end
     end
 
     def define_step(regex,&block)

@@ -27,3 +27,7 @@ From the root folder of your project. This assumes step definitions are in PROJE
 Or, set the the directory parameters manually
   stepdown --steps <step definition directory> --features <feature file directory>
   e.g. stepdown --steps features/step_definitions --features features
+
+== Options
+For a full list of available options
+  stepdown --help

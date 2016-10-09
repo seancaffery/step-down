@@ -17,9 +17,9 @@ describe Stepdown::StepGroup do
       @step_group.add_step(Stepdown::Step.new(3,/regex/))
       @step_group.add_step(Stepdown::Step.new(2,/regex/))
 
-      @step_group.step_collection[0].count.should == 3
-      @step_group.step_collection[1].count.should == 2
-      @step_group.step_collection[2].count.should == 1
+      expect(@step_group.step_collection[0].count).to eq 3
+      expect(@step_group.step_collection[1].count).to eq 2
+      expect(@step_group.step_collection[2].count).to eq 1
     end
 
   end
@@ -30,12 +30,12 @@ describe Stepdown::StepGroup do
     end
 
     it "should return 0 for an empty group" do
-      @step_group.use_count.should be_zero
+      expect(@step_group.use_count).to be_zero
     end
 
     it "should return 0 for an empty group" do
       @step_group.update_use_count(10)
-      @step_group.use_count.should == 10
+      expect(@step_group.use_count).to eq 10
     end
 
   end

@@ -17,9 +17,9 @@ describe Stepdown::BluffGraph do
 
       require 'stringio'
       io = StringIO.new
-      File.stub(:open).with(anything, anything).and_yield(io)
+      allow(File).to receive(:open).with(anything, anything).and_yield(io)
 
-      Stepdown::BluffGraph.should_receive(:collect_stats).and_return([stats, labels])
+      expect(Stepdown::BluffGraph).to receive(:collect_stats).and_return([stats, labels])
       stub_const("Stepdown::BluffGraph::BLUFF_DEFAULT_OPTIONS", "DEFAULT")
       expected_graph =  <<-GRAPH
         DEFAULT
@@ -31,7 +31,7 @@ describe Stepdown::BluffGraph do
         g.labels = {"0":"12 / 6"};
         g.draw();
       GRAPH
-      Stepdown::BluffGraph.create_graph.string.should == expected_graph
+      expect(Stepdown::BluffGraph.create_graph.string).to eq expected_graph
 
     end
   end

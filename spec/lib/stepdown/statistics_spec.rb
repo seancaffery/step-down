@@ -10,13 +10,13 @@ describe Stepdown::Statistics do
     it "should return the total number of steps" do
       steps = [double('step_1'), double('step_2')]
       reporter = Stepdown::Statistics.new([], steps)
-      reporter.total_steps.should == 2
+      expect(reporter.total_steps).to eq 2
     end
 
     it "should return the total number of scenarios" do
       scenarios = [double('scenario_1'), double('scenario_2')]
       reporter = Stepdown::Statistics.new(scenarios, [])
-      reporter.total_scenarios.should == 2
+      expect(reporter.total_scenarios).to eq 2
     end
 
     it "should return the number of steps per scenario" do
@@ -25,7 +25,7 @@ describe Stepdown::Statistics do
       scenario2 = double("scenario2", :steps => [], :step_count => 0)
 
       reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
-      reporter.steps_per_scenario.should == "1.50"
+      expect(reporter.steps_per_scenario).to eq "1.50"
     end
 
     it "should return the number of unique steps per scenario" do
@@ -34,7 +34,7 @@ describe Stepdown::Statistics do
       scenario2 = double("scenario2", :steps => steps[0...1], :unique_step_count => 1, :step_count => 1)
 
       reporter = Stepdown::Statistics.new([scenario1, scenario2], [])
-      reporter.unique_steps.should == "1.33"
+      expect(reporter.unique_steps).to eq "1.33"
     end
 
   end
@@ -74,26 +74,25 @@ describe Stepdown::Statistics do
     it "should return the correct step grouping" do
       reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
-      reporter.groupings[0].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
-      reporter.groupings[1].step_collection.should =~ [@s1,@s2,@s3,@s4,@s5]
-      reporter.groupings[2].step_collection.should =~ [@s1,@s2,@s3,@s4]
-      reporter.groupings[3].step_collection.should =~ [@s1,@s2,@s3,@s4]
-      reporter.groupings[4].step_collection.should =~ [@s1,@s2,@s5]
-
+      expect(reporter.groupings[0].step_collection).to eq [@s1,@s2,@s3,@s4,@s5]
+      expect(reporter.groupings[1].step_collection).to eq [@s1,@s2,@s3,@s4,@s5]
+      expect(reporter.groupings[2].step_collection).to eq [@s1,@s2,@s3,@s4]
+      expect(reporter.groupings[3].step_collection).to eq [@s1,@s2,@s3,@s4]
+      expect(reporter.groupings[4].step_collection).to eq [@s1,@s2,@s5]
     end
 
     it "should return usage for steps across scenarios" do
       reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
       group_1 = reporter.groupings.detect{|g| g.id == 1}
-      group_1.use_count.should == 8
+      expect(group_1.use_count).to eq 8
     end
 
     it "should return usage for steps in scenarios with duplicated steps" do
       reporter = Stepdown::Statistics.new([@scen_1, @scen_2], @collection)
 
       group_5 = reporter.groupings.detect{|g| g.id == 5}
-      group_5.use_count.should == 4
+      expect(group_5.use_count).to eq 4
     end
 
   end
@@ -134,27 +133,27 @@ describe Stepdown::Statistics do
       reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 1}
-      usage.total_usage.should == 3
-      usage.number_scenarios.should == 2
-      usage.use_scenario.should == "1.50"
-      end
+      expect(usage.total_usage).to eq 3
+      expect(usage.number_scenarios).to eq 2
+      expect(usage.use_scenario).to eq "1.50"
+    end
 
     it "should return duplicate usage of a step in a scenario" do
       reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 5}
-      usage.total_usage.should == 2
-      usage.number_scenarios.should == 1
-      usage.use_scenario.should == "2.00"
+      expect(usage.total_usage).to eq 2
+      expect(usage.number_scenarios).to eq 1
+      expect(usage.use_scenario).to eq "2.00"
     end
 
     it "should return usage of a step in a scenario" do
       reporter = Stepdown::Statistics.new([@scen_2, @scen_1], @collection)
 
       usage = reporter.usages.detect{|use| use.step.id == 3}
-      usage.total_usage.should == 1
-      usage.number_scenarios.should == 1
-      usage.use_scenario.should == "1.00"
+      expect(usage.total_usage).to eq 1
+      expect(usage.number_scenarios).to eq 1
+      expect(usage.use_scenario).to eq "1.00"
     end
 
   end
@@ -170,19 +169,19 @@ describe Stepdown::Statistics do
       @use_1.total_usage += 1
       @use_2.total_usage += 1
 
-      @reporter.stub(:step_usages).and_return([@use_1, @use_2, @use_3])
+      allow(@reporter).to receive(:step_usages).and_return([@use_1, @use_2, @use_3])
     end
 
     it "should return used steps" do
-      @reporter.usages.should =~ [@use_1, @use_2]
+      expect(@reporter.usages).to match [@use_1, @use_2]
     end
 
     it "should return unused steps" do
-      @reporter.unused.should =~ [@use_3]
+      expect(@reporter.unused).to match [@use_3]
     end
 
     it "should return the number of unused steps" do
-      @reporter.unused_step_count.should == 1
+      expect(@reporter.unused_step_count).to eq 1
     end
   end
 
@@ -194,7 +193,7 @@ describe Stepdown::Statistics do
 
       @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
-      @reporter.empty().should == [scen_1,scen_2]
+      expect(@reporter.empty).to eq [scen_1,scen_2]
     end
 
     it "should not return scenarios with steps" do
@@ -205,7 +204,7 @@ describe Stepdown::Statistics do
 
       @reporter = Stepdown::Statistics.new([scen_1, scen_2], Stepdown::StepCollection.new)
 
-      @reporter.empty().should == [scen_2]
+      expect(@reporter.empty).to eq [scen_2]
     end
 
   end
@@ -218,26 +217,26 @@ describe Stepdown::Statistics do
       @stats = Stepdown::Statistics.new([], double('step_collection'))
     end
 
-    methods = ["groupings", "usages", "empty", "unused"] 
+    methods = ["groupings", "usages", "empty", "unused"]
 
     methods.each do |method|
-      it "should return the top 10 #{method}" do 
-        @stats.should_receive(method.to_sym).and_return(@all)
-        @stats.send("#{method}_top".to_sym).should eql @top_10
+      it "should return the top 10 #{method}" do
+        expect(@stats).to receive(method.to_sym).and_return(@all)
+        expect(@stats.send("#{method}_top".to_sym)).to eql @top_10
       end
     end
-    
+
     methods.each do |method|
       it "should return the rest of #{method}" do 
-        @stats.stub(method.to_sym).and_return(@all)
-        @stats.send("#{method}_rest".to_sym).should eql @rest
+        allow(@stats).to receive(method.to_sym).and_return(@all)
+        expect(@stats.send("#{method}_rest".to_sym)).to eql @rest
       end
     end
 
     methods.each do |method|
       it "should not break if there are not enough elements for a requested collection" do
-        @stats.stub(method.to_sym).and_return([])
-        @stats.send("#{method}_rest".to_sym).should be_empty
+        allow(@stats).to receive(method.to_sym).and_return([])
+        expect(@stats.send("#{method}_rest".to_sym)).to be_empty
       end
     end
 

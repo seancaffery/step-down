@@ -16,24 +16,24 @@ describe Stepdown::Graph do
     before :each do
       stats = [{:no_scen => 10, :unused => 2, :label => "label 1"},
                {:no_scen => 20, :unused => 3, :label => "label 2"}]
-      @fixture.stub(:load_stats).and_return(stats)
+      allow(@fixture).to receive(:load_stats).and_return(stats)
     end
 
     it "should return the labels associated with a stat set" do
-      @fixture.collect_stats[1].should == ["label 1", "label 2"]
+      expect(@fixture.collect_stats[1]).to eq ["label 1", "label 2"]
     end
 
     it "should break collect group stats based on given keys" do
-      @fixture.collect_stats[0].should == {:no_scen=>[10, 20],
+      expect(@fixture.collect_stats[0]).to eq({:no_scen=>[10, 20],
                                                   :unused=>[2, 3],
-                                                  :label=>["label 1", "label 2"]}
+                                                  :label=>["label 1", "label 2"]})
     end
 
   end
 
   describe "creating a label from a file name" do
     it "should return day/month" do
-      @fixture.date_from_file_name("20110512.yml").should == "12/5"
+      expect(@fixture.date_from_file_name("20110512.yml")).to eq "12/5"
     end
   end
 
@@ -41,7 +41,7 @@ describe Stepdown::Graph do
     it "should load correctly" do
       Stepdown.output_directory = File.dirname(__FILE__) + '/../../fixtures'
       stats = @fixture.load_stats
-      stats.should == [{:number_scenarios=>[685],
+      expect(stats).to eq [{:number_scenarios=>[685],
                         :total_steps=>[531],
                         :steps_per_scenario=>["12.91"],
                         :label=>"11/6",
@@ -52,7 +52,7 @@ describe Stepdown::Graph do
                         :label=>"12/6",
                         :unused_steps=>[123]}]
 
-      stats.length.should == 2
+      expect(stats.length).to eq 2
     end
 
   end

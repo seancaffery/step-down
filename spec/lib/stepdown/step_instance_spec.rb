@@ -10,14 +10,14 @@ describe Stepdown::StepInstance do
   end
 
   it "should deal with missing constants" do
-    lambda{ @step_instance.instance_eval("MissingConst") }.should_not raise_error
-    lambda{ @step_instance.instance_eval("MissingConst::MissingClass") }.should_not raise_error
-    lambda{ @step_instance.instance_eval("MissingConst::MissingClass.missing_method") }.should_not raise_error
+    expect { @step_instance.instance_eval("MissingConst") }.to_not raise_error
+    expect { @step_instance.instance_eval("MissingConst::MissingClass") }.to_not raise_error
+    expect { @step_instance.instance_eval("MissingConst::MissingClass.missing_method") }.to_not raise_error
   end
 
   it "should deal with missing methods" do
-     lambda{ @step_instance.doesnt_exist }.should_not raise_error
-     lambda{ Stepdown::StepInstance.doesnt_exist }.should_not raise_error
+     expect { @step_instance.doesnt_exist }.to_not raise_error
+     expect { Stepdown::StepInstance.doesnt_exist }.to_not raise_error
   end
 
   describe "returning steps" do
@@ -26,7 +26,7 @@ describe Stepdown::StepInstance do
       @step_instance.When(/when/)
       @step_instance.Then(/then/)
 
-      @step_instance.step_collection.length.should == 3
+      expect(@step_instance.step_collection.length).to eq 3
     end
 
   end
@@ -34,34 +34,33 @@ describe Stepdown::StepInstance do
   describe "returning matched steps" do
     it "should return nil when no matching step found" do
       @step_instance.Given(/some step/)
-      @step_instance.line_matches("Given some other step").should be_nil
+      expect(@step_instance.line_matches("Given some other step")).to be_nil
     end
 
     it "should parse And steps" do
       @step_instance.Given(/matched step/)
-      @step_instance.line_matches("And matched step").regex.should == /matched step/
+      expect(@step_instance.line_matches("And matched step").regex).to eq(/matched step/)
     end
 
     it "should parse Given steps" do
       @step_instance.Given(/matched step/)
-      @step_instance.line_matches("Given matched step").regex.should == /matched step/
+      expect(@step_instance.line_matches("Given matched step").regex).to eq(/matched step/)
     end
 
     it "should parse When steps" do
       @step_instance.When(/matched step/)
-      @step_instance.line_matches("When matched step").regex.should == /matched step/
+      expect(@step_instance.line_matches("When matched step").regex).to eq(/matched step/)
     end
 
     it "should parse Then steps" do
       @step_instance.Then(/matched step/)
-      @step_instance.line_matches("Then matched step").regex.should == /matched step/
+      expect(@step_instance.line_matches("Then matched step").regex).to eq(/matched step/)
     end
 
     it "should parse And steps" do
       @step_instance.And(/matched step/)
-      @step_instance.line_matches("And matched step").regex.should == /matched step/
+      expect(@step_instance.line_matches("And matched step").regex).to eq(/matched step/)
     end
-
   end
 
   describe "parsing step definitions" do

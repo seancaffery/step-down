@@ -23,15 +23,15 @@ describe Stepdown::Scenario do
 
     it "should add steps to cache" do
       steps = [@s1, @s2, @s3]
-      @scenario.steps.should =~ steps
+      expect(@scenario.steps).to match steps
     end
 
     it "should return the total number of steps" do
-      @scenario.step_count.should == 4
+      expect(@scenario.step_count).to eq 4
     end
 
     it "should return the number of unique steps" do
-      @scenario.unique_step_count.should == 3
+      expect(@scenario.unique_step_count).to eq 3
     end
 
   end

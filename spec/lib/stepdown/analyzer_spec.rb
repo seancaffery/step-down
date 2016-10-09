@@ -16,17 +16,17 @@ describe Stepdown::Analyzer do
 
     it "should return an HTML reporter" do
       reporter = @analyzer.reporter('html', double('stats'))
-      reporter.should be_instance_of(Stepdown::HTMLReporter)
+      expect(reporter).to be_instance_of(Stepdown::HTMLReporter)
     end
 
     it "should return a text reporter" do
       reporter = @analyzer.reporter('text', double('stats'))
-      reporter.should be_instance_of(Stepdown::TextReporter)
+      expect(reporter).to be_instance_of(Stepdown::TextReporter)
     end
 
     it "should return a quiet reporter" do
       reporter = @analyzer.reporter('quiet', double('stats'))
-      reporter.should be_instance_of(Stepdown::Reporter)
+      expect(reporter).to be_instance_of(Stepdown::Reporter)
     end
 
   end
@@ -37,32 +37,32 @@ describe Stepdown::Analyzer do
       instance = double('instance', :step_collection => [])
       reporter = double('reporter')
       stats = double('stats')
-      reporter.should_receive(:output_overview)
+      expect(reporter).to receive(:output_overview)
 
-      @analyzer.should_receive(:instance).and_return(instance)
-      @analyzer.should_receive(:feature_files).and_return(features)
-      @analyzer.should_receive(:process_feature_files).with(features).and_return([])
-      @analyzer.should_receive(:reporter).and_return(reporter)
-      stats.should_receive(:generate)
-      
-      Stepdown::Statistics.stub(:new).with([], instance.step_collection).and_return(stats)
-      Stepdown::YamlWriter.should_receive(:write).with(anything)
-      Stepdown::FlotGraph.should_receive(:create_graph)
+      expect(@analyzer).to receive(:instance).and_return(instance)
+      expect(@analyzer).to receive(:feature_files).and_return(features)
+      expect(@analyzer).to receive(:process_feature_files).with(features).and_return([])
+      expect(@analyzer).to receive(:reporter).and_return(reporter)
+      expect(stats).to receive(:generate)
+
+      allow(Stepdown::Statistics).to receive(:new).with([], instance.step_collection).and_return(stats)
+      expect(Stepdown::YamlWriter).to receive(:write).with(anything)
+      expect(Stepdown::FlotGraph).to receive(:create_graph)
 
       @analyzer.analyze
     end
   end
-  
+
   describe "#process_feature_files" do
     it "should instantiate a bunch of stuff" do
       double_listener = double(:listener)
-      @analyzer.stub(:instance)
-      Stepdown::FeatureParser.should_receive(:new).with(anything).and_return(double_listener)
+      allow(@analyzer).to receive(:instance)
+      expect(Stepdown::FeatureParser).to receive(:new).with(anything).and_return(double_listener)
       double_parser = double(:gherkin_parser)
-      Gherkin::Parser::Parser.should_receive(:new).and_return(double_parser)
-      File.stub(:read)
-      double_parser.should_receive(:parse)
-      double_listener.should_receive(:scenarios)
+      expect(Gherkin::Parser::Parser).to receive(:new).and_return(double_parser)
+      allow(File).to receive(:read)
+      expect(double_parser).to receive(:parse)
+      expect(double_listener).to receive(:scenarios)
       @analyzer.process_feature_files(["blah.txt"])
     end
   end

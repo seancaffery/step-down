@@ -4,7 +4,7 @@ require 'feature_parser'
 
 describe Stepdown::FeatureParser do
   def stub_line_match_with(instance, line, value)
-    instance.stub(:line_matches).with(line).and_return(value)
+    allow(instance).to receive(:line_matches).with(line).and_return(value)
   end
 
   describe "creating scenarios" do
@@ -16,28 +16,28 @@ describe Stepdown::FeatureParser do
     it "should create a scenario for a scenario line" do
 
       scenario = double("scenario", :name => 'scenario')
-      Stepdown::Scenario.should_receive(:new).and_return(scenario)
+      expect(Stepdown::Scenario).to receive(:new).and_return(scenario)
       @parser.scenario(scenario)
 
-      @parser.scenarios.should =~ [scenario]
+      expect(@parser.scenarios).to match [scenario]
     end
  
     it "should create a scenario for a background line" do
 
       background = double("background", :name => '')
-      Stepdown::Scenario.should_receive(:new).and_return(background)
+      expect(Stepdown::Scenario).to receive(:new).and_return(background)
       @parser.background(background)
 
-      @parser.scenarios.should =~ [background]
+      expect(@parser.scenarios).to match [background]
     end
 
     it "should create a scenario for a scenario outline" do
 
       outline = double("outline", :name => 'outline')
-      Stepdown::Scenario.should_receive(:new).and_return(outline)
+      expect(Stepdown::Scenario).to receive(:new).and_return(outline)
       @parser.scenario_outline(outline)
 
-      @parser.scenarios.should =~ [outline]
+      expect(@parser.scenarios).to match [outline]
     end
   end
 
@@ -47,7 +47,6 @@ describe Stepdown::FeatureParser do
       @step_instance = double("step_instance")
       @parser = Stepdown::FeatureParser.new(@step_instance)
       @parser.scenario(double('scenario', :name => 'scenario'))
-
     end
 
     it "should not add unmatched steps" do
@@ -59,7 +58,7 @@ describe Stepdown::FeatureParser do
         stub_line_match_with(@step_instance, line, step)
         steps << step
       end
-      
+
       unmatched_lines.each do |line|
         stub_line_match_with(@step_instance, line, nil)
       end
@@ -71,7 +70,7 @@ describe Stepdown::FeatureParser do
       end
 
       scenarios = @parser.scenarios
-      scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
+      expect(scenarios.first.steps.collect{|s| s.regex }).to match ["matched", "match 2"]
     end
 
     it "should add matched steps" do
@@ -85,8 +84,7 @@ describe Stepdown::FeatureParser do
       end
 
       scenarios = @parser.scenarios
-      scenarios.first.steps.collect{|s| s.regex }.should =~ ["matched", "match 2"]
-
+      expect(scenarios.first.steps.collect{|s| s.regex }).to match ["matched", "match 2"]
     end
 
   end

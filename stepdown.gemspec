@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('gherkin', '~> 2.3')
   s.add_dependency('bundler', '~> 1.0')
-  s.add_development_dependency('rspec', "~> 2.5")
+  s.add_development_dependency('rspec', "~> 3.4")
   s.add_development_dependency('sass', "~> 3.1")
   s.add_development_dependency('rake', '~> 10.0')
   s.add_development_dependency('pry', '~> 0.10')
